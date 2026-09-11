@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Doodle Jump ins Weltall</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#070a18">
+<!-- Vom Home-Bildschirm gestartet laeuft es ohne Safari-Leisten -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Doodle Jump">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    background: #070a18; color: #dbe7f3;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    -webkit-user-select: none; user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+  /* Auf dem iPhone laeuft der Bildschirm unter Statusleiste und
+     Home-Indikator durch - der Canvas bleibt in der sicheren Flaeche. */
+  #stage {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    bottom: env(safe-area-inset-bottom, 0px);
+    left: env(safe-area-inset-left, 0px);
+    right: env(safe-area-inset-right, 0px);
+  }
+  #c { display: block; width: 100%; height: 100%; touch-action: none; }
+  #err {
+    position: fixed; left: 0; right: 0; bottom: 0; max-height: 45%;
+    overflow: auto; background: #2a0b16; color: #ffb3c0;
+    font: 12px/1.4 ui-monospace, Menlo, monospace; padding: 10px;
+    white-space: pre-wrap; display: none; z-index: 9;
+  }
+  #hint {
+    position: fixed; inset: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 15px; color: #6a7398;
+  }
+</style>
+</head>
+<body>
+<div id="hint">laedt ...</div>
+<div id="stage"><canvas id="c"></canvas></div>
+<div id="err"></div>
+<script>
+  // Fehler sichtbar machen - auf dem Telefon gibt es keine Konsole
+  const errBox = document.getElementById("err");
+  function showErr(msg) {
+    errBox.style.display = "block";
+    errBox.textContent += msg + "\n";
+  }
+  window.addEventListener("error", e =>
+    showErr(`${e.message}\n${e.filename}:${e.lineno}`));
+  window.addEventListener("unhandledrejection", e => showErr("Promise: " + e.reason));
+</script>
+<script type="module">
+  import { boot } from "./game.js";
+  document.getElementById("hint").remove();
+  boot(document.getElementById("c"));
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  }
+</script>
+</body>
+</html>
