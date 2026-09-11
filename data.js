@@ -43,6 +43,7 @@ export const K = {
  "HOLE_PULL_R": 130.0,
  "HOLE_PULL": 0.34,
  "HOLE_EAT_R": 42.0,
+ "HOLE_GRACE": 30,
  "SPRING_CHANCE": 0.09,
  "BREAK_JUMP": 0.7071067811865476,
  "SPIN_COST": 100,
@@ -56,15 +57,31 @@ export const K = {
  "GRID_COLS": 4,
  "GRID_ROWS": 3,
  "MAX_CATCHUP": 5,
+ "MONSTER_FROM": 1500,
+ "MONSTER_W": 48.0,
+ "MONSTER_H": 40.0,
+ "MONSTER_SPEED": 1.4,
+ "THANOS_FROM": 5000,
+ "THANOS_SHARE": 0.28,
+ "THANOS_SCALE": 1.2,
+ "THANOS_SLOW": 0.6,
+ "MONSTER_CLEAR_PLAT": 95.0,
+ "MONSTER_CLEAR_PLAYER": 130.0,
+ "MONSTER_WARN_DIST": 300.0,
  "COIN_PRIZE": [
   60,
   180
+ ],
+ "MONSTER_GAP": [
+  950.0,
+  1900.0
  ],
  "SCORE_UNLOCKS": [
   10000,
   20000,
   40000,
-  80000
+  80000,
+  100000
  ],
  "STAT_PER_POINT": [
   0.03,
@@ -246,23 +263,45 @@ export const K = {
   -18.5
  ],
  "SNOUT_TIP_I": 4,
- "MENU_ITEMS": [
-  [
-   "play",
-   "SPIELEN"
-  ],
-  [
-   "skins",
-   "SAMMLUNG"
-  ],
-  [
-   "gacha",
-   "GLUECKSRAD"
-  ],
-  [
-   "quit",
-   "BEENDEN"
-  ]
+ "MODES": [
+  "normal",
+  "easy",
+  "hard"
+ ],
+ "MODE_NAMES": {
+  "normal": "NORMAL",
+  "easy": "EINFACH",
+  "hard": "SCHWER"
+ },
+ "MODE_HINTS": {
+  "normal": "alle Plattformen, alle Monster",
+  "easy": "ohne Monster - dafuer keine Muenzen",
+  "hard": "nur weisse UFOs - dafuer doppelte Muenzen"
+ },
+ "MODE_COLORS": {
+  "normal": "#9fb3c8",
+  "easy": "#38e0b0",
+  "hard": "#ff6b6b"
+ },
+ "MODE_COINS": {
+  "normal": 1.0,
+  "easy": 0.0,
+  "hard": 2.0
+ },
+ "C_GEMS": [
+  "#6a3df0",
+  "#3d9bf0",
+  "#e8433f",
+  "#f08a3d",
+  "#4de07a",
+  "#f0d63d"
+ ],
+ "C_FLAME": [
+  "#ffffff",
+  "#fff3b0",
+  "#ffd166",
+  "#ff8c42",
+  "#8a6bff"
  ],
  "C_ASTRAL": "#8a6bff",
  "C_ASTRAL_L": "#c9b8ff",
@@ -273,11 +312,15 @@ export const K = {
  "C_BODY_L": "#d7f79b",
  "C_BROWN": "#b5773a",
  "C_BROWN_D": "#7d4f22",
+ "C_GAUNTLET": "#e3a52b",
  "C_GREEN": "#5fc23a",
  "C_GREEN_D": "#3d8a24",
  "C_HOLE": "#1a0f2e",
  "C_HOLE_RIM": "#ff8a3d",
  "C_LETTERBOX": "#070a18",
+ "C_MOB": "#ff3b2f",
+ "C_MOB_D": "#6b0f0c",
+ "C_MOB_L": "#ffd08a",
  "C_ROCKET": "#e8453c",
  "C_ROCKET_D": "#8f2019",
  "C_ROCKET_L": "#ff8a80",
@@ -286,15 +329,11 @@ export const K = {
  "C_SHIELD": "#4de0ff",
  "C_SHIELD_D": "#1b6f8c",
  "C_TEXT": "#eaf0ff",
+ "C_TITAN": "#a855ff",
+ "C_TITAN_D": "#2e0f55",
+ "C_TITAN_L": "#e8d0ff",
  "C_WHITE": "#f2f2f2",
- "C_WHITE_D": "#bdbdbd",
- "C_FLAME": [
-  "#ffffff",
-  "#fff3b0",
-  "#ffd166",
-  "#ff8c42",
-  "#8a6bff"
- ]
+ "C_WHITE_D": "#bdbdbd"
 };
 export const SKINS = [
  {
@@ -846,6 +885,35 @@ export const SKINS = [
   "eye": "#4a2b00",
   "unlock": 80000,
   "blurb": "80000 Punkte",
+  "stats": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "urknall",
+  "name": "Urknall",
+  "rarity": "score",
+  "body": "#ffffff",
+  "light": "#ffffff",
+  "dark": "#2a0f5c",
+  "fx": [
+   "bands",
+   "bigaura",
+   "bigbang",
+   "comet",
+   "crystal",
+   "orbit",
+   "rainbow",
+   "rays",
+   "sparkle",
+   "trail"
+  ],
+  "eye": "#2a0f5c",
+  "unlock": 100000,
+  "blurb": "100000 Punkte",
   "stats": [
    0,
    0,

@@ -1,9 +1,997 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Doodle Jump ins Weltall</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#070a18">
+<!-- Vom Home-Bildschirm gestartet laeuft es ohne Safari-Leisten -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Doodle Jump">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAR+0lEQVR42u2de3AcxZ3H59+ALest7UPv12ql1Wr1XK9sofdbtiRjW7b8QPIDS7YcywYfFiQEk4AcHnESCITwcEEwUHGcB0U5gdjGvqq7CyEmqbJDXXK5S5Ei5ELqcuG4xPxFvmLk9rC7mt3t6ZnpGbXqU1PL7HTPb7o/9HT39Kylz9xQyJAfv/o62wwFJiLZ9cIOH/6iqF0hh0DIITBDjiKBICpCDoGQY4kxNTXLQI4bbigSCKICOYoFgqgIObQyOXlEyCGIbsbVqx/Z1Q/IUSLQwuTkrF0vTcghUJHjxhKBICrSjTeWJMTY2L5EkwgsCuQojZ+xsenLl/8d24RSCSyKlGgCYUb8TEwcsr8c4+MHRU1TmPHuu3+0tB+Qo0yd8fFD77zzLrYxjxSEMTFxm6Xjl+I5SJixNJFEEZjI7OwxruVYdmOZwdx11wPGn1RAAeTwCARREXIIhBxUnDlz3sSzT07eKeQQRDfjb3/7u7l+SMuWlQvMYvkyryuloSTjJl9WV8DRV+vsxxafsQf799w6a254Qg4TyEsLNbjW9BZu3+zZrw6OwZE43hw5ls/7KzCC9CQ/2oa1xTtjOhEJUiEtcjAyYMjhFehNWpK/0bWWwolIkE/avCJGhC3k0B30IdaXTjExQwa5IU8hh7VJT6puy9vEUAslyBn5Czko2brlQNT9ly5dNuDs+WlNw8W7dTJDBvnjLLrKUWFLtm6ZuXLl19iacvbSjBZdtVCCc+l0FbaVQ/bD9mbo6oeUtKxCwJCCtCaDzZDBeZlfC+So1MLBmXs15mAnMpJq9O5nqPQ/cHa2lyOJGgVTe+5iko9+Y5M4xy9CDgaceOaU0owPP/x/7X5UZXWbaIYMYmAqx/JKwdTkXRpzSF8RYDvTRT0/hkhYFQvk8Am0E3QPm26GDCJhdVFCDgZkrKjlxAwZxKPlcl7+4U8W5Fix3CfQSJ1zkCs5EA+T6xJyMGCoeBdXciAeVnJUCbRQkNbMlRnX5sSatV+akEMrja4hDuVAVEIO8+krvIVDORAVEzn8AmqSl1dzaIYMYtN4dUIOTeSkNnErB2LTKkfyvP4CSjwZ7dzKgdg0Xp2QQxP+7F5u5UBs2uWoFlBT6xjkVg7EpvHqpOSkagE19YxeONADxKbx6mjkePGFl4UWMrVOjlsO56B2OQICavyOPn77HI4+jVcn5NCEJ7OD39FKZodWOVKSAjHZO3l3PIctQfLSVnErB2LTeHWSqGAtpCbVcCsHYtMuR41AC32F41w+WxnXfmlCDq0E3SMcyoGohBzmU5TeyqEciErIwQVDJr3ItPhKsN1Mrgty1Ao0Us/Zeh/Ew+S6pNSkWoFGHMlBruRAPGER7t97lOK6hBxsCLnXcWIGIok04+rVjyj8kFJX1Am0k5US3MDBG2+IAZFEhrd/31GKixJyMKPaMWC6HIiB4RUJOeY5/d1XmeTTnr/FRDNwdrbFIuRgiSNl5XDJreb8PkfJrTg7cznqBQwpNmlVKc7L/FqktBX1SxlnTqCw0udp9Ppu8vg7Squ7SrHFZ+zBfnxLkafX8B/qwBn1KJwlJ0d6cl2xv7K2r6RlR27/HY41n8tWB8fgSByPVEjLoR86mSHL0bBEKK2pDG0sHJjNjinEYiAtckA+8ZyuOKNjROf+B/LHWfQrMfvLkZlR5+8o6z7gilrfG+7L2/Fo+fSJwO0vNhw5FbrzdBO2+Iw92I9vo6ZCbsgTOauf2pnS1KHb+AU5I39di84gOZ7/9svGa5GeXF/dVRZ579j2cPHhl4IPXuh95lejL/5uuzo4BkfieKSKvOMgf5xFPYyAY5Dt/BhyQ54GFKBtWw70KMNai3VH3bu+4f38D1Z/8xfrYjohgyPnznZ9/ofNaFGwRdqD364bncsPa0VwLvVgslNCIfd6RrPj65GbMWUIORptRnZ2HXoG6r2HsQcKUd8n3t4U1Qnsx7c4ZrG0U09WbX24SLkTZ8R51QNzpqxqcI3QPd9HKqRFDkaWpJS+otFOlPh9PTOfajC2H6u67+T40z+65+S5B7DFZ+yRvxq624n2IMwM7MH+eNLufcqvbEVwXpw9riAzOla6b+4vnIjpBI7BkTjelMKU0pMbbYOvpVypBeryrd+8/nG0P+zHt/Jhk9/yPfebMWiBLT4nlHbPE5WHTtYpT4oY4g84IzlYkN7qzeoNONfUu4Yb3SPY4jP2YD++Nbc87SNHTW+psrX4lyuvfBzrD8fILcHE1z3P/GojtnRpj53tUo5rEIk9ihRyBG1A3cB1M/Y/2v7e//zu4/j+cCSO/2RMm0udFu3N01c2ordLYkA8NihVO8hR01umbDPir11SxxvvLaJOK7cfct9l+kRA0X6UCTlMJqyfEc8dIezvfz98f/huN11a+f4i90/lsc+B52o/3f+wthwrrUtJtT+sB0pRuxiJUKeV/+T+KUa/8nhH2X4gQusWr5SRvNKiOB0NPQcXRq3DX5gffC42vlD/23M8RJ2WjF/k+Q8yHib9D0SIOC1awhaWIzS6MA118xdz5B5DzFp8970/nvzO948/9hS2+Iw97/zp19RplX9yz4PMvaJ/SsYviFPIYSjlwUrSdB9+qTGe+wLqtbB6lRLsufDL09RpI+8sc2e7SOPx4IVeEiGijbyEiW2z/MsRYs7F13+mR7aEzJSV5LnJ7S82YKSAD0//6J6Ealdm5svbqdMq/UAOZMxCQGzk+QtiVl4CzLhy+T8+8SPELRLPwS1GoGthhDI6l//8b7egJ4jP6Feq3BGi1i4IbvBSpwXk/iL3akmfVAaxkfl1xBx2FZybYUk5sjMbyVP4L/24XX4aov5/P3oJi9Vuw7oK6rQA36q0HAARkuf7iNxaRS1lpjRZi0DnwkBg+/ESuQJwp1fvNyx2XwCBPj91WuWdJbLPQUCcC41Hp9daRW09OboPuBdmNV7rIKsu1EccKv/3e1Y1UKdVthxhoxUliPNaz8Mt5NART62f9DaUFSCvvVhsrkK937DzwUbqtHKfI3KeIwzS80D8S1GO8+d+akC4TdfmNo6cCilLX+6TUtwd5uctYs2QxhythM2QRoJo5bARv67l873v/oStHKusQlZqE1k7/vilkbC1W/IKHZXnI4vNVcTzbEVlniPs2UpUEC1Zv46riOdi//niz00vcCvJUVodICuEIytAHrOoP1mNOssZ51PZxdIqn8qqQNYn4yqsUuBWkqOu33NtSjQYtQL2P1VLvSZj81yxlvUcMdcqI+aFpR79Hj6L98D0/eFyZKG5tgitOxa6dQ9e6I1aAS/958T04/UUq7mQ6qfvP0yXduLrHnmVoTpkNh1XwWHZzkzff/XqR9gqd0KO1fzgSu/IzxoodoyUuTZ63JvK3ZuxxWfswX4y96Xyvsm//nnun55tSWgdKI7/xV8fefvv38I20bRk/Wk877+Q2TCuypwwMz0Xtsd0OZoLstZU5GytLZwKld2+ynPHYjTX7iXvqKnUwWv/fQeq+bFz20a+4Iq5ghzH4Egcr2TuTH+cq89j9jPCIM9pc/OCfPrBixyF2UP+/J1NZYdVhFDS0rxNLtkdj5ar18Fb//dV1PHP/nz8a69umvhKRdR3T7Af3+KYMDOQNp73VlTeeVEBkS+sAPLVWkWOZiNxpLZ63JsbS2bidILQ1n2zXLLTJwLqdfDKHw4o6/vC7+974c1ptBCwAVt8xp4wJwhIq/LGGz7H/7ZcJGSFWEWw2uBip8NIOW4qd4+p3ztUaB8cJM/oY1bD2T/NLlb9KiAVdcXHA3mC72/xGVzNM9PHqORIbTaAYuc6itZCScdwb9S5UVZ+6G2Gcp400FlhTLFrRMpObdYVV1o7+hZatJDpHOmRS1Zlljry/iL3P9TBMWF3E52Q5/hBbXeF3sXOBMhxk34UZq8NlhzUbgZFy6Ecv/z8g4ejaoH9+FZXIY6d64YT2CpbjprOSl2LnRU6ylHmGmWiBUWfI5LTv9995r1DuHecf/9z2OIz9ujdVOx96vqbE/h8vc/R6lvSclTkbGVoRkKjFU5AaxE+fn5kYfq/YmW1VeRoYU5l7na2ZiQ0z8EJpIdBGD22MP1fWlWvR7Ezh70czNuMhGZIeW451h1dWMOWlx9ainKw7WeEMXjEFfPZClco+xx7nvBdX2lsBTPm5XCktrCiKHtIPzNA72SV+lNZPtsPebSieCpbwLDMdQVytDLBndbJatS66FTHhnb19Rw8Q9Zz1A94WZW53jCTozp/l65mgNbWMZWVYJxDVoJ5AnVLS44S53q9zZin/PDgrDPqGlLOUawhdTjSWvhU4ZHjJynl2D81p/Ktxucm8dN9S5BuntRcyNzoqtESqzQbn8iR1haT/Xvn/vKXD7CN+q1Xn7Fr9DtL+2jU91Y4h7y34q2vi6fAOUGK87jFzHCld1I/haej/1BR2BtvnKN8481CZszL4Uxr04I3Z4uRZiifwJF3ZTmHvCtb2+XTWNoGAznatRA0qrdBWO07SGbD5LfseUb5ln2Oo0VjaRuMJjlKHDcbbEbY2g759zm4NUP5+xx1PT5rmaFVjur83abIgTEt6XnQPcE3BsUv+7id6W1LS474144zhzzB53Y2XfmbYA89eY/lzJDl6KCj2LHOLDPC5jw23Jf39JWNXJmh/DXBVZtKqQvZXOjlqMy9xVw5Vvs/O3BbgVwBu77h5UoOxe+QunPdLVaVw5XWQUdd0V5z5VA+beFqhZjyF4y9NY3UJWw6kKOTDoPnvmKuLQUHnqs13Qzlb58HWgPUxcsDlHLkZfTzYMbCyHZ9Jyfth7LNaOj3GVmRr597kxc5irJH+JEDdG1sI7WC+73x/dOwf2+lcU2FpduMa3Kkd1JQ5trIlRxh7QdGCkaOb3Eu5b/UNN9mUJUqb0COLgrK3Vt4kyOs/yHPj+k9f4r8yUzXQj+jLUBXpBxCKUdFzjYO5ZDHL2R8K8+v6/f8BTl/6l+HPOj21gRtY8a8HO70Lgr0eDOF4fwHmR8jz2/ZPt9HbuRZq8zqTWX5Oa10hcktlHJw23Io59fJ8xfSihw5FdKyvhBpkUPYv0jdcyCnKlRvMy2IHN0UeLnsc0Q+n+sc6SHP9/X4t+zre/zujC66MuQfSjnKXJssIMe19R8dw71hrYhyXLPj0fLpEwH0K9Eq3Hm6CVt8xh7sV45BwlqLuq7qPGeHXbXQJEexSSs5NK4/RV+ErF+nYGDWgb5FZUOjvZ1QytFDQX7mGsvJQe41GNF0bmjvnayKvONEgntH286ixkGft2alO6ObrrgsikSdMmTeYg6W1EyW+5uqQg01bTW4U9T3VGOLz9iD/YWFrUvKBjCz76HrcuSk99BRV7TPBnLgKqhLwH4c3PfQB3/9EFv5P+nl8OVO6FFb2y+Gliyc+EE+Q45eOkodG4QcrOXo5QopJ6OXjrOvvaHHGtIlLQdtXeiEpCVxoGCPkMM2cjz/7JlIOfoS4rbPHief9fgdn6UtRx9XSBrTM//BFiEHR3LkZvRpgfka9NVfLl6yJFr4b/zbZY3Vp05iclw8f0n5n48/ciovc4DtbJiQgx8gR79GfLnjQg5GcvRzhcQkF4Y9DyGH3eQod41ZaMoc0Zpb6PcffYY3D3SUA+gx56EHiNMSFcOJHANMyM9cGyw9xLkZiBBxsrpk2yPlZQywosw5yrkciJDh9doeiW12FTn8rkpHbKK+E5Qjc5AtVXk7ODQDUTG/Utsj6ZGpX/+fuk4IxCNqmhc5uGo/RJvBnRyAh/7HfD/DIjXx5htvcyjHGv0oc21eadL4FufF2XW9Otsj5Weu0ZXCrOGagkmDzcAZcV69L80qXDz/Fl1CyZj4vO6twRIjmhCcBecSQjABcqw1DPQN9XvbBTkjfyMvx/ZIBp+vIGvYlzvBthVBbsizYP4+ImrUynIQyl1bagqmtKxfR1rkgHxELdpNDoLHNebP21VftD+eOw6OwZE4HqkoznXh/CVR5QnJMcQPRdnry5ybve5tlTnjvtwdVXk7scVn7MF+fMtVtLZHKsgcEgiiIhVkDVmL4w+8YLmYLYokikCgIsewQBAVIUdcnHjyFSGHQPApOUYEgqhIhVkjAqtw7N5njTydkEMg5BBQybGOE6Z3P8RPMAIg8WPGf/32D8IPIYdoOazBPwDEZjUdkvc2BwAAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAR+0lEQVR42u2de3AcxZ3H59+ALest7UPv12ql1Wr1XK9sofdbtiRjW7b8QPIDS7YcywYfFiQEk4AcHnESCITwcEEwUHGcB0U5gdjGvqq7CyEmqbJDXXK5S5Ei5ELqcuG4xPxFvmLk9rC7mt3t6ZnpGbXqU1PL7HTPb7o/9HT39Kylz9xQyJAfv/o62wwFJiLZ9cIOH/6iqF0hh0DIITBDjiKBICpCDoGQY4kxNTXLQI4bbigSCKICOYoFgqgIObQyOXlEyCGIbsbVqx/Z1Q/IUSLQwuTkrF0vTcghUJHjxhKBICrSjTeWJMTY2L5EkwgsCuQojZ+xsenLl/8d24RSCSyKlGgCYUb8TEwcsr8c4+MHRU1TmPHuu3+0tB+Qo0yd8fFD77zzLrYxjxSEMTFxm6Xjl+I5SJixNJFEEZjI7OwxruVYdmOZwdx11wPGn1RAAeTwCARREXIIhBxUnDlz3sSzT07eKeQQRDfjb3/7u7l+SMuWlQvMYvkyryuloSTjJl9WV8DRV+vsxxafsQf799w6a254Qg4TyEsLNbjW9BZu3+zZrw6OwZE43hw5ls/7KzCC9CQ/2oa1xTtjOhEJUiEtcjAyYMjhFehNWpK/0bWWwolIkE/avCJGhC3k0B30IdaXTjExQwa5IU8hh7VJT6puy9vEUAslyBn5Czko2brlQNT9ly5dNuDs+WlNw8W7dTJDBvnjLLrKUWFLtm6ZuXLl19iacvbSjBZdtVCCc+l0FbaVQ/bD9mbo6oeUtKxCwJCCtCaDzZDBeZlfC+So1MLBmXs15mAnMpJq9O5nqPQ/cHa2lyOJGgVTe+5iko9+Y5M4xy9CDgaceOaU0owPP/x/7X5UZXWbaIYMYmAqx/JKwdTkXRpzSF8RYDvTRT0/hkhYFQvk8Am0E3QPm26GDCJhdVFCDgZkrKjlxAwZxKPlcl7+4U8W5Fix3CfQSJ1zkCs5EA+T6xJyMGCoeBdXciAeVnJUCbRQkNbMlRnX5sSatV+akEMrja4hDuVAVEIO8+krvIVDORAVEzn8AmqSl1dzaIYMYtN4dUIOTeSkNnErB2LTKkfyvP4CSjwZ7dzKgdg0Xp2QQxP+7F5u5UBs2uWoFlBT6xjkVg7EpvHqpOSkagE19YxeONADxKbx6mjkePGFl4UWMrVOjlsO56B2OQICavyOPn77HI4+jVcn5NCEJ7OD39FKZodWOVKSAjHZO3l3PIctQfLSVnErB2LTeHWSqGAtpCbVcCsHYtMuR41AC32F41w+WxnXfmlCDq0E3SMcyoGohBzmU5TeyqEciErIwQVDJr3ItPhKsN1Mrgty1Ao0Us/Zeh/Ew+S6pNSkWoFGHMlBruRAPGER7t97lOK6hBxsCLnXcWIGIok04+rVjyj8kFJX1Am0k5US3MDBG2+IAZFEhrd/31GKixJyMKPaMWC6HIiB4RUJOeY5/d1XmeTTnr/FRDNwdrbFIuRgiSNl5XDJreb8PkfJrTg7cznqBQwpNmlVKc7L/FqktBX1SxlnTqCw0udp9Ppu8vg7Squ7SrHFZ+zBfnxLkafX8B/qwBn1KJwlJ0d6cl2xv7K2r6RlR27/HY41n8tWB8fgSByPVEjLoR86mSHL0bBEKK2pDG0sHJjNjinEYiAtckA+8ZyuOKNjROf+B/LHWfQrMfvLkZlR5+8o6z7gilrfG+7L2/Fo+fSJwO0vNhw5FbrzdBO2+Iw92I9vo6ZCbsgTOauf2pnS1KHb+AU5I39di84gOZ7/9svGa5GeXF/dVRZ579j2cPHhl4IPXuh95lejL/5uuzo4BkfieKSKvOMgf5xFPYyAY5Dt/BhyQ54GFKBtWw70KMNai3VH3bu+4f38D1Z/8xfrYjohgyPnznZ9/ofNaFGwRdqD364bncsPa0VwLvVgslNCIfd6RrPj65GbMWUIORptRnZ2HXoG6r2HsQcKUd8n3t4U1Qnsx7c4ZrG0U09WbX24SLkTZ8R51QNzpqxqcI3QPd9HKqRFDkaWpJS+otFOlPh9PTOfajC2H6u67+T40z+65+S5B7DFZ+yRvxq624n2IMwM7MH+eNLufcqvbEVwXpw9riAzOla6b+4vnIjpBI7BkTjelMKU0pMbbYOvpVypBeryrd+8/nG0P+zHt/Jhk9/yPfebMWiBLT4nlHbPE5WHTtYpT4oY4g84IzlYkN7qzeoNONfUu4Yb3SPY4jP2YD++Nbc87SNHTW+psrX4lyuvfBzrD8fILcHE1z3P/GojtnRpj53tUo5rEIk9ihRyBG1A3cB1M/Y/2v7e//zu4/j+cCSO/2RMm0udFu3N01c2ordLYkA8NihVO8hR01umbDPir11SxxvvLaJOK7cfct9l+kRA0X6UCTlMJqyfEc8dIezvfz98f/huN11a+f4i90/lsc+B52o/3f+wthwrrUtJtT+sB0pRuxiJUKeV/+T+KUa/8nhH2X4gQusWr5SRvNKiOB0NPQcXRq3DX5gffC42vlD/23M8RJ2WjF/k+Q8yHib9D0SIOC1awhaWIzS6MA118xdz5B5DzFp8970/nvzO948/9hS2+Iw97/zp19RplX9yz4PMvaJ/SsYviFPIYSjlwUrSdB9+qTGe+wLqtbB6lRLsufDL09RpI+8sc2e7SOPx4IVeEiGijbyEiW2z/MsRYs7F13+mR7aEzJSV5LnJ7S82YKSAD0//6J6Ealdm5svbqdMq/UAOZMxCQGzk+QtiVl4CzLhy+T8+8SPELRLPwS1GoGthhDI6l//8b7egJ4jP6Feq3BGi1i4IbvBSpwXk/iL3akmfVAaxkfl1xBx2FZybYUk5sjMbyVP4L/24XX4aov5/P3oJi9Vuw7oK6rQA36q0HAARkuf7iNxaRS1lpjRZi0DnwkBg+/ESuQJwp1fvNyx2XwCBPj91WuWdJbLPQUCcC41Hp9daRW09OboPuBdmNV7rIKsu1EccKv/3e1Y1UKdVthxhoxUliPNaz8Mt5NART62f9DaUFSCvvVhsrkK937DzwUbqtHKfI3KeIwzS80D8S1GO8+d+akC4TdfmNo6cCilLX+6TUtwd5uctYs2QxhythM2QRoJo5bARv67l873v/oStHKusQlZqE1k7/vilkbC1W/IKHZXnI4vNVcTzbEVlniPs2UpUEC1Zv46riOdi//niz00vcCvJUVodICuEIytAHrOoP1mNOssZ51PZxdIqn8qqQNYn4yqsUuBWkqOu33NtSjQYtQL2P1VLvSZj81yxlvUcMdcqI+aFpR79Hj6L98D0/eFyZKG5tgitOxa6dQ9e6I1aAS/958T04/UUq7mQ6qfvP0yXduLrHnmVoTpkNh1XwWHZzkzff/XqR9gqd0KO1fzgSu/IzxoodoyUuTZ63JvK3ZuxxWfswX4y96Xyvsm//nnun55tSWgdKI7/xV8fefvv38I20bRk/Wk877+Q2TCuypwwMz0Xtsd0OZoLstZU5GytLZwKld2+ynPHYjTX7iXvqKnUwWv/fQeq+bFz20a+4Iq5ghzH4Egcr2TuTH+cq89j9jPCIM9pc/OCfPrBixyF2UP+/J1NZYdVhFDS0rxNLtkdj5ar18Fb//dV1PHP/nz8a69umvhKRdR3T7Af3+KYMDOQNp73VlTeeVEBkS+sAPLVWkWOZiNxpLZ63JsbS2bidILQ1n2zXLLTJwLqdfDKHw4o6/vC7+974c1ptBCwAVt8xp4wJwhIq/LGGz7H/7ZcJGSFWEWw2uBip8NIOW4qd4+p3ztUaB8cJM/oY1bD2T/NLlb9KiAVdcXHA3mC72/xGVzNM9PHqORIbTaAYuc6itZCScdwb9S5UVZ+6G2Gcp400FlhTLFrRMpObdYVV1o7+hZatJDpHOmRS1Zlljry/iL3P9TBMWF3E52Q5/hBbXeF3sXOBMhxk34UZq8NlhzUbgZFy6Ecv/z8g4ejaoH9+FZXIY6d64YT2CpbjprOSl2LnRU6ylHmGmWiBUWfI5LTv9995r1DuHecf/9z2OIz9ujdVOx96vqbE/h8vc/R6lvSclTkbGVoRkKjFU5AaxE+fn5kYfq/YmW1VeRoYU5l7na2ZiQ0z8EJpIdBGD22MP1fWlWvR7Ezh70czNuMhGZIeW451h1dWMOWlx9ainKw7WeEMXjEFfPZClco+xx7nvBdX2lsBTPm5XCktrCiKHtIPzNA72SV+lNZPtsPebSieCpbwLDMdQVytDLBndbJatS66FTHhnb19Rw8Q9Zz1A94WZW53jCTozp/l65mgNbWMZWVYJxDVoJ5AnVLS44S53q9zZin/PDgrDPqGlLOUawhdTjSWvhU4ZHjJynl2D81p/Ktxucm8dN9S5BuntRcyNzoqtESqzQbn8iR1haT/Xvn/vKXD7CN+q1Xn7Fr9DtL+2jU91Y4h7y34q2vi6fAOUGK87jFzHCld1I/haej/1BR2BtvnKN8481CZszL4Uxr04I3Z4uRZiifwJF3ZTmHvCtb2+XTWNoGAznatRA0qrdBWO07SGbD5LfseUb5ln2Oo0VjaRuMJjlKHDcbbEbY2g759zm4NUP5+xx1PT5rmaFVjur83abIgTEt6XnQPcE3BsUv+7id6W1LS474144zhzzB53Y2XfmbYA89eY/lzJDl6KCj2LHOLDPC5jw23Jf39JWNXJmh/DXBVZtKqQvZXOjlqMy9xVw5Vvs/O3BbgVwBu77h5UoOxe+QunPdLVaVw5XWQUdd0V5z5VA+beFqhZjyF4y9NY3UJWw6kKOTDoPnvmKuLQUHnqs13Qzlb58HWgPUxcsDlHLkZfTzYMbCyHZ9Jyfth7LNaOj3GVmRr597kxc5irJH+JEDdG1sI7WC+73x/dOwf2+lcU2FpduMa3Kkd1JQ5trIlRxh7QdGCkaOb3Eu5b/UNN9mUJUqb0COLgrK3Vt4kyOs/yHPj+k9f4r8yUzXQj+jLUBXpBxCKUdFzjYO5ZDHL2R8K8+v6/f8BTl/6l+HPOj21gRtY8a8HO70Lgr0eDOF4fwHmR8jz2/ZPt9HbuRZq8zqTWX5Oa10hcktlHJw23Io59fJ8xfSihw5FdKyvhBpkUPYv0jdcyCnKlRvMy2IHN0UeLnsc0Q+n+sc6SHP9/X4t+zre/zujC66MuQfSjnKXJssIMe19R8dw71hrYhyXLPj0fLpEwH0K9Eq3Hm6CVt8xh7sV45BwlqLuq7qPGeHXbXQJEexSSs5NK4/RV+ErF+nYGDWgb5FZUOjvZ1QytFDQX7mGsvJQe41GNF0bmjvnayKvONEgntH286ixkGft2alO6ObrrgsikSdMmTeYg6W1EyW+5uqQg01bTW4U9T3VGOLz9iD/YWFrUvKBjCz76HrcuSk99BRV7TPBnLgKqhLwH4c3PfQB3/9EFv5P+nl8OVO6FFb2y+Gliyc+EE+Q45eOkodG4QcrOXo5QopJ6OXjrOvvaHHGtIlLQdtXeiEpCVxoGCPkMM2cjz/7JlIOfoS4rbPHief9fgdn6UtRx9XSBrTM//BFiEHR3LkZvRpgfka9NVfLl6yJFr4b/zbZY3Vp05iclw8f0n5n48/ciovc4DtbJiQgx8gR79GfLnjQg5GcvRzhcQkF4Y9DyGH3eQod41ZaMoc0Zpb6PcffYY3D3SUA+gx56EHiNMSFcOJHANMyM9cGyw9xLkZiBBxsrpk2yPlZQywosw5yrkciJDh9doeiW12FTn8rkpHbKK+E5Qjc5AtVXk7ODQDUTG/Utsj6ZGpX/+fuk4IxCNqmhc5uGo/RJvBnRyAh/7HfD/DIjXx5htvcyjHGv0oc21eadL4FufF2XW9Otsj5Weu0ZXCrOGagkmDzcAZcV69L80qXDz/Fl1CyZj4vO6twRIjmhCcBecSQjABcqw1DPQN9XvbBTkjfyMvx/ZIBp+vIGvYlzvBthVBbsizYP4+ImrUynIQyl1bagqmtKxfR1rkgHxELdpNDoLHNebP21VftD+eOw6OwZE4HqkoznXh/CVR5QnJMcQPRdnry5ybve5tlTnjvtwdVXk7scVn7MF+fMtVtLZHKsgcEgiiIhVkDVmL4w+8YLmYLYokikCgIsewQBAVIUdcnHjyFSGHQPApOUYEgqhIhVkjAqtw7N5njTydkEMg5BBQybGOE6Z3P8RPMAIg8WPGf/32D8IPIYdoOazBPwDEZjUdkvc2BwAAAABJRU5ErkJggg==">
+
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    background: #070a18; color: #dbe7f3;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    -webkit-user-select: none; user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+  /* Auf dem iPhone laeuft der Bildschirm unter Statusleiste und
+     Home-Indikator durch - der Canvas bleibt in der sicheren Flaeche. */
+  #stage {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    bottom: env(safe-area-inset-bottom, 0px);
+    left: env(safe-area-inset-left, 0px);
+    right: env(safe-area-inset-right, 0px);
+  }
+  #c { display: block; width: 100%; height: 100%; touch-action: none; }
+  #err {
+    position: fixed; left: 0; right: 0; bottom: 0; max-height: 45%;
+    overflow: auto; background: #2a0b16; color: #ffb3c0;
+    font: 12px/1.4 ui-monospace, Menlo, monospace; padding: 10px;
+    white-space: pre-wrap; display: none; z-index: 9;
+  }
+  #hint {
+    position: fixed; inset: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 15px; color: #6a7398;
+  }
+</style>
+</head>
+<body>
+<div id="hint">laedt ...</div>
+<div id="stage"><canvas id="c"></canvas></div>
+<div id="err"></div>
+<script>
+  // Fehler sichtbar machen - auf dem Telefon gibt es keine Konsole
+  const errBox = document.getElementById("err");
+  function showErr(msg) {
+    errBox.style.display = "block";
+    errBox.textContent += msg + "\n";
+  }
+  window.addEventListener("error", e =>
+    showErr(`${e.message}\n${e.filename}:${e.lineno}`));
+  window.addEventListener("unhandledrejection", e => showErr("Promise: " + e.reason));
+</script>
+<script>
+// Automatisch aus doodle_jump.py exportiert - Zahlen und Skins sind
+// damit garantiert identisch zur Desktop-Fassung.
+const K = {
+ "WIDTH": 420,
+ "HEIGHT": 640,
+ "BG_MARGIN": 18,
+ "FPS": 60,
+ "GRAVITY": 0.45,
+ "JUMP_V": -13.2,
+ "SPRING_V": -22.0,
+ "STOMP_V": -15.0,
+ "MAX_FALL": 18.0,
+ "MOVE_ACCEL": 1.1,
+ "MOVE_FRICTION": 0.86,
+ "MAX_SPEED_X": 9.0,
+ "PLAYER_W": 44,
+ "PLAYER_H": 44,
+ "PLAT_W": 72,
+ "PLAT_H": 14,
+ "SCROLL_LINE": 268.8,
+ "MIN_GAP": 58,
+ "MAX_GAP": 96,
+ "MAX_JUMP_H": 193.59999999999997,
+ "SAFE_JUMP": 143.26399999999998,
+ "BULLET_SPEED": 13.0,
+ "SHOOT_COOLDOWN": 16,
+ "SHOOT_ANIM": 13,
+ "SNOUT_AIM": 70,
+ "SNOUT_LIFT": 13,
+ "ROCKET_DISTANCE": 10000.0,
+ "ROCKET_SPEED": 38.0,
+ "ROCKET_ACCEL": 2.4,
+ "ROCKET_BLAST_R": 95.0,
+ "ROCKET_W": 26,
+ "ROCKET_H": 40,
+ "SHIELD_TIME": 4.0,
+ "SHIELD_FRAMES": 240,
+ "HOLE_DISTANCE": 3000.0,
+ "HOLE_SPEED": 62.0,
+ "HOLE_SUCK": 13,
+ "HOLE_OUT": 13,
+ "HOLE_MIN_SCALE": 0.11,
+ "HOLE_PULL_R": 130.0,
+ "HOLE_PULL": 0.34,
+ "HOLE_EAT_R": 42.0,
+ "HOLE_GRACE": 30,
+ "SPRING_CHANCE": 0.09,
+ "BREAK_JUMP": 0.7071067811865476,
+ "SPIN_COST": 100,
+ "COINS_PER_SCORE": 200,
+ "MAXED_COINS": 50,
+ "STAR_STEP": 2,
+ "MAX_STARS": 10,
+ "STAR_BONUS": 0.15,
+ "MAX_COPIES": 110,
+ "PALETTE_SPAN": 5200.0,
+ "GRID_COLS": 4,
+ "GRID_ROWS": 3,
+ "MAX_CATCHUP": 5,
+ "MONSTER_FROM": 1500,
+ "MONSTER_W": 48.0,
+ "MONSTER_H": 40.0,
+ "MONSTER_SPEED": 1.4,
+ "THANOS_FROM": 5000,
+ "THANOS_SHARE": 0.28,
+ "THANOS_SCALE": 1.2,
+ "THANOS_SLOW": 0.6,
+ "MONSTER_CLEAR_PLAT": 95.0,
+ "MONSTER_CLEAR_PLAYER": 130.0,
+ "MONSTER_WARN_DIST": 300.0,
+ "COIN_PRIZE": [
+  60,
+  180
+ ],
+ "MONSTER_GAP": [
+  950.0,
+  1900.0
+ ],
+ "SCORE_UNLOCKS": [
+  10000,
+  20000,
+  40000,
+  80000,
+  100000
+ ],
+ "STAT_PER_POINT": [
+  0.03,
+  0.045,
+  0.25,
+  0.08
+ ],
+ "STAT_NAMES": [
+  "Sprung",
+  "Agilitaet",
+  "Item Spawn",
+  "Item Boost"
+ ],
+ "SPRING_BOOST_PER_POINT": 0.025,
+ "ITEM_INTERVALS": {
+  "rocket": 50000.0,
+  "shield": 10000.0,
+  "hole": 10000.0
+ },
+ "SPACE_PALETTES": [
+  [
+   "#05060f",
+   "#141c42"
+  ],
+  [
+   "#0a0520",
+   "#2b1155"
+  ],
+  [
+   "#03101c",
+   "#0d3552"
+  ],
+  [
+   "#16061a",
+   "#401345"
+  ]
+ ],
+ "NEBULA_COLORS": [
+  "#5a23b0",
+  "#1f6f9c",
+  "#a8267a",
+  "#2a44b8",
+  "#1f9c7a"
+ ],
+ "PLANET_COLORS": [
+  [
+   "#c76b4a",
+   "#7d3a24"
+  ],
+  [
+   "#4a7fc7",
+   "#26497d"
+  ],
+  [
+   "#c7a44a",
+   "#7d6424"
+  ],
+  [
+   "#8a5ac7",
+   "#4d2c7d"
+  ]
+ ],
+ "SLICE_COUNTS": {
+  "common": 28,
+  "coins": 6,
+  "rare": 4,
+  "epic": 2,
+  "legendary": 1,
+  "mythic": 1
+ },
+ "WHEEL": [
+  [
+   "common",
+   0.7,
+   "Gewoehnlicher Skin",
+   "#9fb3c8"
+  ],
+  [
+   "coins",
+   0.15,
+   "Muenzen",
+   "#f2c14e"
+  ],
+  [
+   "rare",
+   0.1,
+   "Seltener Skin",
+   "#4aa3f0"
+  ],
+  [
+   "epic",
+   0.04,
+   "Epischer Skin",
+   "#a55cff"
+  ],
+  [
+   "legendary",
+   0.0075,
+   "Legendaerer Skin",
+   "#ffb020"
+  ],
+  [
+   "mythic",
+   0.0025,
+   "Mythischer Skin",
+   "#ff4fa3"
+  ]
+ ],
+ "RARITY": {
+  "common": [
+   "Gewoehnlich",
+   "#9fb3c8"
+  ],
+  "rare": [
+   "Selten",
+   "#4aa3f0"
+  ],
+  "epic": [
+   "Episch",
+   "#a55cff"
+  ],
+  "legendary": [
+   "Legendaer",
+   "#ffb020"
+  ],
+  "mythic": [
+   "Mythisch",
+   "#ff4fa3"
+  ],
+  "score": [
+   "Rekord",
+   "#38e0b0"
+  ]
+ },
+ "SNOUT_SHAPE": [
+  [
+   5,
+   -27
+  ],
+  [
+   15,
+   -25.5
+  ],
+  [
+   22,
+   -23.5
+  ],
+  [
+   26.5,
+   -21
+  ],
+  [
+   28.5,
+   -18.5
+  ],
+  [
+   26.5,
+   -16
+  ],
+  [
+   22,
+   -14.5
+  ],
+  [
+   15,
+   -13
+  ],
+  [
+   5,
+   -11.5
+  ]
+ ],
+ "SNOUT_PIVOT": [
+  5.0,
+  -19.5
+ ],
+ "SNOUT_NOSTRIL": [
+  23.0,
+  -18.5
+ ],
+ "SNOUT_TIP_I": 4,
+ "MODES": [
+  "normal",
+  "easy",
+  "hard"
+ ],
+ "MODE_NAMES": {
+  "normal": "NORMAL",
+  "easy": "EINFACH",
+  "hard": "SCHWER"
+ },
+ "MODE_HINTS": {
+  "normal": "alle Plattformen, alle Monster",
+  "easy": "ohne Monster - dafuer keine Muenzen",
+  "hard": "nur weisse UFOs - dafuer doppelte Muenzen"
+ },
+ "MODE_COLORS": {
+  "normal": "#9fb3c8",
+  "easy": "#38e0b0",
+  "hard": "#ff6b6b"
+ },
+ "MODE_COINS": {
+  "normal": 1.0,
+  "easy": 0.0,
+  "hard": 2.0
+ },
+ "C_GEMS": [
+  "#6a3df0",
+  "#3d9bf0",
+  "#e8433f",
+  "#f08a3d",
+  "#4de07a",
+  "#f0d63d"
+ ],
+ "C_FLAME": [
+  "#ffffff",
+  "#fff3b0",
+  "#ffd166",
+  "#ff8c42",
+  "#8a6bff"
+ ],
+ "C_ASTRAL": "#8a6bff",
+ "C_ASTRAL_L": "#c9b8ff",
+ "C_BLUE": "#4aa3f0",
+ "C_BLUE_D": "#2f6fae",
+ "C_BODY": "#a8e05f",
+ "C_BODY_D": "#4e7d18",
+ "C_BODY_L": "#d7f79b",
+ "C_BROWN": "#b5773a",
+ "C_BROWN_D": "#7d4f22",
+ "C_GAUNTLET": "#e3a52b",
+ "C_GREEN": "#5fc23a",
+ "C_GREEN_D": "#3d8a24",
+ "C_HOLE": "#1a0f2e",
+ "C_HOLE_RIM": "#ff8a3d",
+ "C_LETTERBOX": "#070a18",
+ "C_MOB": "#ff3b2f",
+ "C_MOB_D": "#6b0f0c",
+ "C_MOB_L": "#ffd08a",
+ "C_ROCKET": "#e8453c",
+ "C_ROCKET_D": "#8f2019",
+ "C_ROCKET_L": "#ff8a80",
+ "C_ROCKET_SKY_BOT": "#5a1a9c",
+ "C_ROCKET_SKY_TOP": "#1b0740",
+ "C_SHIELD": "#4de0ff",
+ "C_SHIELD_D": "#1b6f8c",
+ "C_TEXT": "#eaf0ff",
+ "C_TITAN": "#a855ff",
+ "C_TITAN_D": "#2e0f55",
+ "C_TITAN_L": "#e8d0ff",
+ "C_WHITE": "#f2f2f2",
+ "C_WHITE_D": "#bdbdbd"
+};
+const SKINS = [
+ {
+  "key": "klassiker",
+  "name": "Klassiker",
+  "rarity": "common",
+  "body": "#a8e05f",
+  "light": "#d7f79b",
+  "dark": "#4e7d18",
+  "fx": [],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "blaubeere",
+  "name": "Blaubeere",
+  "rarity": "common",
+  "body": "#6aa8f0",
+  "light": "#bcd9ff",
+  "dark": "#27508f",
+  "fx": [],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "sonne",
+  "name": "Sonnengelb",
+  "rarity": "common",
+  "body": "#f2d04e",
+  "light": "#fff0b0",
+  "dark": "#8f7212",
+  "fx": [],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "key": "koralle",
+  "name": "Koralle",
+  "rarity": "common",
+  "body": "#f28b6a",
+  "light": "#ffd2c2",
+  "dark": "#8f3b22",
+  "fx": [],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "key": "minze",
+  "name": "Minze",
+  "rarity": "common",
+  "body": "#6ae0c0",
+  "light": "#c2fff0",
+  "dark": "#1d7d68",
+  "fx": [
+   "cap"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "schoko",
+  "name": "Schoko",
+  "rarity": "common",
+  "body": "#a97452",
+  "light": "#ddb79c",
+  "dark": "#5a3a24",
+  "fx": [],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "key": "punsch",
+  "name": "Pink Punsch",
+  "rarity": "common",
+  "body": "#f06ab0",
+  "light": "#ffc2e2",
+  "dark": "#8f2760",
+  "fx": [
+   "cap"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "nebelgrau",
+  "name": "Nebelgrau",
+  "rarity": "common",
+  "body": "#a9b6c4",
+  "light": "#dfe8f2",
+  "dark": "#4e5b6a",
+  "fx": [],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "key": "cyberlimette",
+  "name": "Cyber-Limette",
+  "rarity": "rare",
+  "body": "#b6ff3b",
+  "light": "#e6ffb0",
+  "dark": "#4d7a00",
+  "fx": [
+   "glow",
+   "visor"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "Neon und Visier",
+  "stats": [
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "tiefsee",
+  "name": "Tiefsee",
+  "rarity": "rare",
+  "body": "#2f7fa8",
+  "light": "#8fd6f0",
+  "dark": "#12384d",
+  "fx": [
+   "glow",
+   "sparkle"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "Leuchtet in der Tiefe",
+  "stats": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "key": "zuckerwatte",
+  "name": "Zuckerwatte",
+  "rarity": "rare",
+  "body": "#ff9ede",
+  "light": "#ffd9f4",
+  "dark": "#a63c86",
+  "fx": [
+   "cap",
+   "sparkle"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "key": "wuestensand",
+  "name": "Wuestensand",
+  "rarity": "rare",
+  "body": "#e0c184",
+  "light": "#fff0cc",
+  "dark": "#8a6a2b",
+  "fx": [
+   "visor"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "key": "giftgruen",
+  "name": "Giftgruen",
+  "rarity": "rare",
+  "body": "#7bff8a",
+  "light": "#d2ffd8",
+  "dark": "#1c7a2b",
+  "fx": [
+   "glow",
+   "sparkle"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "key": "magma",
+  "name": "Magma",
+  "rarity": "epic",
+  "body": "#7a2318",
+  "light": "#d85a2c",
+  "dark": "#2b0b06",
+  "fx": [
+   "aura",
+   "cracks",
+   "glow"
+  ],
+  "eye": "#ffdd88",
+  "unlock": null,
+  "blurb": "Risse voller Lava",
+  "stats": [
+   2,
+   1,
+   0,
+   2
+  ]
+ },
+ {
+  "key": "gletscher",
+  "name": "Gletscher",
+  "rarity": "epic",
+  "body": "#bfe9ff",
+  "light": "#ffffff",
+  "dark": "#3c7d9c",
+  "fx": [
+   "aura",
+   "shards",
+   "sparkle"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "Ewiges Eis",
+  "stats": [
+   1,
+   2,
+   2,
+   0
+  ]
+ },
+ {
+  "key": "voltgeist",
+  "name": "Voltgeist",
+  "rarity": "epic",
+  "body": "#ffe14a",
+  "light": "#fffbc2",
+  "dark": "#8a6a00",
+  "fx": [
+   "aura",
+   "bolt",
+   "sparkle"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "Unter Hochspannung",
+  "stats": [
+   2,
+   2,
+   1,
+   0
+  ]
+ },
+ {
+  "key": "obsidian",
+  "name": "Obsidian",
+  "rarity": "epic",
+  "body": "#3d3d5a",
+  "light": "#8a8ab0",
+  "dark": "#12121e",
+  "fx": [
+   "aura",
+   "glow",
+   "visor"
+  ],
+  "eye": "#9ee7ff",
+  "unlock": null,
+  "blurb": "",
+  "stats": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "key": "phoenix",
+  "name": "Phoenix",
+  "rarity": "legendary",
+  "body": "#ff7a1a",
+  "light": "#ffd08a",
+  "dark": "#8a2b00",
+  "fx": [
+   "aura",
+   "flames",
+   "sparkle",
+   "trail"
+  ],
+  "eye": "#fff3b0",
+  "unlock": null,
+  "blurb": "Steigt aus der Asche",
+  "stats": [
+   3,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "key": "goldkoenig",
+  "name": "Goldkoenig",
+  "rarity": "legendary",
+  "body": "#ffc83d",
+  "light": "#fff0b8",
+  "dark": "#8f6208",
+  "fx": [
+   "aura",
+   "crown",
+   "glow",
+   "sparkle"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "Traegt die Krone",
+  "stats": [
+   1,
+   1,
+   3,
+   1
+  ]
+ },
+ {
+  "key": "schattenlord",
+  "name": "Schattenlord",
+  "rarity": "legendary",
+  "body": "#3a2b5c",
+  "light": "#6f57a8",
+  "dark": "#150f26",
+  "fx": [
+   "aura",
+   "glow",
+   "halo",
+   "trail"
+  ],
+  "eye": "#ff6ad5",
+  "unlock": null,
+  "blurb": "Wirft mehr Schatten als Licht",
+  "stats": [
+   1,
+   3,
+   1,
+   1
+  ]
+ },
+ {
+  "key": "prisma",
+  "name": "Prisma",
+  "rarity": "mythic",
+  "body": "#ffffff",
+  "light": "#ffffff",
+  "dark": "#2b2b3a",
+  "fx": [
+   "bands",
+   "bigaura",
+   "crystal",
+   "orbit",
+   "rainbow",
+   "rays",
+   "sparkle",
+   "trail"
+  ],
+  "eye": "#22303c",
+  "unlock": null,
+  "blurb": "Lebendes Licht in allen Farben",
+  "stats": [
+   4,
+   4,
+   4,
+   3
+  ]
+ },
+ {
+  "key": "kosmos",
+  "name": "Kosmos",
+  "rarity": "mythic",
+  "body": "#1b1248",
+  "light": "#7f63ee",
+  "dark": "#080522",
+  "fx": [
+   "bigaura",
+   "comet",
+   "galaxy",
+   "halo",
+   "planet",
+   "sparkle",
+   "trail"
+  ],
+  "eye": "#bfe9ff",
+  "unlock": null,
+  "blurb": "Eine ganze Galaxie im Bauch",
+  "stats": [
+   4,
+   4,
+   3,
+   4
+  ]
+ },
+ {
+  "key": "sternenkind",
+  "name": "Sternenkind",
+  "rarity": "score",
+  "body": "#3d4a9c",
+  "light": "#8fa0ff",
+  "dark": "#141a4a",
+  "fx": [
+   "glow",
+   "sparkle",
+   "stars"
+  ],
+  "eye": "#ffffff",
+  "unlock": 10000,
+  "blurb": "10000 Punkte",
+  "stats": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "nebelwandler",
+  "name": "Nebelwandler",
+  "rarity": "score",
+  "body": "#6a2b9c",
+  "light": "#c78fff",
+  "dark": "#2a0d4a",
+  "fx": [
+   "aura",
+   "glow",
+   "sparkle",
+   "stars"
+  ],
+  "eye": "#ffd6ff",
+  "unlock": 20000,
+  "blurb": "20000 Punkte",
+  "stats": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "singularitaet",
+  "name": "Singularitaet",
+  "rarity": "score",
+  "body": "#191930",
+  "light": "#4a4a72",
+  "dark": "#05050a",
+  "fx": [
+   "aura",
+   "orbit",
+   "ring",
+   "trail"
+  ],
+  "eye": "#ff9b3d",
+  "unlock": 40000,
+  "blurb": "40000 Punkte",
+  "stats": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "supernova",
+  "name": "Supernova",
+  "rarity": "score",
+  "body": "#fff0b0",
+  "light": "#ffffff",
+  "dark": "#ff7a1a",
+  "fx": [
+   "aura",
+   "flames",
+   "orbit",
+   "rainbow",
+   "rays",
+   "sparkle",
+   "trail"
+  ],
+  "eye": "#4a2b00",
+  "unlock": 80000,
+  "blurb": "80000 Punkte",
+  "stats": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "key": "urknall",
+  "name": "Urknall",
+  "rarity": "score",
+  "body": "#ffffff",
+  "light": "#ffffff",
+  "dark": "#2a0f5c",
+  "fx": [
+   "bands",
+   "bigaura",
+   "bigbang",
+   "comet",
+   "crystal",
+   "orbit",
+   "rainbow",
+   "rays",
+   "sparkle",
+   "trail"
+  ],
+  "eye": "#2a0f5c",
+  "unlock": 100000,
+  "blurb": "100000 Punkte",
+  "stats": [
+   0,
+   0,
+   0,
+   0
+  ]
+ }
+];
+
 // Doodle Jump ins Weltall - mobile Fassung.
 // Portierung von doodle_jump.py; Zahlen und Skins kommen unveraendert aus
 // data.js, die Spiellogik ist Schritt fuer Schritt uebernommen. Gezeichnet
 // wird direkt auf ein Canvas statt auf ein Tk-Canvas, gesteuert wird per
 // Finger (ziehen = lenken, tippen = schiessen) oder Neigung.
-import { K, SKINS } from "./data.js";
+
 
 const SKIN_BY_KEY = Object.fromEntries(SKINS.map(s => [s.key, s]));
 const POOLS = {};
@@ -259,7 +1247,7 @@ class Ring {
 
 // ----------------------------------------------------------------- Spiel
 
-export class Game {
+class Game {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
@@ -2452,7 +3440,7 @@ const MENU_ITEMS = [["play", "SPIELEN"], ["mode", "MODUS"],
 
 // ------------------------------------------------------------------ Start
 
-export function boot(canvas) {
+function boot(canvas) {
   // Das Spielfeld ist 420 breit; die Hoehe richtet sich nach dem Geraet,
   // damit auf einem hohen Telefon keine schwarzen Balken bleiben. Alle
   // Abstaende sind absolute Pixel, die Erreichbarkeit bleibt also gueltig.
@@ -2542,3 +3530,9 @@ export function boot(canvas) {
   window.game = g;                            // fuer Tests von aussen
   return g;
 }
+
+document.getElementById("hint").remove();
+boot(document.getElementById("c"));
+</script>
+</body>
+</html>
