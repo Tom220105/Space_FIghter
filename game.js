@@ -2606,7 +2606,7 @@ export class Game {
     this.vtext(K.WIDTH / 2, 28, "GLUECKSRAD", 21, "#ffffff");
     this.coinChip(K.WIDTH - 96, 28, this.coins);
 
-    this.vtext(K.WIDTH / 2, 52,
+    this.vtext(K.WIDTH / 2, 50,
                `${WHEEL_SLICES.length} gleich grosse Felder - die echten `
                + `Chancen stehen unten`, 9, "#6a7398", false);
     this.drawWheel(K.WIDTH / 2, 236, 126);
@@ -2652,10 +2652,10 @@ export class Game {
   }
   drawWheelResult() {
     const d = this.d;
-    this.panel(14, 640 - 130, K.WIDTH - 14, 640 - 46, "#101838", "#2a3255", 2);
+    this.panel(14, 640 - 118, K.WIDTH - 14, 640 - 34, "#101838", "#2a3255", 2);
     if (this.wheelSpinning) {
       const dots = ".".repeat(1 + Math.floor(this.frame / 8) % 3);
-      this.vtext(K.WIDTH / 2, 640 - 88, `dreht${dots}`, 15, "#8b93c7");
+      this.vtext(K.WIDTH / 2, 640 - 76, `dreht${dots}`, 15, "#8b93c7");
       return;
     }
     if (!this.wheelResult) { this.drawTeaser(); return; }
@@ -2668,16 +2668,16 @@ export class Game {
            { outline: col, width: Math.max(1, 3 * this.scale * this.winGlow / 34) });
     }
     if (key) {
-      this.drawDoodler(this.toX(52), this.toY(640 - 74), SKIN_BY_KEY[key],
+      this.drawDoodler(this.toX(52), this.toY(640 - 62), SKIN_BY_KEY[key],
                        { fxs: 0.58 * this.scale, fys: 0.58 * this.scale });
-      this.vtext(K.WIDTH / 2 + 14, 640 - 108, name, 16, col);
-      this.vtext(K.WIDTH / 2 + 14, 640 - 88, note, 11, "#ffffff");
-      this.vtext(K.WIDTH / 2 + 14, 640 - 84,
+      this.vtext(K.WIDTH / 2 + 14, 640 - 96, name, 16, col);
+      this.vtext(K.WIDTH / 2 + 14, 640 - 76, note, 11, "#ffffff");
+      this.vtext(K.WIDTH / 2 + 14, 640 - 60,
                  K.RARITY[SKIN_BY_KEY[key].rarity][0].toUpperCase(), 9, col);
-      this.starRow(K.WIDTH / 2 - 66, 640 - 57, stars, 5);
+      this.starRow(K.WIDTH / 2 - 66, 640 - 45, stars, 5);
     } else {
-      this.vtext(K.WIDTH / 2, 640 - 96, note, 20, col);
-      this.vtext(K.WIDTH / 2, 640 - 84, name, 12, "#ffffff");
+      this.vtext(K.WIDTH / 2, 640 - 84, note, 20, col);
+      this.vtext(K.WIDTH / 2, 640 - 60, name, 12, "#ffffff");
     }
   }
   previewSkin() {
@@ -2689,7 +2689,7 @@ export class Game {
     const t = (this.frame % 280) / 280;
     const pop = Math.min(1, t * 9) * Math.min(1, (1 - t) * 9);
     const col = K.RARITY.mythic[1];
-    const cx = 52, cy = 640 - 74;
+    const cx = 52, cy = 640 - 62;
     [[26, col, "gray12"], [18, "#ffffff", "gray12"], [11, "#ffffff", "gray25"]]
       .forEach(([g, c2, st], i) => {
         const gg = (g + 2.5 * Math.sin(this.frame * 0.07 + i)) * pop * this.scale;
@@ -2699,14 +2699,14 @@ export class Game {
     this.drawDoodler(this.toX(cx), this.toY(cy + 16), sk,
                      { fxs: (0.32 + 0.26 * pop) * this.scale,
                        fys: (0.32 + 0.26 * pop) * this.scale });
-    this.vtext(K.WIDTH / 2 + 14, 640 - 104, "SO ETWAS STECKT DRIN", 11, col);
-    this.vtext(K.WIDTH / 2 + 14, 640 - 84, sk.name, 14, "#ffffff");
+    this.vtext(K.WIDTH / 2 + 14, 640 - 92, "SO ETWAS STECKT DRIN", 11, col);
+    this.vtext(K.WIDTH / 2 + 14, 640 - 72, sk.name, 14, "#ffffff");
     if (this.coins >= K.SPIN_COST) {
       const pulse = 0.5 + 0.5 * Math.sin(this.frame * 0.18);
-      this.vtext(K.WIDTH / 2 + 14, 640 - 64, "AUFS RAD TIPPEN", 10,
+      this.vtext(K.WIDTH / 2 + 14, 640 - 52, "AUFS RAD TIPPEN", 10,
                  mix("#6a7398", "#ffffff", pulse));
     } else {
-      this.vtext(K.WIDTH / 2 + 14, 640 - 64,
+      this.vtext(K.WIDTH / 2 + 14, 640 - 52,
                  `zu wenig Muenzen - ${K.COINS_PER_SCORE} Punkte = 1`, 10, "#ff7a7a");
     }
   }
@@ -3043,9 +3043,11 @@ const MENU_ITEMS = [
   ["slots", "Slotmaschine", LIST_TOP + 4 * ROW_H, LIST_TOP + 5 * ROW_H],
   ["tilt", "Neigung", LIST_TOP + 5 * ROW_H, LIST_TOP + 6 * ROW_H],
 ];
-const C_CARD = "#1d1442", C_CARD_HI = "#241a52", C_EDGE = "#463a86";
-const C_SEP = "#392e72", C_LABEL = "#f4f1ff", C_MUTED = "#a79ad6";
-const C_GLOW = "#2fe6cf";   // Tuerkis - so leuchtet das gewaehlte Feld
+// Farben des Menues kommen aus data.js, also direkt aus doodle_jump.py -
+// eine Aenderung dort faerbt beide Fassungen gleich um.
+const C_CARD = K.C_CARD, C_CARD_HI = K.C_CARD_HI, C_EDGE = K.C_EDGE;
+const C_SEP = K.C_SEP, C_LABEL = K.C_LABEL, C_MUTED = K.C_MUTED;
+const C_GLOW = K.C_GLOW;    // Tuerkis - so leuchtet das gewaehlte Feld
 
 // ------------------------------------------------------------------ Start
 
