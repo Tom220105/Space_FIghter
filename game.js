@@ -3066,51 +3066,127 @@ export function boot(canvas) {
   window.addEventListener("orientationchange", () => setTimeout(() => g.resize(), 250));
 
   // --- Finger und Maus
-  let down = false, startX = 0, startY = 0, startT = 0, moved = false, lastY = 0;
-  const pos = ev => {
+  // Jeder Finger bekommt eine Rolle: EINER lenkt, weitere bedienen die
+  // Knoepfe oder tippen in den Menues. Ohne diese Trennung wuerde das
+  // Loslassen des Schuss-Knopfes die Lenkung des anderen Fingers beenden.
+  const STEER = "steer", BUTTON = "button", TAP = "tap";
+  const finger = new Map();          // Kennung -> Rolle, Startpunkt, Weg
+  let steerId = null;
+
+  const local = t => {
     const r = canvas.getBoundingClientRect();
-    const p = ev.touches ? ev.touches[0] : ev;
-    return [p.clientX - r.left, p.clientY - r.top];
+    return [t.clientX - r.left, t.clientY - r.top];
   };
-  const onDown = ev => {
-    ev.preventDefault();
-    const [x, y] = pos(ev);
-    down = true; moved = false; startX = x; startY = y; lastY = y;
-    startT = performance.now();
-    if (g.mode === "play" && !g.paused && !g.gameOver && y > (g.barH || 44)
-        && !g.inButton(x, y, "left") && !g.inButton(x, y, "right")) {
+  const playing = () => g.mode === "play" && !g.paused && !g.gameOver;
+  const onButton = (x, y) =>
+    g.inButton(x, y, "left") || (g.ability !== null && g.inButton(x, y, "right"));
+  const steerHere = (x, y) => playing() && y > (g.barH || 44) && !onButton(x, y);
+
+  const takeSteer = (id, x, y) => {
+    steerId = id;
+    g.pointerX = clamp((x - g.ox) / g.scale, 0, K.WIDTH);
+    g.pointerCtrl = true;
+  };
+
+  const beginTouch = (id, x, y) => {
+    const f = { role: TAP, x, y, startX: x, startY: y, lastY: y,
+                t: performance.now(), moved: false };
+    if (playing() && y > (g.barH || 44)) {
+      if (g.inButton(x, y, "left")) {          // Schuss sofort, nicht erst beim
+        g.shoot();                             // Loslassen - und ohne Lenkung
+        f.role = BUTTON;
+        finger.set(id, f);
+        return;
+      }
+      if (g.ability !== null && g.inButton(x, y, "right")) {
+        g.useAbility();
+        f.role = BUTTON;
+        finger.set(id, f);
+        return;
+      }
+      if (steerId === null) {                  // erster freier Finger lenkt
+        f.role = STEER;
+        takeSteer(id, x, y);
+      }
+    }
+    finger.set(id, f);
+  };
+
+  const moveTouch = (id, x, y) => {
+    const f = finger.get(id);
+    if (!f) return;
+    f.x = x; f.y = y;
+    if (Math.abs(x - f.startX) > 6 || Math.abs(y - f.startY) > 6) f.moved = true;
+    if (f.role === STEER && id === steerId && g.mode === "play") {
       g.pointerX = clamp((x - g.ox) / g.scale, 0, K.WIDTH);
       g.pointerCtrl = true;
+    } else if (f.role === TAP && g.mode === "skins"
+               && Math.abs(y - f.lastY) > 40) {
+      g.swipe(y < f.lastY ? 1 : -1);
+      f.lastY = y;
     }
   };
-  const onMove = ev => {
-    if (!down) return;
-    ev.preventDefault();
-    const [x, y] = pos(ev);
-    if (Math.abs(x - startX) > 6 || Math.abs(y - startY) > 6) moved = true;
-    if (g.mode === "play") {
-      g.pointerX = clamp((x - g.ox) / g.scale, 0, K.WIDTH);
-      g.pointerCtrl = true;
-    } else if (g.mode === "skins" && Math.abs(y - lastY) > 40) {
-      g.swipe(y < lastY ? 1 : -1);
-      lastY = y;
+
+  const endTouch = id => {
+    const f = finger.get(id);
+    if (!f) return;
+    finger.delete(id);
+    if (f.role === STEER && steerId === id) {
+      steerId = null;
+      g.pointerCtrl = false;
+      for (const [oid, o] of finger) {         // liegt noch ein Finger im Feld,
+        if (o.role === TAP && steerHere(o.x, o.y)) {   // uebernimmt er das Lenken
+          o.role = STEER;
+          takeSteer(oid, o.x, o.y);
+          break;
+        }
+      }
+    }
+    // Kurzes Tippen ohne Weg schiesst bzw. waehlt im Menue; der Knopf hat
+    // schon beim Aufsetzen ausgeloest und tut hier nichts mehr.
+    if (f.role !== BUTTON && !f.moved && performance.now() - f.t < 400) {
+      g.tap(f.startX, f.startY);
     }
   };
-  const onUp = ev => {
-    if (!down) return;
+
+  canvas.addEventListener("touchstart", ev => {
     ev.preventDefault();
-    down = false;
-    const quick = performance.now() - startT < 400;
-    if (!moved && quick) g.tap(startX, startY);
-    if (g.mode === "play") g.pointerCtrl = false;
+    for (const t of ev.changedTouches) {
+      const [x, y] = local(t);
+      beginTouch(t.identifier, x, y);
+    }
+  }, { passive: false });
+  canvas.addEventListener("touchmove", ev => {
+    ev.preventDefault();
+    for (const t of ev.changedTouches) {
+      const [x, y] = local(t);
+      moveTouch(t.identifier, x, y);
+    }
+  }, { passive: false });
+  const liftTouches = ev => {
+    ev.preventDefault();
+    for (const t of ev.changedTouches) endTouch(t.identifier);
   };
-  canvas.addEventListener("touchstart", onDown, { passive: false });
-  canvas.addEventListener("touchmove", onMove, { passive: false });
-  canvas.addEventListener("touchend", onUp, { passive: false });
-  canvas.addEventListener("touchcancel", onUp, { passive: false });
-  canvas.addEventListener("mousedown", onDown);
-  canvas.addEventListener("mousemove", onMove);
-  canvas.addEventListener("mouseup", onUp);
+  canvas.addEventListener("touchend", liftTouches, { passive: false });
+  canvas.addEventListener("touchcancel", liftTouches, { passive: false });
+
+  // Maus zaehlt als ein einzelner Finger
+  let mouseDown = false;
+  canvas.addEventListener("mousedown", ev => {
+    const [x, y] = local(ev);
+    mouseDown = true;
+    beginTouch("maus", x, y);
+  });
+  canvas.addEventListener("mousemove", ev => {
+    if (!mouseDown) return;
+    const [x, y] = local(ev);
+    moveTouch("maus", x, y);
+  });
+  canvas.addEventListener("mouseup", () => {
+    if (!mouseDown) return;
+    mouseDown = false;
+    endTouch("maus");
+  });
   window.addEventListener("keydown", e => {
     const k = e.key.toLowerCase();
     if ([" ", "arrowleft", "arrowright", "arrowup", "arrowdown"].includes(k)) e.preventDefault();
