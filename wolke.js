@@ -40,9 +40,16 @@ export class Wolke {
                                    { email, password: passwort }, false);
       if (!a.access_token) return { bestaetigen: true };
       this.sitzungMerken(a);
-      await this.anfrage("/rest/v1/profil", "POST",
-                         { id: this.benutzer, name },
-                         true, { Prefer: "return=minimal" });
+      // Das Konto steht jetzt. Geht nur der Name nicht durch (schon vergeben
+      // oder unerlaubte Zeichen), bleibt die Anmeldung bestehen und das
+      // Spiel fragt den Namen noch einmal ab.
+      try {
+        await this.anfrage("/rest/v1/profil", "POST",
+                           { id: this.benutzer, name },
+                           true, { Prefer: "return=minimal" });
+      } catch (e) {
+        return { name: null, fehler: String(e.message || e) };
+      }
       this.name = name;
       this.speichern();
       return { name };
@@ -59,6 +66,19 @@ export class Wolke {
       this.name = treffer && treffer.length ? treffer[0].name : null;
       this.speichern();
       return { name: this.name };
+    });
+  }
+
+  // Anzeigenamen nachtragen - fuer Konten, bei denen das Anlegen des
+  // Profils schiefging (Name schon vergeben oder unerlaubte Zeichen).
+  nameSetzen(name) {
+    this.lauf("name", async () => {
+      await this.anfrage("/rest/v1/profil", "POST",
+                         { id: this.benutzer, name },
+                         true, { Prefer: "resolution=merge-duplicates,return=minimal" });
+      this.name = name;
+      this.speichern();
+      return { name };
     });
   }
 

@@ -896,9 +896,16 @@ class Wolke {
                                    { email, password: passwort }, false);
       if (!a.access_token) return { bestaetigen: true };
       this.sitzungMerken(a);
-      await this.anfrage("/rest/v1/profil", "POST",
-                         { id: this.benutzer, name },
-                         true, { Prefer: "return=minimal" });
+      // Das Konto steht jetzt. Geht nur der Name nicht durch (schon vergeben
+      // oder unerlaubte Zeichen), bleibt die Anmeldung bestehen und das
+      // Spiel fragt den Namen noch einmal ab.
+      try {
+        await this.anfrage("/rest/v1/profil", "POST",
+                           { id: this.benutzer, name },
+                           true, { Prefer: "return=minimal" });
+      } catch (e) {
+        return { name: null, fehler: String(e.message || e) };
+      }
       this.name = name;
       this.speichern();
       return { name };
@@ -915,6 +922,19 @@ class Wolke {
       this.name = treffer && treffer.length ? treffer[0].name : null;
       this.speichern();
       return { name: this.name };
+    });
+  }
+
+  // Anzeigenamen nachtragen - fuer Konten, bei denen das Anlegen des
+  // Profils schiefging (Name schon vergeben oder unerlaubte Zeichen).
+  nameSetzen(name) {
+    this.lauf("name", async () => {
+      await this.anfrage("/rest/v1/profil", "POST",
+                         { id: this.benutzer, name },
+                         true, { Prefer: "resolution=merge-duplicates,return=minimal" });
+      this.name = name;
+      this.speichern();
+      return { name };
     });
   }
 
@@ -1061,6 +1081,12 @@ for (const r of ["common", "rare", "epic", "legendary", "mythic"]) {
 }
 const DEFAULT_SKIN = "klassiker";
 const SAVE_KEY = "doodlejump.save.v1";
+// Die Datenbank laesst als Anzeigenamen nur 3 bis 16 Zeichen aus Buchstaben,
+// Ziffern, Unterstrich und Leerzeichen zu (siehe ANLEITUNG-SUPABASE.md) -
+// das wird hier schon vor dem Absenden geprueft.
+const NAME_MUSTER = /^[A-Za-z0-9_ ]{3,16}$/;
+const NAME_REGEL = "3 bis 16 Zeichen, nur Buchstaben, Ziffern, "
+                 + "Unterstrich und Leerzeichen";
 const FRAME_TIME = 1 / K.FPS;
 const TAU = Math.PI * 2;
 
@@ -1409,16 +1435,23 @@ class Game {
     this.liste = {};            // geholte Bestenlisten je Modus
     this.listePlatz = {};       // eigener Platz je Modus
     this.wolkeText = "";
+    this.wolkeNote = 0;         // so lange steht die Meldung im Menue
+    this.listeFehler = "";      // warum die Liste nicht kam
     this.listeWartet = false;
     this.tipsOpen = false;
     this.pop = null; this.confetti = []; this.wheelSlice = -1;
     this.multi = []; this.multiT = 0; this.wheelMulti = false;
     this.questBtn = [0, 0, 0, 0]; this.buyBtn = null;
+    this.kontoBtn = null;       // Knopf in der Liste, wenn kein Konto da ist
+    this.nameGefragt = false;   // Namensfrage nur einmal stellen
     this.bestBefore = 0; this.pendingSkin = null; this.loginText = "";
     this.slotState = "idle"; this.slotT = 0;
     this.slotSyms = [0, 0, 0]; this.slotKind = null; this.slotResult = null;
 
     this.load();
+    if (this.wolke && this.wolke.angemeldet) {
+      this.wolke.standRunter();           // was auf anderen Geraeten dazukam
+    }
     this.tipsOpen = !this.tipsSeen;        // Einfuehrung beim ersten Start
     this.newDay();
     this.applyStats();
@@ -1428,9 +1461,19 @@ class Game {
 
   // ---- Speicherstand im Browser
 
+  // Jedes Konto hat seinen eigenen Spielstand im Browser, das Spielen ohne
+  // Konto ebenfalls. Deshalb nimmt das Abmelden nichts weg.
+  saveKey() {
+    return (this.wolke && this.wolke.angemeldet && this.wolke.benutzer)
+      ? `${SAVE_KEY}.${String(this.wolke.benutzer).slice(0, 8)}` : SAVE_KEY;
+  }
+
   load() {
     let data = {};
-    try { data = JSON.parse(localStorage.getItem(SAVE_KEY)) || {}; } catch (e) {}
+    try {
+      data = JSON.parse(localStorage.getItem(this.saveKey())
+                        || localStorage.getItem(SAVE_KEY)) || {};
+    } catch (e) {}
     const raw = data.highscores || {};
     this.highscores = {};
     for (const m of K.MODES) this.highscores[m] = raw[m] | 0;
@@ -1495,7 +1538,7 @@ class Game {
     try {
       const stand = this.standAlsJson();
       stand.highscore = this.highscores.normal;   // fuer ganz alte Staende
-      localStorage.setItem(SAVE_KEY, JSON.stringify(stand));
+      localStorage.setItem(this.saveKey(), JSON.stringify(stand));
     } catch (e) {}
   }
 
@@ -1542,7 +1585,7 @@ class Game {
   // echte Eingabefelder - viel besser als Tippen auf der Leinwand.
   kontoFenster() {
     if (!this.wolke || !this.wolke.eingerichtet) {
-      this.wolkeText = "wolke.js ist nicht ausgefuellt";
+      this.melde("wolke.js ist nicht ausgefuellt");
       this.sound("deny");
       return;
     }
@@ -1561,8 +1604,13 @@ class Game {
                     color:${C_LABEL};text-align:center">
           <div style="font-size:17px;font-weight:600;margin-bottom:6px">
             Angemeldet als ${this.wolke.name || "?"}</div>
-          <div style="font-size:12px;color:${C_MUTED};margin-bottom:18px">
-            Laeufe ab ${K.MELDE_AB} Punkten werden automatisch gemeldet.</div>
+          <div style="font-size:12px;color:${C_MUTED};margin-bottom:18px;
+                      text-align:left;line-height:1.45">
+            Laeufe ab ${K.MELDE_AB} Punkten werden automatisch gemeldet, der
+            Spielstand gleich mit.<br><br>
+            Beim Abmelden bleibt dieser Spielstand beim Konto. Ohne Konto
+            spielst du mit deinem eigenen, getrennten Stand weiter - beim
+            naechsten Anmelden werden beide wieder zusammengefuehrt.</div>
           <button id="k-hoch" style="width:100%;padding:12px;margin-bottom:8px;
             border:0;border-radius:12px;background:${K.C_ASTRAL};color:#fff;
             font-size:15px">Spielstand hochladen</button>
@@ -1576,13 +1624,22 @@ class Game {
       document.body.appendChild(box);
       box.querySelector("#k-hoch").onclick = () => {
         this.wolke.standHoch(this.standAlsJson());
-        this.wolkeText = "Spielstand wird hochgeladen";
+        this.melde("Spielstand wird hochgeladen");
         zu();
       };
       box.querySelector("#k-ab").onclick = () => {
+        this.save();                   // Konto-Stand sichern ...
         this.wolke.abmelden();
-        this.liste = {}; this.listePlatz = {};
-        this.wolkeText = "abgemeldet";
+        this.nameGefragt = false;
+        this.liste = {}; this.listePlatz = {}; this.listeWartet = false;
+        this.load();                   // ... und den ohne Konto laden
+        this.applyStats();
+        this.checkUnlocks();
+        this.newDay();
+        this.runActive = false;
+        this.gameOver = false;
+        this.melde("abgemeldet - du spielst ohne Konto weiter");
+        this.sound("click");
         zu();
       };
       box.querySelector("#k-zu").onclick = zu;
@@ -1597,8 +1654,11 @@ class Game {
                   border-radius:18px;padding:22px;width:86%;max-width:340px;
                   color:${C_LABEL}">
         <div style="font-size:17px;font-weight:600">Konto fuer die Bestenliste</div>
-        <div style="font-size:12px;color:${C_MUTED};margin-top:4px">
-          Dasselbe Konto wie am Rechner. Zum Anlegen zusaetzlich einen Namen.</div>
+        <div style="font-size:12px;color:${C_MUTED};margin-top:4px;
+                    line-height:1.45">
+          Anmelden: E-Mail und Passwort - dasselbe Konto wie am Rechner.<br>
+          Neues Konto: zusaetzlich einen Namen, der spaeter in der
+          Bestenliste steht.</div>
         <input id="k-mail" type="email" placeholder="E-Mail"
                autocomplete="email" style="${feld}">
         <input id="k-pass" type="password" placeholder="Passwort"
@@ -1622,35 +1682,107 @@ class Game {
     const mail = box.querySelector("#k-mail");
     const pass = box.querySelector("#k-pass");
     const name = box.querySelector("#k-name");
-    box.querySelector("#k-an").onclick = () => {
-      if (!mail.value.trim() || pass.value.length < 8) {
-        hinweis.textContent = "E-Mail und mindestens 8 Zeichen Passwort";
+    const an = box.querySelector("#k-an");
+    const neu = box.querySelector("#k-neu");
+
+    // Das Fenster bleibt offen, bis die Antwort da ist - sonst weiss man
+    // nicht, ob etwas geklappt hat.
+    const pruefen = () => {
+      if (!document.body.contains(box)) return;
+      if (this.wolke.angemeldet) { zu(); return; }
+      if (this.wolkeText) {
+        hinweis.style.color = "#ff8a8a";
+        hinweis.textContent = this.wolkeText;
+        an.disabled = neu.disabled = false;
+        return;
+      }
+      setTimeout(pruefen, 120);
+    };
+    const warten = (text) => {
+      this.wolkeText = "";
+      this.wolkeNote = 0;
+      hinweis.style.color = C_MUTED;
+      hinweis.textContent = text;
+      an.disabled = neu.disabled = true;
+      pruefen();
+    };
+
+    an.onclick = () => {
+      if (!mail.value.trim() || pass.value.length < 6) {
+        hinweis.style.color = "#ff8a8a";
+        hinweis.textContent = "E-Mail und mindestens 6 Zeichen Passwort";
         return;
       }
       this.wolke.anmelden(mail.value.trim(), pass.value);
-      this.wolkeText = "melde an ...";
-      zu();
+      warten("melde an ...");
     };
-    box.querySelector("#k-neu").onclick = () => {
-      if (!mail.value.trim() || pass.value.length < 8
-          || name.value.trim().length < 3) {
-        hinweis.textContent = "E-Mail, 8 Zeichen Passwort, 3 Zeichen Name";
+    neu.onclick = () => {
+      if (!mail.value.trim() || pass.value.length < 6) {
+        hinweis.style.color = "#ff8a8a";
+        hinweis.textContent = "E-Mail und mindestens 6 Zeichen Passwort";
+        return;
+      }
+      if (!name.value.trim()) {
+        hinweis.style.color = "#ff8a8a";
+        hinweis.textContent = "Fuer ein neues Konto fehlt der Name";
+        return;
+      }
+      if (!NAME_MUSTER.test(name.value.trim())) {
+        hinweis.style.color = "#ff8a8a";
+        hinweis.textContent = "Name: " + NAME_REGEL;
         return;
       }
       this.wolke.registrieren(mail.value.trim(), pass.value, name.value.trim());
-      this.wolkeText = "lege Konto an ...";
-      zu();
+      warten("lege Konto an ...");
     };
     box.querySelector("#k-zu").onclick = zu;
   }
 
   // ---- Wolke: Konto, Bestenliste, Spielstand
 
+  // Lesen darf jeder - ein Konto braucht nur, wer selbst darin stehen will.
   listeHolen() {
-    if (!this.wolke || !this.wolke.angemeldet || this.listeWartet) return;
+    if (!this.wolke || !this.wolke.eingerichtet || this.listeWartet) return;
     this.listeWartet = true;
+    this.listeFehler = "";
     this.wolke.bestenliste(this.difficulty);
-    this.wolke.meinPlatz(this.difficulty);
+    if (this.wolke.angemeldet) this.wolke.meinPlatz(this.difficulty);
+  }
+
+  melde(text) {
+    this.wolkeText = String(text);
+    this.wolkeNote = 260;
+  }
+
+  // Supabase antwortet auf Englisch - die haeufigen Faelle auf Deutsch.
+  klartext(text) {
+    const t = String(text), k = t.toLowerCase();
+    if (k.includes("already registered") || k.includes("already been registered")) {
+      return "Diese E-Mail hat schon ein Konto - bitte anmelden";
+    }
+    if (k.includes("invalid login")) return "E-Mail oder Passwort stimmt nicht";
+    if (k.includes("password should be") || k.includes("weak password")) {
+      return "Passwort zu kurz - mindestens 6 Zeichen";
+    }
+    if (k.includes("unable to validate email") || k.includes("invalid email")) {
+      return "Die E-Mail sieht nicht wie eine Adresse aus";
+    }
+    if (k.includes("email not confirmed")) {
+      return "Konto noch nicht bestaetigt - Mail oeffnen";
+    }
+    if (k.includes("duplicate key")) {
+      return "Diesen Namen gibt es schon - such dir einen anderen";
+    }
+    if (k.includes("for security purposes") || k.includes("rate limit")) {
+      return "Zu viele Versuche - eine Minute warten";
+    }
+    if (k.includes("row-level")) {
+      return "Die Datenbank verweigert das - SQL aus der Anleitung fehlt";
+    }
+    if (k.includes("failed to fetch") || k.includes("networkerror")) {
+      return "keine Verbindung";
+    }
+    return t;
   }
 
   meldeLauf() {
@@ -1665,36 +1797,129 @@ class Game {
     if (!this.wolke) return;
     for (const [art, geklappt, daten] of this.wolke.hole()) {
       if (!geklappt) {
-        this.wolkeText = String(daten);
+        this.melde(this.klartext(daten));
         this.listeWartet = false;
+        if (art === "bestenliste") this.listeFehler = this.wolkeText;
         continue;
       }
       if (art === "bestenliste") {
         this.liste[daten.modus] = daten.zeilen;
+        this.listeFehler = "";
         this.listeWartet = false;
       } else if (art === "platz") {
         this.listePlatz[daten.modus] = daten.platz;
       } else if (art === "anmelden" || art === "registrieren") {
         if (daten && daten.bestaetigen) {
-          this.wolkeText = "Bitte erst die Bestaetigungsmail oeffnen";
+          this.melde("Bitte erst die Bestaetigungsmail oeffnen");
           continue;
         }
-        this.wolkeText = `Angemeldet als ${this.wolke.name}`;
-        this.liste = {}; this.listePlatz = {}; this.listeWartet = false;
-        this.wolke.standRunter();
-        this.sound("buy");
-      } else if (art === "stand_runter" && daten.stand) {
-        // Wolke und Geraet zusammenfuehren, dann das Ergebnis hochladen -
-        // so verliert kein Geraet etwas.
-        if (this.standUebernehmen(daten.stand)) {
-          this.wolkeText = "Spielstand zusammengefuehrt";
-          this.wolke.standHoch(this.standAlsJson());
+        this.kontoUebernehmen();
+        if (daten && daten.fehler) {        // Konto steht, nur der Name nicht
+          this.melde(this.klartext(daten.fehler));
         }
+      } else if (art === "name") {
+        this.melde(`Name gespeichert: ${daten.name}`);
+        this.liste = {}; this.listePlatz = {};
+      } else if (art === "stand_runter") {
+        if (daten.stand && this.standUebernehmen(daten.stand)) {
+          this.melde("Spielstand zusammengefuehrt");
+        }
+        // Das Ergebnis gleich wieder hoch - so hat die Wolke immer den
+        // vollstaendigen Stand, auch beim ersten Anmelden.
+        this.wolke.standHoch(this.standAlsJson());
       } else if (art === "punkte") {
-        this.wolkeText = `${daten.punkte} Punkte gemeldet`;
+        this.melde(`${daten.punkte} Punkte gemeldet`);
         delete this.liste[this.difficulty];
+        if (this.mode === "liste") this.listeHolen();
       }
     }
+    // Angemeldet, aber ohne Namen: dann steht man in keiner Bestenliste.
+    // Das kommt vor, wenn beim Anlegen der Name schon vergeben war.
+    if (this.wolke.angemeldet && !this.wolke.name && !this.nameGefragt
+        && !document.getElementById("konto")) {
+      this.nameGefragt = true;
+      this.namenFenster();
+    }
+  }
+
+  // Anzeigenamen nachtragen, wenn das Konto ohne einen dasteht
+  namenFenster() {
+    if (document.getElementById("konto")) return;
+    const box = document.createElement("div");
+    box.id = "konto";
+    box.style.cssText = "position:fixed;inset:0;z-index:20;display:flex;"
+      + "align-items:center;justify-content:center;background:rgba(5,6,15,.82);"
+      + "font-family:-apple-system,Helvetica,Arial,sans-serif";
+    box.innerHTML = `
+      <div style="background:${C_CARD};border:1px solid ${C_EDGE};
+                  border-radius:18px;padding:22px;width:86%;max-width:340px;
+                  color:${C_LABEL}">
+        <div style="font-size:17px;font-weight:600">Noch ein Name fehlt</div>
+        <div style="font-size:12px;color:${C_MUTED};margin-top:4px;
+                    line-height:1.45">
+          Dein Konto steht, aber ohne Namen stehst du in keiner Bestenliste.
+          ${NAME_REGEL}.</div>
+        <input id="k-name" type="text" placeholder="Name"
+               style="width:100%;box-sizing:border-box;padding:12px;
+                      margin-top:10px;border:1px solid ${C_EDGE};
+                      border-radius:12px;background:#0d0a24;color:${C_LABEL};
+                      font-size:16px">
+        <div id="k-hinweis" style="font-size:12px;color:${C_MUTED};
+             min-height:16px;margin-top:8px"></div>
+        <button id="k-ok" style="width:100%;padding:12px;margin-top:6px;border:0;
+          border-radius:12px;background:${K.C_ASTRAL};color:#fff;font-size:15px">
+          Name speichern</button>
+        <button id="k-zu" style="width:100%;padding:10px;margin-top:6px;border:0;
+          border-radius:12px;background:transparent;color:${C_MUTED};
+          font-size:14px">Spaeter</button>
+      </div>`;
+    document.body.appendChild(box);
+    const zu = () => box.remove();
+    const feld = box.querySelector("#k-name");
+    const hinweis = box.querySelector("#k-hinweis");
+    const ok = box.querySelector("#k-ok");
+    const pruefen = () => {
+      if (!document.body.contains(box)) return;
+      if (this.wolke.name) { zu(); return; }
+      if (this.wolkeText) {
+        hinweis.style.color = "#ff8a8a";
+        hinweis.textContent = this.wolkeText;
+        ok.disabled = false;
+        return;
+      }
+      setTimeout(pruefen, 120);
+    };
+    ok.onclick = () => {
+      const name = feld.value.trim();
+      if (!NAME_MUSTER.test(name)) {
+        hinweis.style.color = "#ff8a8a";
+        hinweis.textContent = NAME_REGEL;
+        return;
+      }
+      this.wolke.nameSetzen(name);
+      this.wolkeText = ""; this.wolkeNote = 0;
+      hinweis.style.color = C_MUTED;
+      hinweis.textContent = "speichere ...";
+      ok.disabled = true;
+      pruefen();
+    };
+    box.querySelector("#k-zu").onclick = zu;
+  }
+
+  // Nach dem Anmelden: erst den Stand dieses Kontos aus dem Browser
+  // dazunehmen, dann den aus der Wolke. Genommen wird immer das Mehr - was
+  // ohne Konto erspielt wurde, geht also nicht verloren.
+  kontoUebernehmen() {
+    this.melde(`Angemeldet als ${this.wolke.name}`);
+    this.sound("buy");
+    try {
+      const eigen = JSON.parse(localStorage.getItem(this.saveKey()) || "null");
+      if (eigen) this.standUebernehmen(eigen);
+    } catch (e) {}
+    this.save();
+    this.wolke.standRunter();
+    this.liste = {}; this.listePlatz = {}; this.listeWartet = false;
+    if (this.mode === "liste") this.listeHolen();
   }
 
   get skin() { return SKIN_BY_KEY[this.skinKey]; }
@@ -2897,8 +3122,8 @@ class Game {
     this.frame++;
     // Bestenliste offen, aber noch nichts da? Dann jetzt holen - etwa wenn
     // man sich gerade erst angemeldet hat.
-    if (this.mode === "liste" && this.wolke && this.wolke.angemeldet
-        && this.liste[this.difficulty] === undefined) {
+    if (this.mode === "liste" && this.wolke && this.wolke.eingerichtet
+        && !this.listeFehler && this.liste[this.difficulty] === undefined) {
       this.listeHolen();
     }
     // Belohnungen aus Rang und Serie werden im Menue uebergeben, damit die
@@ -2914,6 +3139,7 @@ class Game {
     if (this.mode === "menu") { this.scrollBackground(1.4); this.updateShootingStars(); }
     if (this.winGlow > 0) this.winGlow--;
     if (this.loginNote > 0) this.loginNote--;
+    if (this.wolkeNote > 0) this.wolkeNote--;
     if (this.slotState === "spinning") {
       this.slotT++;
       for (let i = 0; i < K.SLOT_REELS; i++) {
@@ -4434,7 +4660,11 @@ class Game {
     this.coinChip(K.WIDTH - 232, py, this.coins, 11);
     this.dustChip(K.WIDTH - 148, py, this.dust, 11);
     this.ticketChip(K.WIDTH - 64, py, this.tickets, 11);
-    if (this.loginNote > 0) {
+    if (this.wolkeNote > 0) {                 // Antwort aus der Wolke
+      const tt = Math.min(1, this.wolkeNote / 40);
+      this.vtext(K.WIDTH / 2, py + 30, this.wolkeText, 10,
+                 mix("#ffffff", K.C_RANK, tt), false);
+    } else if (this.loginNote > 0) {
       const tt = Math.min(1, this.loginNote / 40);
       this.vtext(K.WIDTH / 2, py + 30, this.loginText || "Neuer Tag",
                  10, mix("#ffffff", K.C_TICKET, tt), false);
@@ -4458,8 +4688,7 @@ class Game {
       if (!this.wolke || !this.wolke.eingerichtet) {
         return ["nicht eingerichtet", C_MUTED];
       }
-      return this.wolke.angemeldet ? ["Top 100", K.C_RANK]
-                                   : ["Konto noetig", C_MUTED];
+      return ["Top 100", K.C_RANK];
     }
     if (key === "konto") {
       if (!this.wolke || !this.wolke.eingerichtet) return ["aus", C_MUTED];
@@ -4566,7 +4795,12 @@ class Game {
     this.modeBtn = [K.WIDTH / 2 - 90, 38, K.WIDTH / 2 + 90, 60];
 
     const zeilen = this.liste[this.difficulty];
-    if (zeilen === undefined) {
+    if (zeilen === undefined && this.listeFehler) {
+      this.vtext(K.WIDTH / 2, 228, "Die Liste kam nicht an", 13, "#ff8a8a");
+      this.vtext(K.WIDTH / 2, 250, this.listeFehler, 9, C_MUTED, false);
+      this.vtext(K.WIDTH / 2, 272, "tippen versucht es noch einmal", 9,
+                 "#6a7398", false);
+    } else if (zeilen === undefined) {
       const p = ".".repeat(1 + Math.floor(this.frame / 10) % 3);
       this.vtext(K.WIDTH / 2, 240, `wird geholt${p}`, 13, C_MUTED);
     } else if (!zeilen.length) {
@@ -4595,11 +4829,21 @@ class Game {
       }
     }
     const platz = this.listePlatz[this.difficulty];
+    const dabei = !!(this.wolke && this.wolke.angemeldet);
+    this.kontoBtn = null;
     if (platz) {
       this.vtext(K.WIDTH / 2, 640 - 86, `Dein Platz: ${platz}`, 12, K.C_RANK);
-    } else if (this.wolke && this.wolke.angemeldet) {
-      this.vtext(K.WIDTH / 2, 640 - 86, "noch kein Lauf in diesem Modus", 10,
-                 C_MUTED, false);
+    } else if (dabei) {
+      this.vtext(K.WIDTH / 2, 640 - 86,
+                 `noch kein Lauf ueber ${K.MELDE_AB} Punkten in diesem Modus`,
+                 10, C_MUTED, false);
+    } else {                       // ohne Konto: Knopf zum Mitspielen
+      this.kontoBtn = [K.WIDTH / 2 - 96, 640 - 100, K.WIDTH / 2 + 96, 640 - 72];
+      const [x0, y0, x1, y1] = this.kontoBtn;
+      this.rrect(x0, y0, x1, y1, 14, { fill: mix(C_CARD, K.C_TICKET, 0.28) });
+      this.rrect(x0, y0, x1, y1, 14, { outline: K.C_TICKET, width: 1.2 });
+      this.vtext(K.WIDTH / 2, (y0 + y1) / 2, "Konto - selbst mitspielen", 11,
+                 K.C_TICKET);
     }
     if (this.wolkeText) {
       this.vtext(K.WIDTH / 2, 640 - 64, this.wolkeText, 9, "#6a7398", false);
@@ -5241,7 +5485,6 @@ class Game {
     this.sound("click");
     if (what === "quests" || what === "slots") { this.open(what); return; }
     if (what === "liste") {
-      if (!this.wolke || !this.wolke.angemeldet) { this.kontoFenster(); return; }
       this.open("liste");
       this.listeHolen();
       return;
@@ -5315,6 +5558,17 @@ class Game {
       return;
     }
     if (this.mode === "liste") {
+      if (this.listeFehler && vy > 100 && vy < 400) {   // nochmal versuchen
+        this.listeFehler = "";
+        this.listeWartet = false;
+        this.listeHolen();
+        return;
+      }
+      const kb = this.kontoBtn;
+      if (kb && vx >= kb[0] && vx <= kb[2] && vy >= kb[1] && vy <= kb[3]) {
+        this.kontoFenster();
+        return;
+      }
       const b = this.modeBtn;
       if (b && vx >= b[0] && vx <= b[2] && vy >= b[1] && vy <= b[3]) {
         const i = (K.MODES.indexOf(this.difficulty) + 1) % K.MODES.length;
