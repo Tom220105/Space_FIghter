@@ -1,7 +1,7 @@
 // Haelt das Spiel offline verfuegbar: beim ersten Laden alles in den Cache,
 // danach zuerst aus dem Cache bedienen und im Hintergrund auffrischen.
-const CACHE = "doodlejump-v7";
-const FILES = ["./", "./index.html", "./game.js", "./data.js",
+const CACHE = "doodlejump-v8";
+const FILES = ["./", "./index.html", "./game.js", "./data.js", "./wolke.js",
                "./icon.png", "./manifest.webmanifest"];
 
 self.addEventListener("install", e => {

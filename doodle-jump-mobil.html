@@ -72,6 +72,11 @@ const K = {
  "BULLET_SPEED": 13.0,
  "COINS_PER_SCORE": 200,
  "COIN_PRIZE": [60, 180],
+ "COMET_COINS": 500,
+ "COMET_GAP": [12000.0, 26000.0],
+ "COMET_SPEED": 3.4,
+ "CONFETTI_COLS": ["#ff4fd8", "#7fd0ff", "#ffd54a", "#38e0b0", "#ffffff", "#b06bff", "#ff7a2f"],
+ "CONFETTI_N": 70,
  "C_ASTRAL": "#8a6bff",
  "C_ASTRAL_L": "#c9b8ff",
  "C_BLUE": "#4aa3f0",
@@ -83,6 +88,8 @@ const K = {
  "C_BROWN_D": "#7d4f22",
  "C_CARD": "#1d1442",
  "C_CARD_HI": "#241a52",
+ "C_COMET": "#ffd54a",
+ "C_DUST": "#7fe9ff",
  "C_EDGE": "#463a86",
  "C_FLAME": ["#ffffff", "#fff3b0", "#ffd166", "#ff8c42", "#8a6bff"],
  "C_GAUNTLET": "#e3a52b",
@@ -98,6 +105,7 @@ const K = {
  "C_MOB_D": "#6b0f0c",
  "C_MOB_L": "#ffd08a",
  "C_MUTED": "#a79ad6",
+ "C_RANK": "#8be9ff",
  "C_ROCKET": "#e8453c",
  "C_ROCKET_D": "#8f2019",
  "C_ROCKET_L": "#ff8a80",
@@ -114,6 +122,12 @@ const K = {
  "C_WHITE": "#f2f2f2",
  "C_WHITE_D": "#bdbdbd",
  "DEFAULT_SKIN": "klassiker",
+ "DETAIL_DOWN": 18.0,
+ "DETAIL_MIN": 0.35,
+ "DETAIL_RATE": 0.06,
+ "DETAIL_UP": 13.0,
+ "DUST_COPY_COST": {"common": 45, "rare": 110, "epic": 260, "legendary": 620, "mythic": 1500, "score": 0},
+ "DUST_MAXED": 25,
  "FPS": 60,
  "FRAME_MS": 16,
  "GRAVITY": 0.45,
@@ -131,15 +145,19 @@ const K = {
  "HOLE_SUCK": 13,
  "ITEM_INTERVALS": {"rocket": 50000.0, "shield": 10000.0, "hole": 10000.0},
  "JUMP_V": -13.2,
- "LOGIN_TICKETS": 1,
- "MAXED_COINS": 50,
- "MAX_CATCHUP": 5,
+ "LIST_BOTTOM": 474.0,
+ "LIST_ROWS": [["mode", "Modus"], ["quests", "Aufgaben"], ["skins", "Sammlung"], ["gacha", "Gluecksrad"], ["slots", "Slotmaschine"], ["liste", "Bestenliste"], ["konto", "Konto"]],
+ "LOGIN_STREAK": [[0, 1, null], [100, 0, null], [0, 1, null], [150, 0, null], [0, 1, null], [200, 0, null], [0, 1, "epic"]],
+ "MAX_CATCHUP": 3,
  "MAX_COPIES": 110,
  "MAX_FALL": 18.0,
  "MAX_GAP": 96,
  "MAX_JUMP_H": 193.59999999999997,
  "MAX_SPEED_X": 9.0,
  "MAX_STARS": 10,
+ "MELDE_AB": 500,
+ "MILESTONE_COINS": 25,
+ "MILESTONE_STEP": 5000,
  "MIN_GAP": 58,
  "MODES": ["normal", "easy", "hard"],
  "MODE_COINS": {"normal": 1.0, "easy": 0.0, "hard": 2.0},
@@ -156,18 +174,43 @@ const K = {
  "MONSTER_WARN_DIST": 300.0,
  "MOVE_ACCEL": 1.1,
  "MOVE_FRICTION": 0.86,
+ "MULTI_COST": 950,
+ "MULTI_N": 10,
+ "MULT_MAX": 2.0,
+ "MULT_PER_KILL": 0.1,
  "NEBULA_COLORS": ["#5a23b0", "#1f6f9c", "#a8267a", "#2a44b8", "#1f9c7a"],
  "PALETTE_SPAN": 5200.0,
+ "PARTICLE_MAX": 260,
+ "PERKS": {"sternenkind": ["Sternenstart", "startet jeden Lauf mit 3 s Schild"], "nebelwandler": ["Nebelschild", "der Schutzschild haelt 40 % laenger"], "singularitaet": ["Ereignishorizont", "das Schwarze Loch traegt 30 % weiter"], "supernova": ["Sternenfeuer", "Schuesse durchschlagen mehrere Monster"], "urknall": ["Zweiter Urknall", "einmal je Lauf zurueck ins Leben"]},
+ "PERK_HOLE_MORE": 0.3,
+ "PERK_SHIELD_MORE": 0.4,
+ "PERK_START_SHIELD": 3.0,
+ "PITY_KIND": "epic",
+ "PITY_SPINS": 40,
  "PLANET_COLORS": [["#c76b4a", "#7d3a24"], ["#4a7fc7", "#26497d"], ["#c7a44a", "#7d6424"], ["#8a5ac7", "#4d2c7d"]],
  "PLAT_H": 14,
  "PLAT_W": 72,
  "PLAYER_H": 44,
  "PLAYER_W": 44,
  "POOLS": {"common": ["klassiker", "blaubeere", "sonne", "koralle", "minze", "schoko", "punsch", "nebelgrau"], "rare": ["cyberlimette", "tiefsee", "zuckerwatte", "wuestensand", "giftgruen"], "epic": ["magma", "gletscher", "voltgeist", "obsidian"], "legendary": ["phoenix", "goldkoenig", "schattenlord"], "mythic": ["prisma", "kosmos"]},
+ "POP_GROW": 14,
+ "POP_LIFE": 300,
+ "QUESTS_PER_DAY": 4,
+ "QUEST_BY_KEY": {"shoot": ["shoot", "Schiesse 5 Monster ab", 5, false], "stomp": ["stomp", "Springe auf 5 Monster drauf", 5, false], "score": ["score", "Erreiche 20000 in einem Lauf", 20000, true], "spend": ["spend", "Gib 500 Muenzen aus", 500, false], "items": ["items", "Sammle 3 Items ein", 3, false], "wheel": ["wheel", "Dreh dreimal am Gluecksrad", 3, false], "runs": ["runs", "Spiele 3 Laeufe", 3, false], "spring": ["spring", "Nutze 12 Sprungfedern", 12, false], "earn": ["earn", "Verdiene 150 Muenzen in Laeufen", 150, false], "climb": ["climb", "Erklimme 60000 Punkte insgesamt", 60000, false]},
  "QUEST_COINS": 400,
  "QUEST_DEFS": [["shoot", "Schiesse 5 Monster ab", 5], ["stomp", "Springe auf 5 Monster drauf", 5], ["score", "Erreiche 20000 in einem Lauf", 20000], ["spend", "Gib 500 Muenzen aus", 500]],
+ "QUEST_GAP": 62.0,
+ "QUEST_POOL": [["shoot", "Schiesse 5 Monster ab", 5, false], ["stomp", "Springe auf 5 Monster drauf", 5, false], ["score", "Erreiche 20000 in einem Lauf", 20000, true], ["spend", "Gib 500 Muenzen aus", 500, false], ["items", "Sammle 3 Items ein", 3, false], ["wheel", "Dreh dreimal am Gluecksrad", 3, false], ["runs", "Spiele 3 Laeufe", 3, false], ["spring", "Nutze 12 Sprungfedern", 12, false], ["earn", "Verdiene 150 Muenzen in Laeufen", 150, false], ["climb", "Erklimme 60000 Punkte insgesamt", 60000, false]],
  "QUEST_TICKETS": 1,
+ "QUEST_TOP": 186.0,
+ "RANK_BASE": 250,
+ "RANK_COINS": 80,
+ "RANK_SKIN_EVERY": 5,
+ "RANK_STEP": 150,
+ "RANK_TICKET_EVERY": 3,
  "RARITY": {"common": ["Gewoehnlich", "#9fb3c8"], "rare": ["Selten", "#4aa3f0"], "epic": ["Episch", "#a55cff"], "legendary": ["Legendaer", "#ffb020"], "mythic": ["Mythisch", "#ff4fa3"], "score": ["Rekord", "#38e0b0"]},
+ "RECORD_SHOW": 900.0,
+ "REVIVE_SHIELD": 2.5,
  "ROCKET_ACCEL": 2.4,
  "ROCKET_BLAST_R": 95.0,
  "ROCKET_DISTANCE": 10000.0,
@@ -181,6 +224,7 @@ const K = {
  "SHIELD_TIME": 4.0,
  "SHOOT_ANIM": 13,
  "SHOOT_COOLDOWN": 16,
+ "SHORT_RUN": 2000,
  "SLICE_COUNTS": {"common": 8, "coins": 5, "rare": 5, "epic": 3, "legendary": 2, "mythic": 1},
  "SLOT_COST": 1,
  "SLOT_ODDS": [["rare", 0.5], ["epic", 0.43], ["legendary", 0.045], ["mythic", 0.025]],
@@ -192,6 +236,12 @@ const K = {
  "SNOUT_PIVOT": [5.0, -19.5],
  "SNOUT_SHAPE": [[5, -27], [15, -25.5], [22, -23.5], [26.5, -21], [28.5, -18.5], [26.5, -16], [22, -14.5], [15, -13], [5, -11.5]],
  "SNOUT_TIP_I": 4,
+ "SOUND_DEFS": [["jump", 210, 150, 0.17, "sine", 0.3, 0.9], ["spring", 180, 300, 0.26, "tri", 0.26, 0.85], ["shoot", 330, 190, 0.11, "tri", 0.22, 0.55], ["hit", 0, 0, 0.14, "noise", 0.1, 0.55], ["stomp", 150, 85, 0.2, "sine", 0.26, 0.95], ["item", 300, 400, 0.34, "sine", 0.3, 0.8], ["coin", 420, 520, 0.2, "sine", 0.34, 0.6], ["buy", 320, 470, 0.3, "sine", 0.32, 0.7], ["deny", 170, 120, 0.22, "tri", 0.2, 0.7], ["revive", 150, 360, 0.7, "sine", 0.3, 0.95], ["over", 250, 80, 0.85, "sine", 0.24, 0.85], ["click", 260, 240, 0.07, "sine", 0.3, 0.45], ["tick", 260, 210, 0.045, "tri", 0.24, 0.45]],
+ "SOUND_GAP": {"tick": 0.026},
+ "SOUND_GAP_DEFAULT": 0.05,
+ "SOUND_RATE": 22050,
+ "SOUND_SEQS": [["fanfare", [392, 523, 659, 784], 0.15, "sine", 0.34, 0.85]],
+ "SOUND_VOL": 0.16,
  "SPACE_PALETTES": [["#05060f", "#141c42"], ["#0a0520", "#2b1155"], ["#03101c", "#0d3552"], ["#16061a", "#401345"]],
  "SPIN_COST": 100,
  "SPRING_BOOST_PER_POINT": 0.025,
@@ -203,6 +253,7 @@ const K = {
  "STAT_NAMES": ["Sprung", "Agilitaet", "Item Spawn", "Item Boost"],
  "STAT_PER_POINT": [0.03, 0.045, 0.25, 0.08],
  "STOMP_V": -15.0,
+ "STREAK_BTN": [24.0, 120.0, 396.0, 148.0],
  "THANOS_FROM": 5000,
  "THANOS_SCALE": 1.2,
  "THANOS_SHARE": 0.28,
@@ -210,6 +261,9 @@ const K = {
  "WHEEL": [["common", 0.7, "Gewoehnlicher Skin", "#9fb3c8"], ["coins", 0.15, "Muenzen", "#f2c14e"], ["rare", 0.1, "Seltener Skin", "#4aa3f0"], ["epic", 0.04, "Epischer Skin", "#a55cff"], ["legendary", 0.0075, "Legendaerer Skin", "#ffb020"], ["mythic", 0.0025, "Mythischer Skin", "#ff4fa3"]],
  "WHEEL_SLICES": [[0, 0.0, 0.041666666666666664], [1, 0.041666666666666664, 0.041666666666666664], [2, 0.08333333333333333, 0.041666666666666664], [3, 0.125, 0.041666666666666664], [0, 0.16666666666666666, 0.041666666666666664], [4, 0.20833333333333331, 0.041666666666666664], [1, 0.25, 0.041666666666666664], [2, 0.29166666666666663, 0.041666666666666664], [0, 0.3333333333333333, 0.041666666666666664], [5, 0.375, 0.041666666666666664], [0, 0.41666666666666663, 0.041666666666666664], [1, 0.4583333333333333, 0.041666666666666664], [2, 0.5, 0.041666666666666664], [3, 0.5416666666666666, 0.041666666666666664], [0, 0.5833333333333333, 0.041666666666666664], [1, 0.625, 0.041666666666666664], [0, 0.6666666666666666, 0.041666666666666664], [2, 0.7083333333333333, 0.041666666666666664], [4, 0.75, 0.041666666666666664], [0, 0.7916666666666666, 0.041666666666666664], [3, 0.8333333333333333, 0.041666666666666664], [1, 0.875, 0.041666666666666664], [2, 0.9166666666666666, 0.041666666666666664], [0, 0.9583333333333333, 0.041666666666666664]],
  "WIDTH": 420,
+ "XP_PER_ITEM": 15,
+ "XP_PER_KILL": 5,
+ "XP_PER_SCORE": 20,
 };
 
 const SKINS = [
@@ -800,6 +854,199 @@ const SKINS = [
  }
 ];
 
+// Anbindung an Supabase fuer die Webfassung: Konto, Bestenliste und
+// Spielstand. Gegenstueck zu wolke.py - dieselben Tabellen, dieselbe
+// Funktion punkte_melden, dasselbe Konto.
+//
+// Alles laeuft ueber fetch und meldet sich ueber hole() zurueck, damit das
+// Spiel nie auf das Netz wartet. Ohne Netz laeuft das Spiel unveraendert
+// weiter, es fehlen dann nur die Bestenlisten.
+
+const URL = "https://aeujjeagxcmyhmcpewez.supabase.co";
+const ANON = "sb_publishable_P2xqiP1R-81hvtUKJlcQtQ_geSCrm6q";
+
+const KONTO_KEY = "doodlejump.konto.v1";
+
+class Wolke {
+  constructor(url = URL, anon = ANON) {
+    // Im Dashboard steht die Adresse mit REST-Anhang - den haengt dieses
+    // Modul selbst an, hier also abschneiden.
+    this.url = url.replace(/\/+$/, "").replace(/\/(rest|auth)\/v1$/, "");
+    this.anon = anon;
+    this.token = null;
+    this.erneuern = null;
+    this.benutzer = null;
+    this.name = null;
+    this.antworten = [];
+    this.laden();
+  }
+
+  get angemeldet() { return this.token !== null; }
+
+  get eingerichtet() {
+    return !this.url.includes("DEINPROJEKT") && !!this.anon
+        && !this.anon.startsWith("DEIN");
+  }
+
+  // ------------------------------------------------------------- Auftraege
+
+  registrieren(email, passwort, name) {
+    this.lauf("registrieren", async () => {
+      const a = await this.anfrage("/auth/v1/signup", "POST",
+                                   { email, password: passwort }, false);
+      if (!a.access_token) return { bestaetigen: true };
+      this.sitzungMerken(a);
+      await this.anfrage("/rest/v1/profil", "POST",
+                         { id: this.benutzer, name },
+                         true, { Prefer: "return=minimal" });
+      this.name = name;
+      this.speichern();
+      return { name };
+    });
+  }
+
+  anmelden(email, passwort) {
+    this.lauf("anmelden", async () => {
+      const a = await this.anfrage("/auth/v1/token?grant_type=password", "POST",
+                                   { email, password: passwort }, false);
+      this.sitzungMerken(a);
+      const treffer = await this.anfrage(
+        `/rest/v1/profil?id=eq.${this.benutzer}&select=name`);
+      this.name = treffer && treffer.length ? treffer[0].name : null;
+      this.speichern();
+      return { name: this.name };
+    });
+  }
+
+  abmelden() {
+    this.token = this.erneuern = this.benutzer = this.name = null;
+    try { localStorage.removeItem(KONTO_KEY); } catch (e) {}
+  }
+
+  punkteMelden(modus, punkte, dauer) {
+    this.lauf("punkte", async () => {
+      await this.anfrage("/rest/v1/rpc/punkte_melden", "POST",
+                         { p_modus: modus, p_punkte: Math.round(punkte),
+                           p_dauer: Math.round(dauer) });
+      return { punkte: Math.round(punkte) };
+    });
+  }
+
+  bestenliste(modus, anzahl = 100) {
+    this.lauf("bestenliste", async () => {
+      const zeilen = await this.anfrage(
+        `/rest/v1/bestenliste?modus=eq.${encodeURIComponent(modus)}`
+        + `&select=platz,name,punkte,gemeldet&order=platz.asc&limit=${anzahl | 0}`);
+      return { modus, zeilen: zeilen || [] };
+    });
+  }
+
+  meinPlatz(modus) {
+    this.lauf("platz", async () => {
+      const platz = await this.anfrage("/rest/v1/rpc/mein_platz", "POST",
+                                       { p_modus: modus });
+      return { modus, platz };
+    });
+  }
+
+  standHoch(daten) {
+    this.lauf("stand_hoch", async () => {
+      await this.anfrage("/rest/v1/spielstand", "POST",
+                         { spieler: this.benutzer, stand: daten,
+                           geaendert: "now()" },
+                         true, { Prefer: "resolution=merge-duplicates,return=minimal" });
+      return { gespeichert: true };
+    });
+  }
+
+  standRunter() {
+    this.lauf("stand_runter", async () => {
+      const treffer = await this.anfrage(
+        `/rest/v1/spielstand?spieler=eq.${this.benutzer}&select=stand`);
+      return { stand: treffer && treffer.length ? treffer[0].stand : null };
+    });
+  }
+
+  // Fertige Antworten abholen: [Art, geklappt, Daten]
+  hole() {
+    const fertig = this.antworten;
+    this.antworten = [];
+    return fertig;
+  }
+
+  // ------------------------------------------------------------ Innenleben
+
+  async lauf(art, fn) {
+    if (!this.eingerichtet) {
+      this.antworten.push([art, false, "Supabase ist nicht eingetragen"]);
+      return;
+    }
+    try {
+      this.antworten.push([art, true, await fn()]);
+    } catch (e) {
+      this.antworten.push([art, false, String(e.message || e)]);
+    }
+  }
+
+  async anfrage(pfad, methode = "GET", daten = null, mitToken = true,
+                zusatz = null, zweiterVersuch = false) {
+    const kopf = { apikey: this.anon, "Content-Type": "application/json" };
+    if (mitToken && this.token) kopf.Authorization = "Bearer " + this.token;
+    if (zusatz) Object.assign(kopf, zusatz);
+    const antwort = await fetch(this.url + pfad, {
+      method: methode, headers: kopf,
+      body: daten === null ? undefined : JSON.stringify(daten),
+    });
+    if (antwort.status === 401 && this.erneuern && !zweiterVersuch) {
+      await this.tokenErneuern();          // abgelaufen: einmal erneuern
+      return this.anfrage(pfad, methode, daten, mitToken, zusatz, true);
+    }
+    const text = await antwort.text();
+    if (!antwort.ok) {
+      let meldung = `Fehler ${antwort.status}`;
+      try {
+        const j = JSON.parse(text);
+        meldung = j.message || j.msg || j.error_description || j.error || meldung;
+      } catch (e) {}
+      throw new Error(meldung);
+    }
+    return text.trim() ? JSON.parse(text) : null;
+  }
+
+  async tokenErneuern() {
+    const a = await this.anfrage("/auth/v1/token?grant_type=refresh_token",
+                                 "POST", { refresh_token: this.erneuern },
+                                 false, null, true);
+    this.sitzungMerken(a);
+  }
+
+  sitzungMerken(a) {
+    this.token = a.access_token;
+    this.erneuern = a.refresh_token || null;
+    this.benutzer = (a.user || {}).id || null;
+    this.speichern();
+  }
+
+  speichern() {
+    try {
+      localStorage.setItem(KONTO_KEY, JSON.stringify({
+        token: this.token, erneuern: this.erneuern,
+        benutzer: this.benutzer, name: this.name,
+      }));
+    } catch (e) {}
+  }
+
+  laden() {
+    try {
+      const d = JSON.parse(localStorage.getItem(KONTO_KEY) || "{}");
+      this.token = d.token || null;
+      this.erneuern = d.erneuern || null;
+      this.benutzer = d.benutzer || null;
+      this.name = d.name || null;
+    } catch (e) {}
+  }
+}
+
 // Doodle Jump ins Weltall - mobile Fassung.
 // Portierung von doodle_jump.py; Zahlen und Skins kommen unveraendert aus
 // data.js, die Spiellogik ist Schritt fuer Schritt uebernommen. Gezeichnet
@@ -1059,6 +1306,78 @@ class Ring {
 
 // ----------------------------------------------------------------- Spiel
 
+// --------------------------------------------------------------- Ton
+// Dieselben Klaenge wie in der Rechnerfassung, nur hier im Browser
+// berechnet: tiefe Grundtoene, weiche Wellenformen, ein Tiefpass darueber
+// und ein langer Ausklang. Es werden keine Dateien geladen.
+class Klang {
+  constructor() {
+    this.ctx = null;
+    this.puffer = {};
+    this.letzte = {};
+    this.an = true;
+  }
+
+  // Erst bei der ersten Beruehrung starten - Browser erlauben Ton sonst nicht
+  wecken() {
+    if (this.ctx) {
+      if (this.ctx.state === "suspended") this.ctx.resume();
+      return;
+    }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    try {
+      this.ctx = new AC();
+      for (const [name, f0, f1, dur, form, lp, vol] of K.SOUND_DEFS) {
+        this.puffer[name] = this.bauen([[f0, f1, dur]], form, lp, vol);
+      }
+      for (const [name, noten, dur, form, lp, vol] of K.SOUND_SEQS) {
+        this.puffer[name] = this.bauen(noten.map(f => [f, f, dur]), form, lp, vol);
+      }
+    } catch (e) { this.ctx = null; }
+  }
+
+  bauen(teile, form, lp, vol) {
+    const rate = this.ctx.sampleRate;
+    const gesamt = teile.reduce((s, [, , d]) => s + Math.round(rate * d), 0);
+    const puffer = this.ctx.createBuffer(1, gesamt, rate);
+    const daten = puffer.getChannelData(0);
+    let pos = 0;
+    for (const [f0, f1, dur] of teile) {
+      const n = Math.round(rate * dur);
+      let phase = 0, tief = 0;
+      for (let i = 0; i < n; i++) {
+        const t = i / Math.max(1, n - 1);
+        phase += (f0 + (f1 - f0) * t) / rate;
+        const ph = phase % 1;
+        let v;
+        if (form === "sine") v = Math.sin(ph * TAU);
+        else if (form === "tri") v = 4 * Math.abs(ph - 0.5) - 1;
+        else v = Math.random() * 2 - 1;
+        tief += lp * (v - tief);
+        const env = Math.min(1, t * 9) * (1 - t) ** 2.2;
+        daten[pos++] = tief * env * K.SOUND_VOL * vol;
+      }
+    }
+    return puffer;
+  }
+
+  spiel(name) {
+    if (!this.an || !this.ctx || !this.puffer[name]) return;
+    const jetzt = this.ctx.currentTime;
+    const pause = K.SOUND_GAP[name] !== undefined ? K.SOUND_GAP[name]
+                                                 : K.SOUND_GAP_DEFAULT;
+    if (jetzt - (this.letzte[name] || -9) < pause) return;
+    this.letzte[name] = jetzt;
+    const quelle = this.ctx.createBufferSource();
+    quelle.buffer = this.puffer[name];
+    quelle.connect(this.ctx.destination);
+    quelle.start();
+  }
+}
+
+const KLANG = new Klang();
+
 class Game {
   constructor(canvas) {
     this.canvas = canvas;
@@ -1083,10 +1402,24 @@ class Game {
     this.showFps = false; this.fps = 0;
     this.charge = 0;                   // Ladung der Spezialfaehigkeit
     this.loginNote = 0;
+    this.wolke = new Wolke();
+    this.tipsOpen = false;      // wird nach dem Laden gesetzt
+    this.detail = 1;            // 1 = voller Zierrat
+    this.frameMs = 16.7;
+    this.liste = {};            // geholte Bestenlisten je Modus
+    this.listePlatz = {};       // eigener Platz je Modus
+    this.wolkeText = "";
+    this.listeWartet = false;
+    this.tipsOpen = false;
+    this.pop = null; this.confetti = []; this.wheelSlice = -1;
+    this.multi = []; this.multiT = 0; this.wheelMulti = false;
+    this.questBtn = [0, 0, 0, 0]; this.buyBtn = null;
+    this.bestBefore = 0; this.pendingSkin = null; this.loginText = "";
     this.slotState = "idle"; this.slotT = 0;
     this.slotSyms = [0, 0, 0]; this.slotKind = null; this.slotResult = null;
 
     this.load();
+    this.tipsOpen = !this.tipsSeen;        // Einfuehrung beim ersten Start
     this.newDay();
     this.applyStats();
     this.reset();
@@ -1112,8 +1445,23 @@ class Game {
     this.questDay = data.quest_day || "";
     const rq = data.quests || {};
     this.quests = {};
-    for (const [k] of K.QUEST_DEFS) this.quests[k] = rq[k] | 0;
     this.questClaimed = !!data.quest_claimed;
+    this.questKeys = (data.quest_keys || []).filter(k => K.QUEST_BY_KEY[k]);
+    if (this.questKeys.length !== K.QUESTS_PER_DAY) this.questKeys = [];
+    this.quests = {};
+    for (const k of this.questKeys) this.quests[k] = rq[k] | 0;
+    this.questNote = false;
+    this.dust = data.dust | 0;
+    this.xp = data.xp | 0;
+    this.rank = data.rank | 0;
+    this.pity = data.pity | 0;
+    this.streak = clamp(data.streak | 0, 0, K.LOGIN_STREAK.length);
+    this.streakDay = data.streak_day || "";
+    this.streakClaimed = data.streak_claimed === undefined
+      ? true : !!data.streak_claimed;
+    this.tipsSeen = !!data.tips_seen;
+    this.soundOn = data.sound_on === undefined ? true : !!data.sound_on;
+    KLANG.an = this.soundOn;
     this.owned = new Set((data.owned || []).filter(k => SKIN_BY_KEY[k]));
     this.owned.add(DEFAULT_SKIN);
     this.copies = {};
@@ -1126,19 +1474,229 @@ class Game {
       if (s.unlock !== null && best >= s.unlock) this.owned.add(s.key);
     }
   }
+  // Der Spielstand als einfaches Objekt - dasselbe, was in den
+  // Browserspeicher geht und spaeter in die Wolke faehrt.
+  standAlsJson() {
+    return {
+      highscores: this.highscores, mode: this.difficulty, coins: this.coins,
+      owned: [...this.owned].sort(), skin: this.skinKey, copies: this.copies,
+      spins: this.spins, tickets: this.tickets, slot_spins: this.slotSpins,
+      quest_day: this.questDay, quests: this.quests,
+      quest_keys: this.questKeys, quest_claimed: this.questClaimed,
+      dust: this.dust, xp: this.xp, rank: this.rank, pity: this.pity,
+      streak: this.streak, streak_day: this.streakDay,
+      streak_claimed: this.streakClaimed, tips_seen: this.tipsSeen,
+      sound_on: this.soundOn,
+      tilt: this.tiltOn,
+    };
+  }
+
   save() {
     try {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({
-        highscores: this.highscores, mode: this.difficulty,
-        highscore: this.highscores.normal,
-        coins: this.coins, spins: this.spins,
-        owned: [...this.owned].sort(), skin: this.skinKey, copies: this.copies,
-        tickets: this.tickets, slot_spins: this.slotSpins,
-        quest_day: this.questDay, quests: this.quests,
-        quest_claimed: this.questClaimed
-      }));
+      const stand = this.standAlsJson();
+      stand.highscore = this.highscores.normal;   // fuer ganz alte Staende
+      localStorage.setItem(SAVE_KEY, JSON.stringify(stand));
     } catch (e) {}
   }
+
+  // Wolke und Geraet zusammenfuehren: genommen wird jeweils das Mehr, damit
+  // kein Geraet den Fortschritt eines anderen loeschen kann.
+  standUebernehmen(stand) {
+    if (!stand) return false;
+    try {
+      for (const [m, w] of Object.entries(stand.highscores || {})) {
+        if (K.MODES.includes(m)) {
+          this.highscores[m] = Math.max(this.highscores[m] | 0, w | 0);
+        }
+      }
+      this.coins = Math.max(this.coins, stand.coins | 0);
+      this.dust = Math.max(this.dust, stand.dust | 0);
+      this.tickets = Math.max(this.tickets, stand.tickets | 0);
+      this.spins = Math.max(this.spins, stand.spins | 0);
+      this.slotSpins = Math.max(this.slotSpins, stand.slot_spins | 0);
+      this.pity = Math.max(this.pity, stand.pity | 0);
+      this.streak = Math.max(this.streak, stand.streak | 0);
+      if ((stand.rank | 0) > this.rank) {
+        this.rank = stand.rank | 0;
+        this.xp = stand.xp | 0;
+      }
+      for (const k of stand.owned || []) {
+        if (SKIN_BY_KEY[k]) this.owned.add(k);
+      }
+      for (const [k, v] of Object.entries(stand.copies || {})) {
+        if (SKIN_BY_KEY[k]) {
+          this.copies[k] = Math.max(this.copies[k] | 0, v | 0);
+        }
+      }
+      if (this.owned.has(stand.skin)) this.skinKey = stand.skin;
+      this.applyStats();
+      this.save();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  sound(name) { if (this.soundOn) KLANG.spiel(name); }
+
+  // Anmeldemaske als Einblendung ueber der Leinwand. Im Browser gibt es
+  // echte Eingabefelder - viel besser als Tippen auf der Leinwand.
+  kontoFenster() {
+    if (!this.wolke || !this.wolke.eingerichtet) {
+      this.wolkeText = "wolke.js ist nicht ausgefuellt";
+      this.sound("deny");
+      return;
+    }
+    if (document.getElementById("konto")) return;
+    const box = document.createElement("div");
+    box.id = "konto";
+    box.style.cssText = "position:fixed;inset:0;z-index:20;display:flex;"
+      + "align-items:center;justify-content:center;background:rgba(5,6,15,.82);"
+      + "font-family:-apple-system,Helvetica,Arial,sans-serif";
+    const zu = () => box.remove();
+
+    if (this.wolke.angemeldet) {
+      box.innerHTML = `
+        <div style="background:${C_CARD};border:1px solid ${C_EDGE};
+                    border-radius:18px;padding:22px;width:86%;max-width:340px;
+                    color:${C_LABEL};text-align:center">
+          <div style="font-size:17px;font-weight:600;margin-bottom:6px">
+            Angemeldet als ${this.wolke.name || "?"}</div>
+          <div style="font-size:12px;color:${C_MUTED};margin-bottom:18px">
+            Laeufe ab ${K.MELDE_AB} Punkten werden automatisch gemeldet.</div>
+          <button id="k-hoch" style="width:100%;padding:12px;margin-bottom:8px;
+            border:0;border-radius:12px;background:${K.C_ASTRAL};color:#fff;
+            font-size:15px">Spielstand hochladen</button>
+          <button id="k-ab" style="width:100%;padding:12px;margin-bottom:8px;
+            border:1px solid ${C_EDGE};border-radius:12px;background:transparent;
+            color:${C_MUTED};font-size:15px">Abmelden</button>
+          <button id="k-zu" style="width:100%;padding:12px;border:0;
+            border-radius:12px;background:transparent;color:${C_MUTED};
+            font-size:14px">Schliessen</button>
+        </div>`;
+      document.body.appendChild(box);
+      box.querySelector("#k-hoch").onclick = () => {
+        this.wolke.standHoch(this.standAlsJson());
+        this.wolkeText = "Spielstand wird hochgeladen";
+        zu();
+      };
+      box.querySelector("#k-ab").onclick = () => {
+        this.wolke.abmelden();
+        this.liste = {}; this.listePlatz = {};
+        this.wolkeText = "abgemeldet";
+        zu();
+      };
+      box.querySelector("#k-zu").onclick = zu;
+      return;
+    }
+
+    const feld = "width:100%;box-sizing:border-box;padding:12px;margin-top:8px;"
+      + `border:1px solid ${C_EDGE};border-radius:12px;background:#0d0a24;`
+      + `color:${C_LABEL};font-size:16px`;
+    box.innerHTML = `
+      <div style="background:${C_CARD};border:1px solid ${C_EDGE};
+                  border-radius:18px;padding:22px;width:86%;max-width:340px;
+                  color:${C_LABEL}">
+        <div style="font-size:17px;font-weight:600">Konto fuer die Bestenliste</div>
+        <div style="font-size:12px;color:${C_MUTED};margin-top:4px">
+          Dasselbe Konto wie am Rechner. Zum Anlegen zusaetzlich einen Namen.</div>
+        <input id="k-mail" type="email" placeholder="E-Mail"
+               autocomplete="email" style="${feld}">
+        <input id="k-pass" type="password" placeholder="Passwort"
+               autocomplete="current-password" style="${feld}">
+        <input id="k-name" type="text" placeholder="Name (nur beim Anlegen)"
+               style="${feld}">
+        <div id="k-hinweis" style="font-size:12px;color:#ff8a8a;
+             min-height:16px;margin-top:8px"></div>
+        <button id="k-an" style="width:100%;padding:12px;margin-top:6px;border:0;
+          border-radius:12px;background:${K.C_ASTRAL};color:#fff;font-size:15px">
+          Anmelden</button>
+        <button id="k-neu" style="width:100%;padding:12px;margin-top:8px;
+          border:1px solid ${C_EDGE};border-radius:12px;background:transparent;
+          color:${C_LABEL};font-size:15px">Konto anlegen</button>
+        <button id="k-zu" style="width:100%;padding:10px;margin-top:6px;border:0;
+          border-radius:12px;background:transparent;color:${C_MUTED};
+          font-size:14px">Abbrechen</button>
+      </div>`;
+    document.body.appendChild(box);
+    const hinweis = box.querySelector("#k-hinweis");
+    const mail = box.querySelector("#k-mail");
+    const pass = box.querySelector("#k-pass");
+    const name = box.querySelector("#k-name");
+    box.querySelector("#k-an").onclick = () => {
+      if (!mail.value.trim() || pass.value.length < 8) {
+        hinweis.textContent = "E-Mail und mindestens 8 Zeichen Passwort";
+        return;
+      }
+      this.wolke.anmelden(mail.value.trim(), pass.value);
+      this.wolkeText = "melde an ...";
+      zu();
+    };
+    box.querySelector("#k-neu").onclick = () => {
+      if (!mail.value.trim() || pass.value.length < 8
+          || name.value.trim().length < 3) {
+        hinweis.textContent = "E-Mail, 8 Zeichen Passwort, 3 Zeichen Name";
+        return;
+      }
+      this.wolke.registrieren(mail.value.trim(), pass.value, name.value.trim());
+      this.wolkeText = "lege Konto an ...";
+      zu();
+    };
+    box.querySelector("#k-zu").onclick = zu;
+  }
+
+  // ---- Wolke: Konto, Bestenliste, Spielstand
+
+  listeHolen() {
+    if (!this.wolke || !this.wolke.angemeldet || this.listeWartet) return;
+    this.listeWartet = true;
+    this.wolke.bestenliste(this.difficulty);
+    this.wolke.meinPlatz(this.difficulty);
+  }
+
+  meldeLauf() {
+    if (!this.wolke || !this.wolke.angemeldet) return;
+    if (Math.floor(this.score) < K.MELDE_AB) return;
+    this.wolke.punkteMelden(this.difficulty, Math.floor(this.score),
+                            Math.max(5, Math.round(this.frame / K.FPS)));
+    this.wolke.standHoch(this.standAlsJson());
+  }
+
+  wolkeAntworten() {
+    if (!this.wolke) return;
+    for (const [art, geklappt, daten] of this.wolke.hole()) {
+      if (!geklappt) {
+        this.wolkeText = String(daten);
+        this.listeWartet = false;
+        continue;
+      }
+      if (art === "bestenliste") {
+        this.liste[daten.modus] = daten.zeilen;
+        this.listeWartet = false;
+      } else if (art === "platz") {
+        this.listePlatz[daten.modus] = daten.platz;
+      } else if (art === "anmelden" || art === "registrieren") {
+        if (daten && daten.bestaetigen) {
+          this.wolkeText = "Bitte erst die Bestaetigungsmail oeffnen";
+          continue;
+        }
+        this.wolkeText = `Angemeldet als ${this.wolke.name}`;
+        this.liste = {}; this.listePlatz = {}; this.listeWartet = false;
+        this.wolke.standRunter();
+        this.sound("buy");
+      } else if (art === "stand_runter" && daten.stand) {
+        // Wolke und Geraet zusammenfuehren, dann das Ergebnis hochladen -
+        // so verliert kein Geraet etwas.
+        if (this.standUebernehmen(daten.stand)) {
+          this.wolkeText = "Spielstand zusammengefuehrt";
+          this.wolke.standHoch(this.standAlsJson());
+        }
+      } else if (art === "punkte") {
+        this.wolkeText = `${daten.punkte} Punkte gemeldet`;
+        delete this.liste[this.difficulty];
+      }
+    }
+  }
+
   get skin() { return SKIN_BY_KEY[this.skinKey]; }
   // Bestleistung immer die des gewaehlten Modus
   get highscore() { return this.highscores[this.difficulty] | 0; }
@@ -1162,6 +1720,8 @@ class Game {
     const bonus = this.stars(key) * K.STAR_BONUS;
     return SKIN_BY_KEY[key].stats.map(b => (b > 0 ? b + bonus : 0));
   }
+  get perk() { return K.PERKS[this.skinKey] ? this.skinKey : null; }
+
   applyStats() {
     const [sp, ag, iv, ib] = this.effectiveStats(this.skinKey);
     const P = K.STAT_PER_POINT;
@@ -1175,44 +1735,169 @@ class Game {
     this.holeTotal = K.HOLE_DISTANCE * (1 + P[3] * ib);
     this.itemBoost = 1 + P[3] * ib;
     this.springBoost = 1 + K.SPRING_BOOST_PER_POINT * ib;
+
+    // Grundwerte, danach die Eigenart des angelegten Rekord-Skins
+    this.shieldFrames = K.SHIELD_FRAMES;
+    this.shootCd = K.SHOOT_COOLDOWN;
+    this.startShield = 0;
+    const perk = this.perk;
+    if (perk === "nebelwandler") {
+      this.shieldFrames = Math.round(this.shieldFrames
+                                     * (1 + K.PERK_SHIELD_MORE));
+    } else if (perk === "sternenkind") {
+      this.startShield = Math.round(K.PERK_START_SHIELD * K.FPS);
+    } else if (perk === "singularitaet") {
+      this.holeTotal *= 1 + K.PERK_HOLE_MORE;
+    }
+    this.pierce = perk === "supernova";
+    this.hasRevive = perk === "urknall";
   }
 
   // ---- Tagesaufgaben
-  newDay() {
+  static heute() {
     const d = new Date();
-    const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`
-                + `-${String(d.getDate()).padStart(2, "0")}`;
-    if (this.questDay === today) return;
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`
+         + `-${String(d.getDate()).padStart(2, "0")}`;
+  }
+
+  // Vier Aufgaben je Tag, gezogen aus dem Vorrat. Dieselbe Auswahl wie in
+  // der Rechnerfassung: sie haengt nur am Datum.
+  static questsOfDay(tag) {
+    let h = 0;                                   // einfacher Streuwert
+    const text = "quests-" + tag;
+    for (let i = 0; i < text.length; i++) {
+      h = (h * 31 + text.charCodeAt(i)) >>> 0;
+    }
+    const vorrat = K.QUEST_POOL.map(q => q[0]);
+    const gezogen = [];
+    for (let i = 0; i < K.QUESTS_PER_DAY; i++) {
+      h = (h * 1103515245 + 12345) >>> 0;
+      gezogen.push(vorrat.splice(h % vorrat.length, 1)[0]);
+    }
+    return gezogen;
+  }
+
+  questDefs() {
+    return this.questKeys.map(k => [k, K.QUEST_BY_KEY[k][1],
+                                    K.QUEST_BY_KEY[k][2]]);
+  }
+
+  newDay() {
+    const today = Game.heute();
+    if (this.questDay === today) {
+      if (!this.questKeys.length) {               // alter Stand ohne Auswahl
+        this.questKeys = Game.questsOfDay(today);
+        const alt = this.quests;
+        this.quests = {};
+        for (const k of this.questKeys) this.quests[k] = alt[k] | 0;
+      }
+      return;
+    }
     this.questDay = today;
+    this.questKeys = Game.questsOfDay(today);
     this.quests = {};
-    for (const [k] of K.QUEST_DEFS) this.quests[k] = 0;
+    for (const k of this.questKeys) this.quests[k] = 0;
     this.questClaimed = false;
-    this.tickets += K.LOGIN_TICKETS;
+    this.questNote = false;
+    this.loginStreak(today);
     this.loginNote = 200;
     this.save();
   }
-  bumpQuest(key, amount = 1, absolute = false) {
-    const goal = K.QUEST_DEFS.find(q => q[0] === key)[2];
+
+  // Sieben Tage am Stueck bringen immer mehr - abgeholt wird von Hand
+  loginStreak(today) {
+    const gestern = new Date(new Date(today).getTime() - 86400000);
+    const gs = `${gestern.getFullYear()}-`
+             + `${String(gestern.getMonth() + 1).padStart(2, "0")}-`
+             + `${String(gestern.getDate()).padStart(2, "0")}`;
+    if (this.streakDay === gs && this.streak < K.LOGIN_STREAK.length) {
+      this.streak++;
+    } else {
+      this.streak = 1;
+    }
+    if (this.streak > K.LOGIN_STREAK.length) this.streak = 1;
+    this.streakDay = today;
+    this.streakClaimed = false;
+    this.loginText = `Tag ${this.streak} der Serie liegt bereit   -   `
+                   + "in den Aufgaben abholen";
+  }
+
+  streakReward(tag) {
+    const [muenzen, tickets, skin] = K.LOGIN_STREAK[tag - 1];
+    const teile = [];
+    if (tickets) teile.push(`${tickets} Flammenticket`);
+    if (muenzen) teile.push(`${muenzen} Muenzen`);
+    if (skin) teile.push("1 epischer Skin");
+    return teile.join("  +  ");
+  }
+
+  get loginReady() { return this.streak > 0 && !this.streakClaimed; }
+
+  collectLogin() {
+    if (!this.loginReady) return false;
+    const [muenzen, tickets, skin] = K.LOGIN_STREAK[this.streak - 1];
+    this.coins += muenzen;
+    this.tickets += tickets;
+    if (skin) this.pendingSkin = skin;
+    this.streakClaimed = true;
+    this.loginNote = 0;
+    this.toast = [`TAG ${this.streak} EINGESAMMELT`,
+                  this.streakReward(this.streak), K.C_TICKET, 170];
+    this.winGlow = 26;
+    this.sound("buy");
+    this.save();
+    return true;
+  }
+
+  bumpQuest(key, amount = 1) {
+    if (!(key in this.quests)) return;
+    const [, , goal, absolut] = K.QUEST_BY_KEY[key];
     const old = this.quests[key] | 0;
-    const val = absolute ? Math.max(old, amount) : old + amount;
+    const val = absolut ? Math.max(old, amount) : old + amount;
     this.quests[key] = Math.min(goal, val);
     if (this.quests[key] !== old) this.checkQuestReward();
   }
-  questsDone() { return K.QUEST_DEFS.every(([k, , g]) => (this.quests[k] | 0) >= g); }
+
+  questsDone() {
+    return this.questKeys.length > 0
+      && this.questKeys.every(k => (this.quests[k] | 0) >= K.QUEST_BY_KEY[k][2]);
+  }
+
+  get questReady() { return this.questsDone() && !this.questClaimed; }
+
   checkQuestReward() {
-    if (this.questClaimed || !this.questsDone()) return;
-    this.questClaimed = true;
-    this.tickets += K.QUEST_TICKETS;
-    this.coins += K.QUEST_COINS;
+    if (this.questNote || this.questClaimed || !this.questsDone()) return;
+    this.questNote = true;
     this.toast = ["ALLE TAGESAUFGABEN GESCHAFFT",
-                  `+${K.QUEST_TICKETS} Flammenticket und ${K.QUEST_COINS} Muenzen`,
+                  "Praemie liegt bereit - in den Aufgaben abholen",
                   K.C_TICKET, 200];
     this.save();
   }
 
+  collectQuests() {
+    if (!this.questReady) return false;
+    this.questClaimed = true;
+    this.tickets += K.QUEST_TICKETS;
+    this.coins += K.QUEST_COINS;
+    this.toast = ["PRAEMIE EINGESAMMELT",
+                  `+${K.QUEST_TICKETS} Flammenticket und ${K.QUEST_COINS} Muenzen`,
+                  K.C_TICKET, 170];
+    this.winGlow = 26;
+    this.sound("buy");
+    this.save();
+    return true;
+  }
+
+  collectAll() {
+    const a = this.collectLogin(), b = this.collectQuests();
+    if (!a && !b) this.sound("deny");
+    return a || b;
+  }
+
   // ---- Slotmaschine
   slotSpin() {
-    if (this.slotState === "spinning" || this.tickets < K.SLOT_COST) return;
+    if (this.slotState === "spinning" || this.pop) return;
+    if (this.tickets < K.SLOT_COST) { this.sound("deny"); return; }
     this.tickets -= K.SLOT_COST;
     this.slotSpins++;
     this.slotResult = null;
@@ -1224,8 +1909,10 @@ class Game {
     this.save();
   }
   slotPayout() {
-    this.slotResult = this.awardSkin(this.slotKind, K.RARITY[this.slotKind][1]);
+    const col = K.RARITY[this.slotKind][1];
+    this.slotResult = this.awardSkin(this.slotKind, col);
     this.winGlow = 34;
+    this.popWin(this.slotResult, col);
     this.save();
   }
 
@@ -1297,6 +1984,17 @@ class Game {
     this.rocketLeft = 0; this.rocketV = 0; this.rocketFx = 0;
     this.rocketFlash = 0; this.flash = 0; this.earned = 0; this.toast = null;
 
+    // Punktefaktor, Meilensteine, Rekordmarke, Komet, Rettung
+    this.mult = 1; this.kills = 0; this.multFlash = 0;
+    this.nextMilestone = K.MILESTONE_STEP; this.milestoneNote = 0;
+    this.milestoneVal = 0;
+    this.recordHit = false; this.recordFlash = 0; this.recordNear = 0;
+    this.comet = null; this.cometDue = rnd(K.COMET_GAP[1], K.COMET_GAP[0]);
+    this.lastScore = 0; this.runComets = 0;
+    this.revived = false;
+    this.xpStart = this.xp; this.xpGain = 0; this.ranksUp = []; this.overT = 0;
+    this.runShot = 0; this.runStomp = 0; this.runItems = 0; this.runSprings = 0;
+
     const start = new Platform(K.WIDTH / 2 - K.PLAT_W / 2, K.HEIGHT - 90, "normal");
     start.spring = false;
     this.platforms.push(start);
@@ -1318,6 +2016,7 @@ class Game {
     this.px = K.WIDTH / 2 - K.PLAYER_W / 2;
     this.py = start.y - K.PLAYER_H;
     this.vx = 0; this.vy = this.jumpV; this.facing = 1;
+    this.shield = this.startShield | 0;       // Sternenkind startet geschuetzt
   }
 
   // ---- Plattform-Erzeugung mit garantierter Erreichbarkeit
@@ -1518,6 +2217,9 @@ class Game {
   // ------------------------------------------------------------- Logik
 
   step() {
+    // Antworten aus der Wolke kommen auch mitten im Spiel an
+    this.wolkeAntworten();
+    if (this.mode === "play" && this.gameOver) this.overT++;
     if (this.mode !== "play") this.updateMenu();
     else if (!this.paused && !this.gameOver) this.update();
   }
@@ -1535,7 +2237,8 @@ class Game {
 
   update() {
     this.frame++;
-    for (const a of ["shootTimer", "shootAnim", "rocketFlash", "squash",
+    for (const a of ["milestoneNote", "recordFlash", "multFlash",
+                     "shootTimer", "shootAnim", "rocketFlash", "squash",
                      "flash", "shield", "holeSuck", "invuln",
                      "abilityFlash"]) {
       if (this[a] > 0) this[a]--;
@@ -1623,7 +2326,9 @@ class Game {
       for (const m of this.monsters) {
         if (!m.dead && m.x < b.x && b.x < m.x + m.w && m.y < b.y && b.y < m.y + m.h) {
           m.dead = true;
-          this.addBonus(300 * m.worth);
+          this.addBonus(300 * m.worth, true);
+          this.runShot++;
+          this.sound("hit");
           this.bumpQuest("shoot");
           this.burst(m.cx, m.cy, "#ff9f43");
           const i = this.bullets.indexOf(b);
@@ -1642,7 +2347,7 @@ class Game {
           m.x += (pcx - m.cx) * K.HOLE_PULL;
           m.y += (pcy - m.cy) * K.HOLE_PULL;
           if (d < K.HOLE_EAT_R) {
-            m.dead = true; this.addBonus(100 * m.worth);
+            m.dead = true; this.addBonus(100 * m.worth, true);
             this.burst(m.cx, m.cy, K.C_HOLE_RIM, 14);
           }
         }
@@ -1650,7 +2355,7 @@ class Game {
       }
       if (this.rocketActive || this.abilityActive) {
         if (Math.hypot(m.cx - pcx, m.cy - pcy) < K.ROCKET_BLAST_R) {
-          m.dead = true; this.addBonus(100 * m.worth);
+          m.dead = true; this.addBonus(100 * m.worth, true);
           this.burst(m.cx, m.cy, K.C_ASTRAL, 18);
           this.rings.push(new Ring(m.cx, m.cy, 70, K.C_ASTRAL_L, 4));
         }
@@ -1659,12 +2364,14 @@ class Game {
       if (!this.overlaps(m.x, m.y, m.w, m.h, -10)) continue;
       if (this.vy > 0 && this.py + K.PLAYER_H - this.vy <= m.y + 12) {
         m.dead = true; this.vy = K.STOMP_V; this.squash = 8;
-        this.addBonus(200 * m.worth); this.burst(m.cx, m.cy, "#ff9f43");
+        this.addBonus(200 * m.worth, true);
+        this.runStomp++;
+        this.sound("stomp"); this.burst(m.cx, m.cy, "#ff9f43");
         this.bumpQuest("stomp");
       } else if (this.invuln > 0) {
         continue;                            // stille Gnadenfrist
       } else if (this.shield > 0) {
-        m.dead = true; this.addBonus(50 * m.worth);
+        m.dead = true; this.addBonus(50 * m.worth, true);
         this.burst(m.cx, m.cy, K.C_SHIELD, 20);
         this.rings.push(new Ring(pcx, pcy, 120, K.C_SHIELD, 5));
       } else { this.endGame(); return; }
@@ -1674,10 +2381,13 @@ class Game {
     if (this.py < K.SCROLL_LINE) {
       const dy = K.SCROLL_LINE - this.py;
       this.py = K.SCROLL_LINE;
-      this.heightClimbed += dy;
+      // Der Faktor wirkt auch auf die erklommene Hoehe
+      this.heightClimbed += dy * this.mult;
       this.score = this.heightClimbed + this.bonus;
       this.checkUnlocks();
-      this.bumpQuest("score", Math.floor(this.score), true);
+      this.bumpQuest("score", Math.floor(this.score));
+      this.checkMilestone();
+      this.checkRecord();
       if (this.rocketActive) {
         this.rocketLeft -= dy;
         if (this.rocketLeft <= 0) this.endRocket();
@@ -1706,6 +2416,7 @@ class Game {
       q[0] += q[2]; q[1] += q[3]; q[3] += 0.35; q[4]--;
     }
     this.particles = this.particles.filter(q => q[4] > 0);
+    this.updateComet();
     this.updateStarfield();
     this.updateShootingStars();
     if (this.toast) {
@@ -1732,12 +2443,114 @@ class Game {
       }
     }
   }
-  addBonus(points) {
-    this.bonus += points;
+  // Punkte gutschreiben - immer mit dem Faktor des Durchgangs. Ein
+  // erledigtes Monster hebt ihn anschliessend um MULT_PER_KILL.
+  addBonus(points, kill = false) {
+    this.bonus += points * this.mult;
     this.score = this.heightClimbed + this.bonus;
+    if (kill) {
+      this.kills++;
+      if (this.mult < K.MULT_MAX) {
+        this.mult = Math.min(K.MULT_MAX, this.mult + K.MULT_PER_KILL);
+        this.multFlash = Math.round(0.8 * K.FPS);
+      }
+    }
   }
 
+  get record() { return this.highscore; }
+
+  // Alle MILESTONE_STEP Punkte eine kleine Praemie
+  checkMilestone() {
+    while (this.score >= this.nextMilestone) {
+      this.coins += K.MILESTONE_COINS;
+      this.milestoneNote = Math.round(1.6 * K.FPS);
+      this.milestoneVal = Math.round(this.nextMilestone);
+      this.nextMilestone += K.MILESTONE_STEP;
+      this.sound("coin");
+    }
+  }
+
+  // Den eigenen Bestwert zu knacken ist der Moment im Spiel
+  checkRecord() {
+    if (this.recordHit || this.record <= 0 || this.score < this.record) return;
+    this.recordHit = true;
+    this.recordFlash = Math.round(2.2 * K.FPS);
+    this.flash = 8;
+    this.burst(this.px + K.PLAYER_W / 2, this.py + K.PLAYER_H / 2, "#ffd54a", 34);
+    this.rings.push(new Ring(this.px + K.PLAYER_W / 2,
+                             this.py + K.PLAYER_H / 2, 300, "#ffd54a", 6));
+    this.sound("fanfare");
+  }
+
+  yOfScore(ziel) {
+    return this.py + K.PLAYER_H / 2
+           - (ziel - this.score) / Math.max(0.1, this.mult);
+  }
+
+  // Goldener Komet: seltener Gast, der quer durchs Bild zieht
+  updateComet() {
+    if (this.comet === null) {
+      this.cometDue -= Math.max(0, this.score - this.lastScore);
+      this.lastScore = this.score;
+      if (this.cometDue <= 0 && this.progress > 3000) {
+        this.cometDue = rnd(K.COMET_GAP[1], K.COMET_GAP[0]);
+        const links = Math.random() < 0.5;
+        this.comet = [links ? -40 : K.WIDTH + 40, rnd(K.HEIGHT * 0.55, 90),
+                      K.COMET_SPEED * (links ? 1 : -1), rnd(0.9, -0.5),
+                      Math.round(9 * K.FPS)];
+      }
+      return;
+    }
+    this.comet[0] += this.comet[2];
+    this.comet[1] += this.comet[3];
+    this.comet[4]--;
+    const [cx, cy] = this.comet;
+    const getroffen = this.bullets.some(b => Math.hypot(b.x - cx, b.y - cy) < 26);
+    if (getroffen || this.overlaps(cx - 16, cy - 16, 32, 32, -4)) {
+      this.coins += K.COMET_COINS;
+      this.runComets++;
+      this.toast = ["GOLDENER KOMET", `+${K.COMET_COINS} Muenzen`, K.C_COMET, 150];
+      this.burst(cx, cy, K.C_COMET, 40);
+      this.rings.push(new Ring(cx, cy, 260, K.C_COMET, 6));
+      this.bullets = this.bullets.filter(b => Math.hypot(b.x - cx, b.y - cy) >= 26);
+      this.sound("fanfare");
+      this.comet = null;
+      return;
+    }
+    if (this.comet[4] <= 0 || this.comet[0] < -80 || this.comet[0] > K.WIDTH + 80
+        || this.comet[1] > K.HEIGHT + 60) {
+      this.comet = null;
+    }
+  }
+
+  // Erfahrung gutschreiben und Raenge vergeben
+  addXp(amount) {
+    this.xp += Math.max(0, Math.round(amount));
+    const neu = [];
+    while (this.xp >= this.rankNeed) {
+      this.xp -= this.rankNeed;
+      this.rank++;
+      const lohn = [`+${K.RANK_COINS} Muenzen`];
+      this.coins += K.RANK_COINS;
+      if (this.rank % K.RANK_TICKET_EVERY === 0) {
+        this.tickets++;
+        lohn.push("+1 Flammenticket");
+      }
+      if (this.rank % K.RANK_SKIN_EVERY === 0) {
+        this.pendingSkin = "rare";
+        lohn.push("+1 seltener Skin");
+      }
+      neu.push([this.rank, lohn.join("   ")]);
+    }
+    return neu;
+  }
+
+  get rankNeed() { return K.RANK_BASE + K.RANK_STEP * this.rank; }
+
   pickUp(it) {
+    this.runItems++;
+    this.bumpQuest("items");
+    this.sound("item");
     const cx = it.x + it.w / 2, cy = it.y + it.h / 2;
     if (it.kind === "rocket") {
       this.rocketLeft = this.rocketTotal; this.rocketV = 12;
@@ -1746,7 +2559,7 @@ class Game {
       [[150, K.C_ASTRAL_L, 7], [260, K.C_ASTRAL, 6], [380, "#ffffff", 5]]
         .forEach(([r, c, w]) => this.rings.push(new Ring(cx, cy, r, c, w)));
     } else if (it.kind === "shield") {
-      this.shield = Math.round(K.SHIELD_FRAMES * this.itemBoost);
+      this.shield = Math.round(this.shieldFrames * this.itemBoost);
       this.itemFlash = [55, "SCHUTZSCHILD", K.C_SHIELD];
       this.burst(cx, cy, K.C_SHIELD, 26);
       this.rings.push(new Ring(cx, cy, 200, K.C_SHIELD, 6));
@@ -1804,6 +2617,7 @@ class Game {
       p.broken = true;
       this.py = p.y - K.PLAYER_H;
       this.vy = this.jumpV * K.BREAK_JUMP;
+      this.sound("jump");
       this.squash = 6;
       this.burst(p.x + K.PLAT_W / 2, p.y, K.C_BROWN, 14);
       return;
@@ -1812,47 +2626,168 @@ class Game {
     this.squash = 8;
     if (p.spring) {
       this.vy = this.springV * this.springBoost;
+      this.runSprings++;
+      this.bumpQuest("spring");
+      this.sound("spring");
       this.burst(p.x + K.PLAT_W / 2, p.y, "#888888", 6);
-    } else this.vy = this.jumpV;
+    } else {
+      this.vy = this.jumpV;
+      this.sound("jump");
+    }
     if (p.kind === "vanish") p.used = true;
   }
   burst(x, y, color, n = 10) {
+    // Nie mehr Partikel als PARTICLE_MAX - darueber sieht man nur noch Farbe
+    const frei = K.PARTICLE_MAX - this.particles.length;
+    n = Math.round(Math.min(n, Math.max(0, frei)) * (0.5 + 0.5 * this.detail));
     for (let i = 0; i < n; i++) {
       this.particles.push([x, y, rnd(2.6, -2.6), rnd(-0.4, -3.4), rndInt(14, 26), color]);
     }
   }
   shoot() {
     if (this.shootTimer > 0 || this.rocketActive) return;
-    this.shootTimer = K.SHOOT_COOLDOWN;
+    this.shootTimer = this.shootCd;
+    this.sound("shoot");
     this.shootAnim = K.SHOOT_ANIM;
     const { tip } = snoutPoints(1);
     this.bullets.push(new Bullet(this.px + K.PLAYER_W / 2 + tip[0] * this.facing,
                                  this.py + K.PLAYER_H + tip[1]));
   }
   endGame() {
+    if (this.tryRevive()) return;            // Urknall faengt einmal auf
     this.gameOver = true;
     this.runActive = false;
-    this.rocketLeft = 0;
+    this.rocketLeft = 0; this.abilityLeft = 0; this.holeLeft = 0;
     this.earned = Math.floor(Math.floor(this.score) / K.COINS_PER_SCORE
                              * K.MODE_COINS[this.difficulty]);
     this.coins += this.earned;
-    if (Math.floor(this.score) > this.highscore) this.highscore = Math.floor(this.score);
+    this.bestBefore = this.highscore;
+    if (Math.floor(this.score) > this.highscore) {
+      this.highscore = Math.floor(this.score);
+    }
+    this.bumpQuest("runs");
+    this.bumpQuest("earn", this.earned);
+    this.bumpQuest("climb", Math.floor(this.score));
+    // Erfahrung gibt es fuer jeden Lauf - auch fuer einen kurzen
+    this.xpGain = Math.floor(Math.floor(this.score) / K.XP_PER_SCORE)
+                + K.XP_PER_KILL * (this.runShot + this.runStomp)
+                + K.XP_PER_ITEM * this.runItems;
+    this.ranksUp = this.addXp(this.xpGain);
+    this.overT = 0;
+    this.sound("over");
     this.save();
+    this.meldeLauf();                        // Bestenliste, falls angemeldet
+  }
+
+  // Zweiter Urknall: einmal je Lauf faengt der Skin den Tod ab
+  tryRevive() {
+    if (!this.hasRevive || this.revived || this.gameOver) return false;
+    this.revived = true;
+    this.rocketLeft = this.holeLeft = this.abilityLeft = 0;
+    this.holeSuck = 0;
+    this.monsters = this.monsters.filter(m => Math.abs(m.cy - this.py) > 160);
+    const p = new Platform(clamp(this.px + K.PLAYER_W / 2 - K.PLAT_W / 2,
+                                 0, K.WIDTH - K.PLAT_W),
+                           K.SCROLL_LINE + 120, "normal");
+    p.spring = false;
+    this.platforms.push(p);
+    this.px = p.x + K.PLAT_W / 2 - K.PLAYER_W / 2;
+    this.py = p.y - K.PLAYER_H;
+    this.vx = 0; this.vy = this.jumpV;
+    this.shield = Math.round(K.REVIVE_SHIELD * K.FPS);
+    this.invuln = Math.round(0.6 * K.FPS);
+    this.toast = ["ZWEITER URKNALL", "der Skin hat dich aufgefangen",
+                  K.RARITY.score[1], 170];
+    this.burst(this.px + K.PLAYER_W / 2, this.py + K.PLAYER_H / 2, "#ffffff", 40);
+    this.rings.push(new Ring(this.px + K.PLAYER_W / 2, this.py + K.PLAYER_H / 2,
+                             320, "#ffffff", 7));
+    this.sound("revive");
+    return true;
   }
 
   // ---- Gluecksrad
 
-  spin() {
-    if (this.wheelSpinning || this.coins < K.SPIN_COST) return;
-    this.coins -= K.SPIN_COST;
-    this.spins++;
-    this.bumpQuest("spend", K.SPIN_COST);
-    this.wheelResult = null;
+  // Nach PITY_SPINS Drehungen ohne Episches ist die naechste garantiert
+  rollWheel() {
+    if (this.pity >= K.PITY_SPINS) {
+      return K.WHEEL.findIndex(e => e[0] === K.PITY_KIND);
+    }
     let r = Math.random(), acc = 0, idx = K.WHEEL.length - 1;
     for (let i = 0; i < K.WHEEL.length; i++) {
       acc += K.WHEEL[i][1];
       if (r < acc) { idx = i; break; }
     }
+    return idx;
+  }
+
+  countPity(kind) {
+    if (["epic", "legendary", "mythic"].includes(kind)) this.pity = 0;
+    else this.pity++;
+  }
+
+  get pityLeft() { return Math.max(0, K.PITY_SPINS - this.pity); }
+
+  // Zehnerzug: zehn Ziehungen auf einmal, danach ein Fenster mit zehn Kaestchen
+  multiSpin() {
+    if (this.wheelSpinning || this.pop || this.multi.length) return;
+    if (this.coins < K.MULTI_COST) { this.sound("deny"); return; }
+    this.coins -= K.MULTI_COST;
+    this.spins += K.MULTI_N;
+    this.bumpQuest("spend", K.MULTI_COST);
+    this.bumpQuest("wheel", K.MULTI_N);
+    const ergebnisse = [];
+    for (let i = 0; i < K.MULTI_N; i++) {
+      const idx = this.rollWheel();
+      const [kind, , , col] = K.WHEEL[idx];
+      this.countPity(kind);
+      if (kind === "coins") {
+        const amount = rndInt(K.COIN_PRIZE[0], K.COIN_PRIZE[1]);
+        this.coins += amount;
+        ergebnisse.push(["Muenzen", `+${amount}`, col, null, 0]);
+      } else {
+        ergebnisse.push(this.awardSkin(kind, col));
+      }
+    }
+    this.multi = ergebnisse;
+    this.multiT = 0;
+    this.wheelFrom = ((this.wheelRot % 360) + 360) % 360;
+    this.wheelTo = this.wheelFrom + 360 * 3 + 40;
+    this.wheelT = 0;
+    this.wheelSpinning = true;
+    this.wheelMulti = true;
+    this.save();
+  }
+
+  multiShow() {
+    this.wheelMulti = false;
+    this.multiT = 1;
+    const beste = this.multi.reduce((a, b) => {
+      const rang = r => (r[3] === null ? 0
+        : 1 + Object.keys(K.RARITY).indexOf(SKIN_BY_KEY[r[3]].rarity));
+      return rang(b) > rang(a) ? b : a;
+    });
+    this.wheelResult = beste;
+    this.popWin(null, beste[2]);
+    this.winGlow = 34;
+    this.save();
+  }
+
+  closeMulti() {
+    if (this.multiT <= 0) return false;
+    this.multi = []; this.multiT = 0; this.pop = null;
+    this.sound("click");
+    return true;
+  }
+
+  spin() {
+    if (this.wheelSpinning || this.pop) return;
+    if (this.coins < K.SPIN_COST) { this.sound("deny"); return; }
+    this.coins -= K.SPIN_COST;
+    this.spins++;
+    this.bumpQuest("spend", K.SPIN_COST);
+    this.bumpQuest("wheel");
+    this.wheelResult = null;
+    const idx = this.rollWheel();
     this.wheelIdx = idx;
     const cand = WHEEL_SLICES.filter(s => s[0] === idx);
     const [, st, w] = choice(cand);
@@ -1866,15 +2801,44 @@ class Game {
   }
   wheelPayout() {
     const kind = K.WHEEL[this.wheelIdx][0], col = K.WHEEL[this.wheelIdx][3];
+    this.countPity(kind);
     if (kind === "coins") {
       const amount = rndInt(K.COIN_PRIZE[0], K.COIN_PRIZE[1]);
       this.coins += amount;
       this.wheelResult = ["Muenzen", `+${amount}`, col, null, 0];
-      this.winGlow = 34; this.save();
+      this.winGlow = 34;
+      this.popWin(this.wheelResult, col);
+      this.save();
       return;
     }
     this.wheelResult = this.awardSkin(kind, col);
-    this.winGlow = 34; this.save();
+    this.winGlow = 34;
+    this.popWin(this.wheelResult, col);
+    this.save();
+  }
+
+  // Gewinn gross herausstellen: Karte ploppt auf, Konfetti fliegt
+  popWin(result, col) {
+    this.pop = [0, result, col];
+    this.confetti = [];
+    const cx = K.WIDTH / 2, cy = K.HEIGHT * 0.42;
+    for (let i = 0; i < K.CONFETTI_N; i++) {
+      const a = rnd(TAU), v = rnd(13, 4);
+      this.confetti.push([
+        cx + Math.cos(a) * rnd(150, 80), cy + Math.sin(a) * rnd(100, 50),
+        Math.cos(a) * v, Math.sin(a) * v - rnd(6, 2),
+        rnd(TAU), rnd(0.28, -0.28),
+        choice(K.CONFETTI_COLS.concat([col])), rndInt(70, 130),
+        rnd(8, 4), rnd(13, 7)]);
+    }
+    this.sound("fanfare");
+  }
+
+  closePop() {
+    if (!this.pop) return false;
+    this.pop = null;
+    this.sound("click");
+    return true;
   }
   awardSkin(kind, col) {
     const key = choice(POOLS[kind]);
@@ -1885,8 +2849,9 @@ class Game {
       if (this.copies[key] === undefined) this.copies[key] = 0;
       note = "NEU!";
     } else if (this.isMaxed(key)) {
-      this.coins += K.MAXED_COINS;
-      note = `voll ausgebaut   +${K.MAXED_COINS} Muenzen`;
+      // Der Skin ist fertig - die Kopie zerfaellt zu Sternenstaub
+      this.dust += K.DUST_MAXED;
+      note = `voll ausgebaut   +${K.DUST_MAXED} Staub`;
     } else {
       this.copies[key] = (this.copies[key] || 0) + 1;
       const now = this.stars(key);
@@ -1899,8 +2864,53 @@ class Game {
     if (key === this.skinKey) this.applyStats();
     return [SKIN_BY_KEY[key].name, note, col, key, this.stars(key)];
   }
+  copyCost(key) {
+    const sk = SKIN_BY_KEY[key];
+    return sk.rarity === "score" ? null : K.DUST_COPY_COST[sk.rarity];
+  }
+
+  // Eine Kopie mit Sternenstaub kaufen - der gezielte Weg zum Ausbau
+  buyCopy(key) {
+    const kosten = this.copyCost(key);
+    if (kosten === null || !this.owned.has(key) || this.isMaxed(key)
+        || this.dust < kosten) {
+      this.sound("deny");
+      return false;
+    }
+    this.dust -= kosten;
+    const vorher = this.stars(key);
+    this.copies[key] = (this.copies[key] || 0) + 1;
+    const jetzt = this.stars(key);
+    if (key === this.skinKey) this.applyStats();
+    this.winGlow = 26;
+    if (jetzt > vorher) {
+      this.toast = [`${SKIN_BY_KEY[key].name.toUpperCase()} EVOLVIERT`,
+                    `${jetzt} ${jetzt === 1 ? "Stern" : "Sterne"}`,
+                    K.RARITY[SKIN_BY_KEY[key].rarity][1], 150];
+    }
+    this.sound("buy");
+    this.save();
+    return true;
+  }
+
   updateMenu() {
     this.frame++;
+    // Bestenliste offen, aber noch nichts da? Dann jetzt holen - etwa wenn
+    // man sich gerade erst angemeldet hat.
+    if (this.mode === "liste" && this.wolke && this.wolke.angemeldet
+        && this.liste[this.difficulty] === undefined) {
+      this.listeHolen();
+    }
+    // Belohnungen aus Rang und Serie werden im Menue uebergeben, damit die
+    // Karte dort aufploppen kann
+    if (this.pendingSkin && !this.pop
+        && (this.mode === "menu" || this.mode === "quests")) {
+      const kind = this.pendingSkin;
+      this.pendingSkin = null;
+      const ergebnis = this.awardSkin(kind, K.RARITY[kind][1]);
+      this.popWin(ergebnis, K.RARITY[kind][1]);
+      this.save();
+    }
     if (this.mode === "menu") { this.scrollBackground(1.4); this.updateShootingStars(); }
     if (this.winGlow > 0) this.winGlow--;
     if (this.loginNote > 0) this.loginNote--;
@@ -1921,11 +2931,29 @@ class Game {
       }
     }
     if (this.wheelSpinning) {
-      this.wheelT = Math.min(1, this.wheelT + 1 / 165);
+      this.wheelT = Math.min(1, this.wheelT + 1 / (this.wheelMulti ? 70 : 165));
       const e = 1 - Math.pow(1 - this.wheelT, 3.4);
       this.wheelRot = this.wheelFrom + (this.wheelTo - this.wheelFrom) * e;
-      if (this.wheelT >= 1) { this.wheelSpinning = false; this.wheelPayout(); }
+      // Bei jedem Feld unter dem Zeiger knackt es - von allein langsamer
+      const feld = Math.floor(((this.wheelRot % 360) + 360) % 360
+                              / (360 / WHEEL_SLICES.length));
+      if (feld !== this.wheelSlice) { this.wheelSlice = feld; this.sound("tick"); }
+      if (this.wheelT >= 1) {
+        this.wheelSpinning = false;
+        if (this.wheelMulti) this.multiShow(); else this.wheelPayout();
+      }
     }
+    if (this.multiT > 0) this.multiT++;
+    if (this.pop) {
+      this.pop[0]++;
+      if (this.pop[0] > K.POP_LIFE) this.pop = null;
+    }
+    for (const q of this.confetti) {
+      q[0] += q[2]; q[1] += q[3];
+      q[2] *= 0.985; q[3] = Math.min(6.5, q[3] + 0.22);
+      q[4] += q[5]; q[7]--;
+    }
+    this.confetti = this.confetti.filter(q => q[7] > 0);
   }
 
   // ----------------------------------------------------------- Zeichnen
@@ -1953,25 +2981,18 @@ class Game {
       // Menues sind fuer 640 Hoehe gebaut - auf hohen Schirmen mittig setzen
       c.save();
       c.translate(0, this.mo * this.scale);
-      if (this.mode === "menu") this.drawMainMenu();
+      if (this.mode === "menu") { this.drawMainMenu(); this.drawWinPop(); }
       else if (this.mode === "skins") this.drawSkins();
       else if (this.mode === "quests") this.drawQuests();
       else if (this.mode === "slots") this.drawSlots();
+      else if (this.mode === "liste") this.drawListe();
       else this.drawGacha();
+      if (this.tipsOpen) this.drawTips();
       c.restore();
     } else {
       this.drawHud();
       if (this.paused) this.overlay("PAUSE", "Tippen = weiter");
-      else if (this.gameOver) {
-        this.overlay("GAME OVER",
-          `Score ${Math.floor(this.score)}   -   Best ${this.highscore}` +
-          `   (${K.MODE_NAMES[this.difficulty]})\n` +
-          `+${this.earned} Muenzen   (gesamt ${this.coins})` +
-          (this.difficulty === "easy" ? "   ohne Muenzen im einfachen Modus"
-           : this.difficulty === "hard" ? "   doppelt im schweren Modus" : "") +
-          "\n\n" +
-          "Tippen fuer ein neues Spiel");
-      }
+      else if (this.gameOver) this.drawSummary();
     }
     if (this.showFps) {
       d.tx(8, this.sh - 10, `${this.fps.toFixed(0)} FPS`,
@@ -2012,14 +3033,14 @@ class Game {
     }
   }
   // Tuerkiser Schein um das gewaehlte Feld: Ringe nach aussen, satte Fuellung
-  glowRect(x0, y0, x1, y1, r, pulse = 1) {
+  glowRect(x0, y0, x1, y1, r, pulse = 1, col = C_GLOW) {
     ["gray12", "gray25", "gray50"].forEach((sp, i) => {
       const g = (3 - i) * 3 * pulse;
       this.rrect(x0 - g, y0 - g, x1 + g, y1 + g, r + g,
-                 { fill: C_GLOW, stipple: sp });
+                 { fill: col, stipple: sp });
     });
-    this.rrect(x0, y0, x1, y1, r, { fill: mix(C_CARD, C_GLOW, 0.30) });
-    this.rrect(x0, y0, x1, y1, r, { outline: C_GLOW, width: 1.6 });
+    this.rrect(x0, y0, x1, y1, r, { fill: mix(C_CARD, col, 0.30) });
+    this.rrect(x0, y0, x1, y1, r, { outline: col, width: 1.6 });
   }
   chevron(x, y, col, size = 5) {
     this.d.ln([this.toX(x - size * 0.5), this.toY(y - size),
@@ -2065,10 +3086,18 @@ class Game {
       d.ln([st[0], st[1], st[0], st[1] + st[2]],
            { fill: mix(bot, "#ffffff", 0.35 + 0.65 * lfx), width: 1 + 2 * lfx });
     }
+    // Was ausserhalb des Bildes liegt, muss nicht gezeichnet werden
+    const oben = -90, unten = K.HEIGHT + 90;
     for (const r of this.rings) this.drawRing(r);
-    for (const p of this.platforms) this.drawPlatform(p);
-    for (const it of this.items) this.drawItem(it);
-    for (const m of this.monsters) this.drawMonster(m);
+    for (const p of this.platforms) {
+      if (p.y > oben && p.y < unten) this.drawPlatform(p);
+    }
+    for (const it of this.items) {
+      if (it.y > oben && it.y < unten) this.drawItem(it);
+    }
+    for (const m of this.monsters) {
+      if (m.y > oben && m.y < unten) this.drawMonster(m);
+    }
     for (const b of this.bullets) {
       d.ov(b.x - 5, b.y - 5, b.x + 5, b.y + 5,
            { fill: "#ffffff", outline: "#7a8a99", width: 2 });
@@ -2077,12 +3106,63 @@ class Game {
       const s = Math.max(1.5, q[4] / 6);
       d.ov(q[0] - s, q[1] - s, q[0] + s, q[1] + s, { fill: q[5] });
     }
+    this.drawComet();
+    this.drawRecordLine();
     this.drawMonsterWarnings();
     this.drawPlayer();
     if (this.flash > 0) {
       const lv = Math.min(3, Math.floor((11 - this.flash) / 3));
       d.rc(-K.BG_MARGIN, -K.BG_MARGIN, K.WIDTH + K.BG_MARGIN, K.HEIGHT + K.BG_MARGIN,
            { fill: "#ffffff", stipple: ["gray75", "gray50", "gray25", "gray12"][lv] });
+    }
+  }
+
+  // Die eigene Bestmarke als gestrichelte Linie im Bild
+  drawRecordLine() {
+    if (this.record <= 0 || this.recordHit || this.gameOver) return;
+    const fehlt = this.record - this.score;
+    if (fehlt > K.RECORD_SHOW) return;
+    const y = this.yOfScore(this.record);
+    if (y < 58) { this.recordNear = Math.round(fehlt); return; }
+    if (y > K.HEIGHT + 20) return;
+    this.recordNear = 0;
+    const nah = Math.max(0, 1 - fehlt / K.RECORD_SHOW);
+    const col = mix("#6a7398", "#ffd54a", 0.35 + 0.65 * nah);
+    for (let x = 0; x < K.WIDTH; x += 16) {
+      this.d.ln([x, y, x + 9, y], { fill: col, width: 2 });
+    }
+    this.vtext(K.WIDTH - 16, y - 11, `BEST ${this.record}`, 10, col, true, "e");
+  }
+
+  drawComet() {
+    if (!this.comet) return;
+    const d = this.d;
+    const [x, y, vx, vy] = this.comet;
+    const n = Math.hypot(vx, vy) || 1;
+    const nx = -vx / n, ny = -vy / n;
+    const schweif = 54;
+    [[1, "gray25"], [0.62, "gray50"], [0.3, null]].forEach(([f, stip]) => {
+      const r = 15 * (0.5 + 0.5 * f);
+      d.pg([x + ny * r * 0.5, y - nx * r * 0.5,
+            x - ny * r * 0.5, y + nx * r * 0.5,
+            x + nx * schweif * f, y + ny * schweif * f],
+           { fill: K.C_COMET, stipple: stip });
+    });
+    const puls = 1 + 0.12 * Math.sin(this.frame * 0.3);
+    d.ov(x - 15 * puls, y - 15 * puls, x + 15 * puls, y + 15 * puls,
+         { fill: "#fff3b0", outline: K.C_COMET, width: 2 });
+    d.ov(x - 7, y - 7, x + 7, y + 7, { fill: "#ffffff" });
+  }
+
+  // Das Spiel misst seine Bildzeit und nimmt Zierrat heraus, wenn das
+  // Geraet nicht mitkommt - lieber weniger Sterne als Ruckeln.
+  regelDetail(dtMs) {
+    if (!(dtMs > 0 && dtMs < 500)) return;
+    this.frameMs = 0.9 * (this.frameMs || 16.7) + 0.1 * dtMs;
+    if (this.frameMs > K.DETAIL_DOWN) {
+      this.detail = Math.max(K.DETAIL_MIN, this.detail - K.DETAIL_RATE);
+    } else if (this.frameMs < K.DETAIL_UP && this.detail < 1) {
+      this.detail = Math.min(1, this.detail + K.DETAIL_RATE * 0.3);
     }
   }
 
@@ -2107,7 +3187,9 @@ class Game {
     }
     if (this.bgPlanet) this.drawPlanet(...this.bgPlanet);
 
-    for (const [x, y, r, br, ph] of this.bgStars) {
+    const sichtbar = this.detail >= 1 ? this.bgStars
+      : this.bgStars.slice(0, Math.round(this.bgStars.length * this.detail));
+    for (const [x, y, r, br, ph] of sichtbar) {
       const tw = br * (0.68 + 0.32 * Math.sin(this.frame * 0.05 + ph));
       const col = mix(bot, "#ffffff", clamp(0.35 + 0.65 * tw, 0, 1));
       d.ov(x - r, y - r, x + r, y + r, { fill: col });
@@ -2935,6 +4017,20 @@ class Game {
            { fill: "#c9d3f5" });
     }
 
+    if (this.recordNear && !this.recordHit) {
+      d.tx(this.sw / 2, bar + 16 * this.scale,
+           `noch ${this.recordNear} bis zum Rekord`,
+           { size: this.fs(10), fill: "#ffd54a" });
+    }
+    if (this.mult > 1) this.drawMult(bar);
+    if (this.milestoneNote > 0) {
+      const t = this.milestoneNote / (1.6 * K.FPS);
+      d.tx(this.sw / 2, bar + 74 * this.scale,
+           `${this.milestoneVal}   +${K.MILESTONE_COINS} Muenzen`,
+           { size: this.fs(15), fill: mix("#ffffff", "#f2c14e", Math.min(1, t * 1.6)) });
+    }
+    if (this.recordFlash > 0) this.drawRecordNote(bar);
+
     if (this.toast) {
       const [txt, sub, col, life] = this.toast;
       const t = Math.min(1, life / 30);
@@ -3003,7 +4099,7 @@ class Game {
       const g = r * (1.06 + 0.05 * Math.sin(this.frame * 0.12));
       d.ov(x - g, y - g, x + g, y + g, { outline: col, width: Math.max(1, this.scale) });
     } else {
-      const t = 1 - this.shootTimer / K.SHOOT_COOLDOWN;
+      const t = 1 - this.shootTimer / this.shootCd;
       d.arc(x - r, y - r, x + r, y + r, 90, -360 * t,
             { style: "arc", outline: "#ffd166", width: Math.max(2, 3 * this.scale) });
     }
@@ -3064,6 +4160,37 @@ class Game {
          `${label}   +${Math.floor(got)} / ${Math.floor(total)}`,
          { size: this.fs(14), fill: mix(col, "#ffffff", pulse) });
   }
+  // Punktefaktor des Durchgangs mit Fortschrittsbalken
+  drawMult(bar) {
+    const d = this.d;
+    const x = this.sw - 16 * this.scale, y = bar + 26 * this.scale;
+    const voll = this.mult >= K.MULT_MAX - 1e-9;
+    const t = (this.mult - 1) / (K.MULT_MAX - 1);
+    let col = voll ? "#ff9f43" : "#ffd54a";
+    if (this.multFlash > 0) {
+      col = mix(col, "#ffffff", this.multFlash / (0.8 * K.FPS));
+    }
+    d.tx(x, y, `x${this.mult.toFixed(1)}`,
+         { anchor: "e", size: this.fs(18), fill: col });
+    const w = 56 * this.scale;
+    d.rc(x - w, y + 13 * this.scale, x, y + 17 * this.scale, { fill: "#2b2358" });
+    d.rc(x - w * t, y + 13 * this.scale, x, y + 17 * this.scale, { fill: col });
+    d.tx(x - w - 6 * this.scale, y, voll ? "Faktor voll" : `${this.kills} Monster`,
+         { anchor: "e", size: this.fs(9), fill: "#8b93c7", bold: false });
+  }
+
+  drawRecordNote(bar) {
+    const d = this.d;
+    const t = this.recordFlash / (2.2 * K.FPS);
+    const y = this.sh * 0.34, h = 30 * this.scale;
+    const stip = ["gray75", "gray50", "gray25"][Math.min(2, Math.floor((1 - t) * 3))];
+    d.rc(0, y - h, this.sw, y + h, { fill: "#3a2a05", stipple: stip });
+    d.tx(this.sw / 2, y - 6 * this.scale, "NEUER REKORD",
+         { size: this.fs(24), fill: "#ffd54a" });
+    d.tx(this.sw / 2, y + 18 * this.scale, "alles ab hier ist neues Land",
+         { size: this.fs(10), fill: "#ffe9a8", bold: false });
+  }
+
   drawShieldChip(bar) {
     const d = this.d, secs = this.shield / K.FPS;
     const w = 104 * this.scale, h = 26 * this.scale;
@@ -3078,6 +4205,112 @@ class Game {
     d.tx(x0 + w / 2, y0 + h / 2 - 2 * this.scale, `SCHILD  ${secs.toFixed(1)} s`,
          { size: this.fs(11), fill: K.C_SHIELD });
   }
+  // Zusammenfassung nach dem Lauf. Unter SHORT_RUN Punkten nur eine
+  // schmale Leiste - nach einem missglueckten Start soll man sofort
+  // weiterspielen koennen, nicht erst lesen.
+  drawSummary() {
+    const d = this.d;
+    const score = Math.floor(this.score);
+    if (score < K.SHORT_RUN) { this.drawQuickOver(score); return; }
+    d.rc(0, 0, this.sw, this.sh, { fill: "#05060f", stipple: "gray50" });
+    const rekord = score > (this.bestBefore | 0);
+    const ein = Math.min(1, this.overT / 8);
+    const heben = (1 - ein) ** 2 * 90;
+    const c = this.d.c;
+    c.save();
+    c.translate(0, this.mo * this.scale);
+    const top = 92 + heben;
+    const defs = this.questDefs();
+    const bot = top + 298 + 16 + 20 * Math.max(1, defs.length) + 46;
+    this.rrect(20, top, K.WIDTH - 20, bot, 20, { fill: C_CARD });
+    this.rrect(20, top, K.WIDTH - 20, bot, 20, { outline: C_EDGE, width: 1.4 });
+    this.vtext(K.WIDTH / 2, top + 30, "LAUF BEENDET", 13, C_MUTED);
+    this.vtext(K.WIDTH / 2, top + 68, `${score}`, 40,
+               rekord ? "#ffd54a" : "#ffffff");
+    this.vtext(K.WIDTH / 2, top + 96,
+               rekord ? "neuer Rekord!" : `Bestwert ${this.highscore}`, 11,
+               rekord ? "#ffd54a" : C_MUTED, false);
+
+    let y = top + 128;
+    this.rrect(36, y - 20, K.WIDTH - 36, y + 20, 14, { fill: C_CARD_HI });
+    this.coinChip(58, y, this.earned, 13);
+    this.vtext(K.WIDTH - 52, y, `gesamt ${this.coins}`, 10, C_MUTED, false, "e");
+    this.vtext(K.WIDTH / 2 + 6, y,
+               this.difficulty === "easy" ? "einfacher Modus zahlt nicht"
+                 : `x${K.MODE_COINS[this.difficulty]} Muenzen`, 9,
+               K.MODE_COLORS[this.difficulty], false);
+
+    y += 44;
+    this.vtext(40, y, "IM LAUF", 9, "#6a7398", true, "w");
+    const zeilen = [[this.runShot, "abgeschossen"], [this.runStomp, "plattgesprungen"],
+                    [this.runItems, "Items"], [this.runSprings, "Federn"]];
+    let bx = (K.WIDTH - zeilen.length * 68 + 4) / 2;
+    for (const [wert, label] of zeilen) {
+      this.rrect(bx, y + 12, bx + 64, y + 58, 12, { fill: C_CARD_HI });
+      this.vtext(bx + 32, y + 28, String(wert), 16, C_LABEL);
+      this.vtext(bx + 32, y + 47, label, 7, C_MUTED, false);
+      bx += 68;
+    }
+
+    y += 76;
+    const anteil = clamp(this.xp / Math.max(1, this.rankNeed), 0, 1);
+    this.vtext(40, y, `RANG ${this.rank}`, 9, K.C_RANK, true, "w");
+    this.vtext(K.WIDTH - 40, y, `+${this.xpGain} Erfahrung`, 9,
+               this.xpGain ? K.C_RANK : C_MUTED, false, "e");
+    this.rrect(40, y + 10, K.WIDTH - 40, y + 20, 5, { fill: "#2b2358" });
+    this.rrect(40, y + 10, 40 + (K.WIDTH - 80) * anteil, y + 20, 5,
+               { fill: K.C_RANK });
+    this.vtext(K.WIDTH / 2, y + 32,
+               this.ranksUp.length
+                 ? `RANG ${this.ranksUp[this.ranksUp.length - 1][0]}: `
+                   + this.ranksUp[this.ranksUp.length - 1][1]
+                 : `Rang ${this.rank + 1} in ${this.rankNeed - this.xp} Erfahrung`,
+               9, this.ranksUp.length ? "#38e0b0" : C_MUTED, false);
+
+    y += 50;
+    const done = defs.filter(([k, , g]) => (this.quests[k] | 0) >= g).length;
+    this.vtext(40, y, "TAGESAUFGABEN", 9, "#6a7398", true, "w");
+    this.vtext(K.WIDTH - 40, y, `${done} von ${defs.length}`, 9,
+               done === defs.length ? "#38e0b0" : C_MUTED, false, "e");
+    let yy = y + 16;
+    for (const [key, text, goal] of defs) {
+      const have = Math.min(goal, this.quests[key] | 0);
+      const fertig = have >= goal;
+      this.vtext(40, yy + 6, text, 9, fertig ? "#38e0b0" : "#c9d3f5", false, "w");
+      this.rrect(K.WIDTH - 150, yy + 2, K.WIDTH - 40, yy + 10, 4,
+                 { fill: "#2b2358" });
+      this.rrect(K.WIDTH - 150, yy + 2, K.WIDTH - 150 + 110 * have / goal,
+                 yy + 10, 4, { fill: fertig ? "#38e0b0" : K.C_ASTRAL });
+      yy += 20;
+    }
+
+    y = yy + 12;
+    const offen = SKINS.filter(s => s.unlock !== null && !this.owned.has(s.key));
+    let txt = "Alle Rekord-Skins gesammelt";
+    if (offen.length) {
+      const ziel = offen.reduce((a, b) => (a.unlock < b.unlock ? a : b));
+      const fehlt = ziel.unlock - Math.max(...Object.values(this.highscores));
+      txt = `Naechster Rekord-Skin: ${ziel.name} - noch ${Math.max(0, fehlt)} Punkte`;
+    }
+    this.vtext(K.WIDTH / 2, y + 6, txt, 9, K.C_DUST, false);
+    this.vtext(K.WIDTH / 2, bot + 26, "Tippen - nochmal", 12, "#ffffff");
+    c.restore();
+  }
+
+  drawQuickOver(score) {
+    const d = this.d;
+    const ein = Math.min(1, this.overT / 7);
+    const y = this.sh - (86 * this.scale) * ein, h = 54 * this.scale;
+    d.rc(0, y - h, this.sw, y + h, { fill: "#0b1026", stipple: "gray75" });
+    d.ln([0, y - h, this.sw, y - h], { fill: K.C_ASTRAL, width: 2 });
+    d.tx(this.sw / 2, y - 14 * this.scale,
+         `Score ${score}   -   Best ${this.highscore}`,
+         { size: this.fs(16), fill: "#ffffff" });
+    const puls = 0.5 + 0.5 * Math.sin(this.frame * 0.12);
+    d.tx(this.sw / 2, y + 14 * this.scale, "Tippen - nochmal",
+         { size: this.fs(12), fill: mix("#8b93c7", "#ffffff", puls) });
+  }
+
   overlay(title, subtitle) {
     const d = this.d;
     d.rc(0, 0, this.sw, this.sh, { fill: "#0b1b2b", stipple: "gray50" });
@@ -3095,22 +4328,22 @@ class Game {
     const t = this.frame * 0.045;
     const accent = K.C_ASTRAL;
 
-    this.vtext(K.WIDTH / 2, 58, "Doodle Jump", 34, "#ffffff");
-    this.vtext(K.WIDTH / 2, 84, "ins Weltall", 11, C_MUTED, false);
+    this.vtext(K.WIDTH / 2, 46, "Doodle Jump", 30, "#ffffff");
+    this.vtext(K.WIDTH / 2, 70, "ins Weltall", 10, C_MUTED, false);
 
     // --- Profilkarte mit dem angelegten Skin
-    this.rrect(24, 104, K.WIDTH - 24, 180, 18, { fill: C_CARD_HI });
-    this.rrect(24, 104, K.WIDTH - 24, 180, 18, { outline: C_EDGE, width: 1.2 });
+    this.rrect(24, 88, K.WIDTH - 24, 158, 18, { fill: C_CARD_HI });
+    this.rrect(24, 88, K.WIDTH - 24, 158, 18, { outline: C_EDGE, width: 1.2 });
     const bob = Math.sin(t * 1.6) * 3;
-    this.drawDoodler(this.toX(72), this.toY(163 + bob), this.skin,
-                     { fxs: 0.80 * this.scale, fys: 0.80 * this.scale });
-    this.vtext(116, 128, this.skin.name, 15, C_LABEL, true, "w");
+    this.drawDoodler(this.toX(70), this.toY(143 + bob), this.skin,
+                     { fxs: 0.72 * this.scale, fys: 0.72 * this.scale });
+    this.vtext(112, 110, this.skin.name, 14, C_LABEL, true, "w");
     const [rname, rcol] = K.RARITY[this.skin.rarity];
-    this.vtext(116, 147, rname, 10, rcol, false, "w");
+    this.vtext(112, 128, rname, 9, rcol, false, "w");
     const st = this.stars(this.skinKey);
     for (let i = 0; i < 5; i++) {
       const filled = i < Math.round(st / 2);
-      const cx = this.toX(120 + i * 13), cy = this.toY(165), r = 4.2 * this.scale;
+      const cx = this.toX(116 + i * 13), cy = this.toY(145), r = 4.2 * this.scale;
       const pts = [];
       for (let k = 0; k < 10; k++) {
         const a = -Math.PI / 2 + k * Math.PI / 5;
@@ -3119,16 +4352,16 @@ class Game {
       }
       d.pg(pts, { fill: filled ? "#ffd54a" : "#3b3070" });
     }
-    if (st) this.vtext(186, 165, `${st} Sterne`, 9, "#ffd54a", false, "w");
+    if (st) this.vtext(182, 145, `${st} Sterne`, 9, "#ffd54a", false, "w");
     const ab = this.ability;
     if (ab !== null) {
       const ready = this.charge >= K.ABILITY_CHARGE;
-      this.rrect(K.WIDTH - 132, 118, K.WIDTH - 38, 140, 11,
+      this.rrect(K.WIDTH - 132, 100, K.WIDTH - 38, 122, 11,
                  { fill: mix(C_CARD, ab.col, 0.26) });
-      this.rrect(K.WIDTH - 132, 118, K.WIDTH - 38, 140, 11,
+      this.rrect(K.WIDTH - 132, 100, K.WIDTH - 38, 122, 11,
                  { outline: ready ? ab.col : C_EDGE, width: 1.2 });
-      this.vtext(K.WIDTH - 85, 129, ab.name, 8, ready ? ab.col : C_MUTED);
-      this.vtext(K.WIDTH - 85, 152,
+      this.vtext(K.WIDTH - 85, 111, ab.name, 8, ready ? ab.col : C_MUTED);
+      this.vtext(K.WIDTH - 85, 136,
                  ready ? "bereit"
                        : `${Math.floor(this.charge / K.ABILITY_CHARGE * 100)} % geladen`,
                  8, C_MUTED, false);
@@ -3179,26 +4412,35 @@ class Game {
       this.chevron(K.WIDTH - 36, mid, sel ? C_GLOW : C_MUTED);
     });
 
-    this.vtext(K.WIDTH / 2, bottom + 16, K.MODE_HINTS[this.difficulty], 9,
+    this.vtext(K.WIDTH / 2, bottom + 13, K.MODE_HINTS[this.difficulty], 9,
                K.MODE_COLORS[this.difficulty], false);
 
-    // --- Fusszeile
-    const py = 556;
-    this.rrect(24, py - 15, K.WIDTH - 24, py + 15, 15, { fill: C_CARD });
-    this.rrect(24, py - 15, K.WIDTH - 24, py + 15, 15,
+    // --- Rang
+    const ry = bottom + 32;
+    const anteil = clamp(this.xp / Math.max(1, this.rankNeed), 0, 1);
+    this.vtext(24, ry, `RANG ${this.rank}`, 10, K.C_RANK, true, "w");
+    this.vtext(K.WIDTH - 24, ry, `${this.xp} / ${this.rankNeed}`, 9, C_MUTED,
+               false, "e");
+    this.rrect(24, ry + 9, K.WIDTH - 24, ry + 17, 4, { fill: "#2b2358" });
+    this.rrect(24, ry + 9, 24 + (K.WIDTH - 48) * anteil, ry + 17, 4,
+               { fill: K.C_RANK });
+
+    // --- Fusszeile mit den drei Waehrungen
+    const py = ry + 48;
+    this.rrect(24, py - 16, K.WIDTH - 24, py + 16, 16, { fill: C_CARD });
+    this.rrect(24, py - 16, K.WIDTH - 24, py + 16, 16,
                { outline: C_EDGE, width: 1.2 });
-    this.vtext(46, py, `Best ${this.highscore}`, 11, C_LABEL, true, "w");
-    this.vtext(154, py, K.MODE_NAMES[this.difficulty], 9,
-               K.MODE_COLORS[this.difficulty], false, "w");
-    this.coinChip(K.WIDTH - 150, py, this.coins, 11);
-    this.ticketChip(K.WIDTH - 66, py, this.tickets, 11);
+    this.vtext(44, py, `Best ${this.highscore}`, 11, C_LABEL, true, "w");
+    this.coinChip(K.WIDTH - 232, py, this.coins, 11);
+    this.dustChip(K.WIDTH - 148, py, this.dust, 11);
+    this.ticketChip(K.WIDTH - 64, py, this.tickets, 11);
     if (this.loginNote > 0) {
       const tt = Math.min(1, this.loginNote / 40);
-      this.vtext(K.WIDTH / 2, 581, `Neuer Tag  -  +${K.LOGIN_TICKETS} Flammenticket`,
+      this.vtext(K.WIDTH / 2, py + 30, this.loginText || "Neuer Tag",
                  10, mix("#ffffff", K.C_TICKET, tt), false);
     }
-    this.vtext(K.WIDTH / 2, 610,
-               "Tippen waehlen   -   ziehen lenkt, tippen schiesst", 9,
+    this.vtext(K.WIDTH / 2, py + 52,
+               "Tippen waehlt   -   ziehen lenkt, tippen schiesst", 9,
                "#4b5585", false);
   }
 
@@ -3206,9 +4448,24 @@ class Game {
     if (key === "mode") return [K.MODE_NAMES[this.difficulty],
                                 K.MODE_COLORS[this.difficulty]];
     if (key === "quests") {
-      const done = K.QUEST_DEFS.filter(([k, , g]) => (this.quests[k] | 0) >= g).length;
-      if (done === K.QUEST_DEFS.length) return ["erledigt", "#38e0b0"];
-      return [`${done} von ${K.QUEST_DEFS.length}`, C_MUTED];
+      const defs = this.questDefs();
+      const done = defs.filter(([k, , g]) => (this.quests[k] | 0) >= g).length;
+      if (this.loginReady || this.questReady) return ["abholen!", K.C_TICKET];
+      if (defs.length && done === defs.length) return ["erledigt", "#38e0b0"];
+      return [`${done} von ${defs.length}`, C_MUTED];
+    }
+    if (key === "liste") {
+      if (!this.wolke || !this.wolke.eingerichtet) {
+        return ["nicht eingerichtet", C_MUTED];
+      }
+      return this.wolke.angemeldet ? ["Top 100", K.C_RANK]
+                                   : ["Konto noetig", C_MUTED];
+    }
+    if (key === "konto") {
+      if (!this.wolke || !this.wolke.eingerichtet) return ["aus", C_MUTED];
+      return this.wolke.angemeldet
+        ? [this.wolke.name || "angemeldet", "#38e0b0"]
+        : ["anmelden", K.C_TICKET];
     }
     if (key === "skins") return [`${this.owned.size} von ${SKINS.length}`, C_MUTED];
     if (key === "gacha") return [`${K.SPIN_COST} Muenzen`,
@@ -3219,6 +4476,23 @@ class Game {
     if (key === "tilt") return [this.tiltOn ? "an" : "aus",
                                 this.tiltOn ? "#38e0b0" : C_MUTED];
     return ["", C_MUTED];
+  }
+
+  dustChip(x, y, amount, size = 13) {
+    const d = this.d;
+    const cx = this.toX(x), cy = this.toY(y), r = 8.5 * this.scale;
+    const pts = [];
+    for (let k = 0; k < 8; k++) {
+      const a = -Math.PI / 2 + k * Math.PI / 4;
+      const rr = k % 2 === 0 ? r : r * 0.32;
+      pts.push(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr);
+    }
+    d.pg(pts, { fill: K.C_DUST, outline: "#2b6f86",
+                width: Math.max(1, 1.2 * this.scale) });
+    d.ov(cx - r * 0.2, cy - r * 0.2, cx + r * 0.2, cy + r * 0.2,
+         { fill: "#ffffff" });
+    d.tx(cx + r + 5 * this.scale, cy, String(amount),
+         { anchor: "w", fill: "#cdeeff", size: this.fs(size) });
   }
 
   rowIcon(key, x, y, col) {
@@ -3252,6 +4526,15 @@ class Game {
         d.rc(X(x - 8 + i * 6), Y(y - 6), X(x - 4 + i * 6), Y(y + 6),
              { outline: col, width: w });
       }
+    } else if (key === "liste") {          // Siegertreppchen
+      [[-6.5, 5], [0, 9], [6.5, 3]].forEach(([dx, h]) => {
+        d.rc(X(x + dx - 3), Y(y + 6 - h), X(x + dx + 3), Y(y + 6),
+             { outline: col, width: w });
+      });
+    } else if (key === "konto") {          // Kopf und Schultern
+      d.ov(X(x - 4), Y(y - 8), X(x + 4), Y(y), { outline: col, width: w });
+      d.arc(X(x - 8), Y(y + 1), X(x + 8), Y(y + 14), 0, 180,
+            { style: "arc", outline: col, width: w });
     } else if (key === "tilt") {
       d.pg([X(x - 5), Y(y - 8), X(x + 7), Y(y - 5), X(x + 4), Y(y + 8),
             X(x - 8), Y(y + 5)], { outline: col, width: w });
@@ -3272,16 +4555,142 @@ class Game {
          { anchor: "w", fill: "#ffd0a8", size: this.fs(size) });
   }
 
+  // Bestenliste: die besten im gewaehlten Modus
+  drawListe() {
+    this.panel(-K.BG_MARGIN, -K.BG_MARGIN - this.mo, K.WIDTH + K.BG_MARGIN,
+               640 + K.BG_MARGIN + this.mo, "#070c1e");
+    this.vtext(K.WIDTH / 2, 26, "BESTENLISTE", 19, "#ffffff");
+    this.vtext(K.WIDTH / 2, 48,
+               `${K.MODE_NAMES[this.difficulty]} - oben tippen wechselt`, 9,
+               K.MODE_COLORS[this.difficulty], false);
+    this.modeBtn = [K.WIDTH / 2 - 90, 38, K.WIDTH / 2 + 90, 60];
+
+    const zeilen = this.liste[this.difficulty];
+    if (zeilen === undefined) {
+      const p = ".".repeat(1 + Math.floor(this.frame / 10) % 3);
+      this.vtext(K.WIDTH / 2, 240, `wird geholt${p}`, 13, C_MUTED);
+    } else if (!zeilen.length) {
+      this.vtext(K.WIDTH / 2, 230, "noch kein Eintrag", 13, C_MUTED);
+      this.vtext(K.WIDTH / 2, 252, "spiel einen Lauf - er zaehlt sofort", 10,
+                 "#6a7398", false);
+    } else {
+      let y = 74;
+      for (const zeile of zeilen.slice(0, 14)) {
+        const ich = this.wolke && zeile.name === this.wolke.name;
+        if (ich) this.glowRect(20, y, K.WIDTH - 20, y + 30, 10, 0.7, K.C_RANK);
+        else {
+          this.rrect(20, y, K.WIDTH - 20, y + 30, 10, { fill: C_CARD });
+          this.rrect(20, y, K.WIDTH - 20, y + 30, 10,
+                     { outline: C_EDGE, width: 1 });
+        }
+        const platz = zeile.platz | 0;
+        const farbe = platz >= 1 && platz <= 3
+          ? ["#ffd54a", "#d8d8e8", "#d8a15a"][platz - 1] : C_MUTED;
+        this.vtext(42, y + 15, String(platz), 13, farbe);
+        this.vtext(74, y + 15, String(zeile.name || "?"), 12,
+                   ich ? "#ffffff" : C_LABEL, true, "w");
+        this.vtext(K.WIDTH - 40, y + 15, `${zeile.punkte | 0}`, 13, C_LABEL,
+                   true, "e");
+        y += 34;
+      }
+    }
+    const platz = this.listePlatz[this.difficulty];
+    if (platz) {
+      this.vtext(K.WIDTH / 2, 640 - 86, `Dein Platz: ${platz}`, 12, K.C_RANK);
+    } else if (this.wolke && this.wolke.angemeldet) {
+      this.vtext(K.WIDTH / 2, 640 - 86, "noch kein Lauf in diesem Modus", 10,
+                 C_MUTED, false);
+    }
+    if (this.wolkeText) {
+      this.vtext(K.WIDTH / 2, 640 - 64, this.wolkeText, 9, "#6a7398", false);
+    }
+    this.backButton();
+  }
+
+  // Kurze Einfuehrung beim allerersten Start
+  drawTips() {
+    const d = this.d;
+    d.rc(0, 0, this.sw, this.sh, { fill: "#05060f", stipple: "gray75" });
+    const c = d.c;
+    c.save();
+    c.translate(0, this.mo * this.scale);
+    const top = 150, bot = 470;
+    this.rrect(28, top, K.WIDTH - 28, bot, 20, { fill: C_CARD });
+    this.rrect(28, top, K.WIDTH - 28, bot, 20, { outline: C_GLOW, width: 1.6 });
+    this.vtext(K.WIDTH / 2, top + 34, "So geht es los", 20, "#ffffff");
+    const zeilen = [
+      ["Finger ziehen", "die Figur folgt dir - der Rand ist durchlaessig"],
+      ["Kurz tippen", "schiesst nach oben, das raeumt Monster weg"],
+      ["Von oben drauf", "springen macht Monster ebenfalls platt"],
+      ["Knopf links", "schiesst, ohne den lenkenden Finger zu stoeren"],
+      ["Muenzen und Staub", "bringen neue Skins und Sterne"]];
+    let y = top + 72;
+    for (const [kopf, text] of zeilen) {
+      this.vtext(52, y, kopf, 11, C_GLOW, true, "w");
+      this.vtext(52, y + 17, text, 9, "#c9d3f5", false, "w");
+      y += 44;
+    }
+    this.vtext(K.WIDTH / 2, bot - 26, "Tippen - dann los", 11, "#ffffff");
+    c.restore();
+  }
+
   drawQuests() {
     this.panel(-K.BG_MARGIN, -K.BG_MARGIN - this.mo, K.WIDTH + K.BG_MARGIN,
                640 + K.BG_MARGIN + this.mo, "#070c1e");
     this.vtext(K.WIDTH / 2, 26, "TAGESAUFGABEN", 19, "#ffffff");
     this.ticketChip(K.WIDTH - 58, 26, this.tickets);
     this.vtext(K.WIDTH / 2, 48,
-               "gilt bis Mitternacht - Tickets sind fuer die Slotmaschine",
+               "taeglich neu gezogen - Tickets sind fuer die Slotmaschine",
                9, "#6a7398", false);
-    let y = 96;
-    for (const [key, text, goal] of K.QUEST_DEFS) {
+
+    // --- Anmelde-Serie: sieben Felder, eins je Tag
+    const sy = 78, bw = (K.WIDTH - 48 - 6 * 6) / 7;
+    this.vtext(24, sy - 14, "ANMELDE-SERIE", 9, "#6a7398", true, "w");
+    this.vtext(K.WIDTH - 24, sy - 14,
+               `Tag ${this.streak} von ${K.LOGIN_STREAK.length}`, 9,
+               this.streak ? K.C_TICKET : "#6a7398", false, "e");
+    K.LOGIN_STREAK.forEach(([muenzen, tickets, skin], i) => {
+      const bx = 24 + i * (bw + 6);
+      const heute = i === this.streak - 1;
+      const fertig = i < this.streak - 1 || (heute && this.streakClaimed);
+      const col = heute ? K.C_TICKET : (fertig ? "#38e0b0" : "#2a3255");
+      if (heute && this.loginReady) {
+        this.glowRect(bx - 2, sy - 2, bx + bw + 2, sy + 36, 9,
+                      0.6 + 0.4 * (0.5 + 0.5 * Math.sin(this.frame * 0.12)),
+                      K.C_TICKET);
+      }
+      this.rrect(bx, sy, bx + bw, sy + 34, 8,
+                 { fill: mix("#101838", col, fertig ? 0.3 : 0.12) });
+      this.rrect(bx, sy, bx + bw, sy + 34, 8,
+                 { outline: col, width: heute ? 1.6 : 1 });
+      const mitte = bx + bw / 2;
+      this.vtext(mitte, sy + 9, String(i + 1), 8,
+                 fertig ? "#ffffff" : "#6a7398", false);
+      if (skin) this.vtext(mitte, sy + 23, "SKIN", 8, K.RARITY[skin][1]);
+      else if (tickets) this.ticketChip(mitte - 8, sy + 22, tickets, 8);
+      else this.vtext(mitte, sy + 23, String(muenzen), 8, "#f2c14e");
+    });
+
+    // --- Knopf fuer die Tagesbelohnung
+    const [bx0, by0, bx1, by1] = STREAK_BTN;
+    if (this.loginReady) {
+      const puls = 0.5 + 0.5 * Math.sin(this.frame * 0.12);
+      this.rrect(bx0, by0, bx1, by1, (by1 - by0) / 2,
+                 { fill: mix("#101838", K.C_TICKET, 0.28 + 0.12 * puls) });
+      this.rrect(bx0, by0, bx1, by1, (by1 - by0) / 2,
+                 { outline: K.C_TICKET, width: 1.6 });
+      this.vtext((bx0 + bx1) / 2, (by0 + by1) / 2 - 5,
+                 "TAGESBELOHNUNG EINSAMMELN", 12, "#ffffff");
+      this.vtext((bx0 + bx1) / 2, (by0 + by1) / 2 + 9,
+                 this.streakReward(this.streak), 9, "#ffd0a8", false);
+    } else {
+      this.vtext(K.WIDTH / 2, (by0 + by1) / 2,
+                 "Tagesbelohnung abgeholt - morgen geht die Serie weiter",
+                 9, "#4b5585", false);
+    }
+
+    let y = K.QUEST_TOP;
+    for (const [key, text, goal] of this.questDefs()) {
       const have = Math.min(goal, this.quests[key] | 0);
       const done = have >= goal;
       const col = done ? "#38e0b0" : "#c9d3f5";
@@ -3295,24 +4704,34 @@ class Game {
       this.vtext(K.WIDTH - 30, y + 14, done ? "geschafft" : `${have} / ${goal}`,
                  10, col, true, "e");
       if (done) this.vtext(K.WIDTH - 30, y - 6, "OK", 12, "#38e0b0", true, "e");
-      y += 62;
+      y += K.QUEST_GAP;
     }
     const alle = this.questsDone();
-    this.panel(16, y - 10, K.WIDTH - 16, y + 58, alle ? "#16233f" : "#101838",
-               alle ? K.C_TICKET : "#2a3255", 2);
-    this.vtext(K.WIDTH / 2, y + 8, "ALLE VIER GESCHAFFT", 13,
-               alle ? K.C_TICKET : "#6a7398");
+    this.questBtn = [16, y - 10, K.WIDTH - 16, y + 58];
+    if (this.questReady) {
+      const puls = 0.5 + 0.5 * Math.sin(this.frame * 0.12);
+      this.glowRect(16, y - 10, K.WIDTH - 16, y + 58, 14, 0.6 + 0.4 * puls,
+                    K.C_TICKET);
+    } else {
+      this.panel(16, y - 10, K.WIDTH - 16, y + 58, alle ? "#16233f" : "#101838",
+                 alle ? K.C_TICKET : "#2a3255", 2);
+    }
+    this.vtext(K.WIDTH / 2, y + 8,
+               this.questReady ? "PRAEMIE EINSAMMELN" : "ALLE VIER GESCHAFFT", 13,
+               this.questReady ? "#ffffff" : (alle ? K.C_TICKET : "#6a7398"));
     this.vtext(K.WIDTH / 2, y + 28,
                `${K.QUEST_TICKETS} Flammenticket  +  ${K.QUEST_COINS} Muenzen`,
                11, alle ? "#ffffff" : "#6a7398");
     this.vtext(K.WIDTH / 2, y + 46,
-               this.questClaimed ? "bereits gutgeschrieben"
-                                 : "wird beim Abschluss sofort gutgeschrieben",
-               9, this.questClaimed ? "#38e0b0" : "#6a7398", false);
+               this.questReady ? "hier tippen"
+                 : (this.questClaimed ? "eingesammelt" : "erst alle vier schaffen"),
+               9, this.questReady ? "#ffd0a8"
+                 : (this.questClaimed ? "#38e0b0" : "#6a7398"), false);
     this.vtext(K.WIDTH / 2, 640 - 84,
-               `Taeglich beim ersten Start: +${K.LOGIN_TICKETS} Flammenticket`,
+               "Jeden Tag vorbeischauen fuellt die Serie oben auf",
                10, "#8b93c7", false);
     this.backButton();
+    this.drawWinPop();
   }
 
   drawSlots() {
@@ -3397,6 +4816,7 @@ class Game {
                  "#8b93c7", false);
     }
     this.backButton();
+    this.drawWinPop();
   }
 
   // ---- Gluecksrad
@@ -3408,13 +4828,16 @@ class Game {
     this.coinChip(K.WIDTH - 96, 28, this.coins);
 
     this.vtext(K.WIDTH / 2, 50,
-               `${WHEEL_SLICES.length} gleich grosse Felder - die echten `
-               + `Chancen stehen unten`, 9, "#6a7398", false);
-    this.drawWheel(K.WIDTH / 2, 236, 126);
-    const ly = 386;
+               `${WHEEL_SLICES.length} gleich grosse Felder - `
+               + `${this.spins} Drehungen bisher`, 9, "#6a7398", false);
+    this.drawWheel(K.WIDTH / 2, 228, 116);
+    this.drawMultiButton();
+    const ly = 406;
     this.vtext(24, ly - 16, "CHANCEN", 9, "#6a7398", true, "w");
-    this.vtext(K.WIDTH - 24, ly - 16, `${this.spins} Drehungen`, 9, "#6a7398",
-               false, "e");
+    this.vtext(K.WIDTH - 24, ly - 16,
+               this.pityLeft === 0 ? "naechste garantiert EPISCH"
+                                   : `episch spaetestens in ${this.pityLeft}`,
+               9, this.pityLeft <= 5 ? K.RARITY.epic[1] : "#6a7398", false, "e");
     K.WHEEL.forEach(([kind, w, label, col], i) => {
       const yy = ly + i * 16;
       this.panel(24, yy - 5, 34, yy + 5, col);
@@ -3423,7 +4846,121 @@ class Game {
     });
     this.drawWheelResult();
     this.backButton();
+    this.drawWinPop();
+    if (this.multiT > 0) this.drawMulti();
   }
+
+  multiGeom() { return [K.WIDTH / 2 - 96, 354, K.WIDTH / 2 + 96, 382]; }
+
+  drawMultiButton() {
+    const [x0, y0, x1, y1] = this.multiGeom();
+    const reicht = this.coins >= K.MULTI_COST;
+    const col = reicht ? "#f2c14e" : "#4b4478";
+    const puls = 0.5 + 0.5 * Math.sin(this.frame * 0.09);
+    this.rrect(x0, y0, x1, y1, (y1 - y0) / 2,
+               { fill: mix("#101838", col, reicht ? 0.26 + 0.1 * puls : 0.12) });
+    this.rrect(x0, y0, x1, y1, (y1 - y0) / 2, { outline: col, width: 1.4 });
+    this.vtext(x0 + 46, (y0 + y1) / 2, `${K.MULTI_N}x ZIEHEN`, 12,
+               reicht ? "#ffffff" : "#6a7398");
+    this.coinChip(x1 - 62, (y0 + y1) / 2, K.MULTI_COST, 11);
+  }
+
+  drawConfetti() {
+    const d = this.d;
+    for (const [x, y, , , ang, , col, life, w, h] of this.confetti) {
+      const ca = Math.cos(ang), sa = Math.sin(ang);
+      const bw = w * (0.35 + 0.65 * Math.abs(Math.cos(ang * 1.7)));
+      const pts = [];
+      for (const [dx, dy] of [[-bw / 2, -h / 2], [bw / 2, -h / 2],
+                              [bw / 2, h / 2], [-bw / 2, h / 2]]) {
+        pts.push(this.toX(x + dx * ca - dy * sa), this.toY(y + dx * sa + dy * ca));
+      }
+      const o = { fill: col };
+      if (life < 26) o.stipple = life > 13 ? "gray50" : "gray25";
+      d.pg(pts, o);
+    }
+  }
+
+  drawWinPop() {
+    if (!this.pop) { this.drawConfetti(); return; }
+    const [t, result, col] = this.pop;
+    const d = this.d;
+    d.rc(0, 0, this.sw, this.sh, { fill: "#05060f", stipple: "gray50" });
+    this.drawConfetti();
+    if (result === null) return;        // Zehnerzug bringt sein eigenes Fenster
+    const [name, note, , key, stars] = result;
+    const u = Math.min(1, t / K.POP_GROW);
+    const k1 = 1.70158;
+    const sc = 1 + (k1 + 1) * (u - 1) ** 3 + k1 * (u - 1) ** 2;
+    const cx = K.WIDTH / 2, cy = K.HEIGHT * 0.42;
+    const w = 150 * sc, h = 116 * sc;
+    this.rrect(cx - w, cy - h, cx + w, cy + h, 22 * sc, { fill: C_CARD });
+    this.rrect(cx - w, cy - h, cx + w, cy + h, 22 * sc,
+               { outline: col, width: 2 });
+    if (u < 0.35) return;
+    const puls = 0.5 + 0.5 * Math.sin(this.frame * 0.12);
+    this.vtext(cx, cy - h + 26, "GEWONNEN", 13,
+               mix(col, "#ffffff", 0.35 + 0.25 * puls));
+    if (key !== null) {
+      const sk = SKIN_BY_KEY[key];
+      this.drawDoodler(this.toX(cx - 92), this.toY(cy + 28), sk,
+                       { fxs: 0.78 * this.scale, fys: 0.78 * this.scale });
+      this.vtext(cx + 26, cy - 26, name, 17, col);
+      this.vtext(cx + 26, cy - 4, K.RARITY[sk.rarity][0].toUpperCase(), 9, col,
+                 false);
+      this.vtext(cx + 26, cy + 20, note, 9, "#ffffff", false);
+      this.starRow(cx - 52, cy + 54, stars, 5.5);
+    } else {
+      this.coinChip(cx - 34, cy - 6, note.replace("+", ""), 22);
+      this.vtext(cx, cy + 34, "Muenzen", 11, "#ffe9a8", false);
+    }
+    this.vtext(cx, cy + h - 16, "Tippen schliesst", 8, C_MUTED, false);
+  }
+
+  // Das Fenster des Zehnerzugs: zehn Kaestchen, die nacheinander aufklappen
+  drawMulti() {
+    const d = this.d;
+    d.rc(0, 0, this.sw, this.sh, { fill: "#05060f", stipple: "gray75" });
+    this.drawConfetti();
+    const bw = 62, bh = 78, gap = 8, cols = 5;
+    const gw = cols * bw + (cols - 1) * gap;
+    const x0 = (K.WIDTH - gw) / 2, y0 = 176;
+    const unten = y0 + 2 * bh + gap + 54;
+    this.rrect(24, 118, K.WIDTH - 24, unten, 20, { fill: C_CARD });
+    this.rrect(24, 118, K.WIDTH - 24, unten, 20, { outline: C_EDGE, width: 1.4 });
+    this.vtext(K.WIDTH / 2, 146, `${K.MULTI_N} ZIEHUNGEN`, 15, "#ffffff");
+    this.multi.forEach(([name, note, col, key], i) => {
+      const t = this.multiT - 4 - i * 4;
+      if (t <= 0) return;
+      const u = Math.min(1, t / 9), k1 = 1.70158;
+      const sc = 1 + (k1 + 1) * (u - 1) ** 3 + k1 * (u - 1) ** 2;
+      const bx = x0 + (i % cols) * (bw + gap) + bw / 2;
+      const by = y0 + Math.floor(i / cols) * (bh + gap) + bh / 2;
+      const w = bw / 2 * sc, h = bh / 2 * sc;
+      this.rrect(bx - w, by - h, bx + w, by + h, 10 * sc,
+                 { fill: mix(C_CARD_HI, col, 0.18) });
+      this.rrect(bx - w, by - h, bx + w, by + h, 10 * sc,
+                 { outline: col, width: key ? 1.6 : 1.2 });
+      if (u < 0.6) return;
+      if (key !== null) {
+        this.drawDoodler(this.toX(bx), this.toY(by + 12), SKIN_BY_KEY[key],
+                         { fxs: 0.42 * this.scale, fys: 0.42 * this.scale });
+        const kurz = name.length <= 11 ? name : name.slice(0, 10) + ".";
+        this.vtext(bx, by + h - 9, kurz, 7, col, false);
+      } else {
+        this.coinChip(bx - 16, by - 4, note.replace("+", ""), 10);
+        this.vtext(bx, by + h - 9, "Muenzen", 7, col, false);
+      }
+    });
+    const yy = y0 + 2 * bh + gap + 22;
+    const neue = this.multi.filter(r => r[1].startsWith("NEU")).length;
+    const gut = this.multi.filter(r => r[3] !== null
+      && ["epic", "legendary", "mythic"].includes(SKIN_BY_KEY[r[3]].rarity)).length;
+    this.vtext(K.WIDTH / 2, yy, `${neue} neu   -   ${gut} episch oder besser`,
+               10, C_MUTED, false);
+    this.vtext(K.WIDTH / 2, yy + 20, "Tippen schliesst", 9, "#6a7398", false);
+  }
+
   drawWheel(cx, cy, R) {
     const d = this.d;
     const scx = this.toX(cx), scy = this.toY(cy), sR = R * this.scale;
@@ -3595,16 +5132,45 @@ class Game {
     let info;
     if (!owned) info = sk.unlock ? `Ab ${sk.unlock} Punkten` : "Am Gluecksrad zu gewinnen";
     else if (sk.unlock !== null) info = `Rekord-Skin - ${sk.blurb}`;
-    else if (this.isMaxed(key)) info = `voll ausgebaut - Kopien geben ${K.MAXED_COINS} Muenzen`;
+    else if (this.isMaxed(key)) info = `voll ausgebaut - jede Kopie gibt ${K.DUST_MAXED} Staub`;
     else {
       const [got, need] = this.starProgress(key);
       info = `${this.copies[key] || 0} Kopien - ${got}/${need} bis ${st + 1} ${st + 1 === 1 ? "Stern" : "Sterne"}`;
     }
     this.vtext(24, top + 74, info, 9, "#8b93c7", false, "w");
+
+    // --- Kopie fuer Sternenstaub kaufen
+    const kosten = owned ? this.copyCost(key) : null;
+    this.buyBtn = null;
+    if (kosten && !this.isMaxed(key)) {
+      const reicht = this.dust >= kosten;
+      const col = reicht ? K.C_DUST : "#4b4478";
+      const x0 = K.WIDTH - 150, x1 = K.WIDTH - 24;
+      const y0 = top + 46, y1 = top + 76;
+      this.rrect(x0, y0, x1, y1, 15,
+                 { fill: mix("#101838", col, reicht ? 0.32 : 0.16) });
+      this.rrect(x0, y0, x1, y1, 15, { outline: col, width: 1.3 });
+      this.dustChip(x0 + 18, (y0 + y1) / 2 - 5, kosten, 10);
+      this.vtext((x0 + x1) / 2 + 8, y1 - 8, "Kopie kaufen", 8,
+                 reicht ? K.C_DUST : "#6a7398", false);
+      this.buyBtn = [x0, y0, x1, y1, key];
+    }
+
     const base = sk.stats, eff = this.effectiveStats(key);
     this.vtext(24, top + 94, "WERTE", 9, "#6a7398", true, "w");
     if (!base.some(v => v)) {
-      this.vtext(K.WIDTH / 2, top + 122, "keine Werteboni - reine Optik", 11, "#6a7398");
+      const perk = K.PERKS[key];
+      if (perk && owned) {
+        this.vtext(K.WIDTH / 2, top + 116, perk[0], 12, rcol);
+        this.vtext(K.WIDTH / 2, top + 134, perk[1], 10, "#c9d3f5", false);
+        this.vtext(K.WIDTH / 2, top + 150, "keine Werte - dafuer diese Eigenart",
+                   8, "#6a7398", false);
+      } else if (perk) {
+        this.vtext(K.WIDTH / 2, top + 122, `Eigenart: ${perk[0]}`, 11, "#6a7398");
+      } else {
+        this.vtext(K.WIDTH / 2, top + 122, "keine Werteboni - reine Optik", 11,
+                   "#6a7398");
+      }
       return;
     }
     for (let i = 0; i < 4; i++) {
@@ -3672,7 +5238,15 @@ class Game {
     this.gridTop = Math.max(0, this.gridTop);
   }
   menuChoose(what) {
+    this.sound("click");
     if (what === "quests" || what === "slots") { this.open(what); return; }
+    if (what === "liste") {
+      if (!this.wolke || !this.wolke.angemeldet) { this.kontoFenster(); return; }
+      this.open("liste");
+      this.listeHolen();
+      return;
+    }
+    if (what === "konto") { this.kontoFenster(); return; }
     if (what === "mode") {                   // Modus wechseln, Lauf verwerfen
       const i = (K.MODES.indexOf(this.difficulty) + 1) % K.MODES.length;
       this.difficulty = K.MODES[i];
@@ -3700,9 +5274,17 @@ class Game {
 
   // Ein Tipp/Klick an der Stelle (Bildschirmkoordinaten)
   tap(sx, sy) {
+    KLANG.wecken();                     // Ton darf erst nach Beruehrung
     const vx = (sx - this.ox) / this.scale;
     const vy = (sy - this.oy) / this.scale
              - (this.mode === "play" ? 0 : this.mo);
+    if (this.tipsOpen) {                // Einfuehrung wegtippen
+      this.tipsOpen = false;
+      this.tipsSeen = true;
+      this.save();
+      return;
+    }
+    if (this.closeMulti() || this.closePop()) return;
     if (this.mode === "play") {
       if (sx > this.sw - 52 * this.scale && sy < (this.barH || 44)) {
         this.open("menu"); return;
@@ -3732,13 +5314,49 @@ class Game {
       this.open(this.runActive ? "play" : "menu");
       return;
     }
-    if (this.mode === "gacha") {
-      if (vy < 380) this.spin();      // nur oben am Rad, nicht in der Liste
+    if (this.mode === "liste") {
+      const b = this.modeBtn;
+      if (b && vx >= b[0] && vx <= b[2] && vy >= b[1] && vy <= b[3]) {
+        const i = (K.MODES.indexOf(this.difficulty) + 1) % K.MODES.length;
+        this.difficulty = K.MODES[i];
+        this.save();
+        this.listeHolen();
+      }
       return;
     }
-    if (this.mode === "slots") { if (vy < 380) this.slotSpin(); return; }
-    if (this.mode === "quests") return;
+    if (this.mode === "gacha") {
+      if (this.wheelSpinning) { this.wheelT = 1; return; }   // abkuerzen
+      const [mx0, my0, mx1, my1] = this.multiGeom();
+      if (vx >= mx0 && vx <= mx1 && vy >= my0 && vy <= my1) {
+        this.multiSpin();
+      } else if (vy < 350) {
+        this.spin();
+      }
+      return;
+    }
+    if (this.mode === "slots") {
+      if (this.slotState === "spinning") {          // Walzen abkuerzen
+        this.slotT = K.SLOT_STOP[K.SLOT_REELS - 1] + 6;
+      } else if (vy < 380) this.slotSpin();
+      return;
+    }
+    if (this.mode === "quests") {
+      const [bx0, by0, bx1, by1] = STREAK_BTN;
+      const [qx0, qy0, qx1, qy1] = this.questBtn;
+      if (vx >= bx0 && vx <= bx1 && vy >= by0 && vy <= by1) this.collectLogin();
+      else if (vx >= qx0 && vx <= qx1 && vy >= qy0 && vy <= qy1) {
+        this.collectQuests();
+      }
+      return;
+    }
     if (this.mode === "skins") {
+      if (this.buyBtn) {                       // Kopie fuer Staub
+        const [x0, y0b, x1, y1b, key] = this.buyBtn;
+        if (vx >= x0 && vx <= x1 && vy >= y0b && vy <= y1b) {
+          this.buyCopy(key);
+          return;
+        }
+      }
       const tw = 98, th = 114, y0 = 68;
       const x0 = (K.WIDTH - K.GRID_COLS * tw) / 2;
       const col = Math.floor((vx - x0) / tw), row = Math.floor((vy - y0) / th);
@@ -3834,16 +5452,17 @@ class Game {
 // Menue wie eine iOS-Einstellungsseite: Primaerknopf plus Zeilengruppe.
 // (Schluessel, Beschriftung, Oberkante, Unterkante) - Zeichnen und Treffer
 // teilen sich diese Tabelle.
-const ROW_H = 42, LIST_TOP = 258;
-const MENU_ITEMS = [
-  ["play", "Spielen", 190, 238],
-  ["mode", "Modus", LIST_TOP, LIST_TOP + ROW_H],
-  ["quests", "Aufgaben", LIST_TOP + ROW_H, LIST_TOP + 2 * ROW_H],
-  ["skins", "Sammlung", LIST_TOP + 2 * ROW_H, LIST_TOP + 3 * ROW_H],
-  ["gacha", "Gluecksrad", LIST_TOP + 3 * ROW_H, LIST_TOP + 4 * ROW_H],
-  ["slots", "Slotmaschine", LIST_TOP + 4 * ROW_H, LIST_TOP + 5 * ROW_H],
-  ["tilt", "Neigung", LIST_TOP + 5 * ROW_H, LIST_TOP + 6 * ROW_H],
-];
+const ROW_H = 33, LIST_TOP = 214;
+const LIST_ROWS = [["mode", "Modus"], ["quests", "Aufgaben"],
+                   ["skins", "Sammlung"], ["gacha", "Gluecksrad"],
+                   ["slots", "Slotmaschine"], ["liste", "Bestenliste"],
+                   ["konto", "Konto"], ["tilt", "Neigung"]];
+const LIST_BOTTOM = LIST_TOP + LIST_ROWS.length * ROW_H;
+const MENU_ITEMS = [["play", "Spielen", 168, 208]].concat(
+  LIST_ROWS.map(([k, t], i) => [k, t, LIST_TOP + i * ROW_H,
+                                LIST_TOP + (i + 1) * ROW_H]));
+// Flaechen der beiden Abhol-Knoepfe in den Tagesaufgaben
+const STREAK_BTN = [24, 120, K.WIDTH - 24, 148];
 // Farben des Menues kommen aus data.js, also direkt aus doodle_jump.py -
 // eine Aenderung dort faerbt beide Fassungen gleich um.
 const C_CARD = K.C_CARD, C_CARD_HI = K.C_CARD_HI, C_EDGE = K.C_EDGE;
@@ -4010,7 +5629,10 @@ function boot(canvas) {
     if (steps > 0) {
       g.draw();
       const d2 = now - lastDraw;
-      if (d2 > 0 && d2 < 1) g.fps = g.fps ? 0.88 * g.fps + 0.12 / d2 : 1 / d2;
+      if (d2 > 0 && d2 < 1) {
+        g.fps = g.fps ? 0.88 * g.fps + 0.12 / d2 : 1 / d2;
+        g.regelDetail(d2 * 1000);            // Zierrat nachregeln
+      }
       lastDraw = now;
     }
     requestAnimationFrame(frame);
